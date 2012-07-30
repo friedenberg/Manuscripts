@@ -7,30 +7,63 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D93EE90915BF27770003AA3F /* AAScorePDFPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */; };
 		D94BAB8A15BC5C2900849567 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BAB8915BC5C2900849567 /* UIKit.framework */; };
 		D94BAB8C15BC5C2900849567 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BAB8B15BC5C2900849567 /* Foundation.framework */; };
 		D94BAB8E15BC5C2900849567 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BAB8D15BC5C2900849567 /* CoreGraphics.framework */; };
 		D94BAB9415BC5C2900849567 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D94BAB9215BC5C2900849567 /* InfoPlist.strings */; };
 		D94BAB9615BC5C2900849567 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BAB9515BC5C2900849567 /* main.m */; };
 		D94BAB9A15BC5C2900849567 /* AAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BAB9915BC5C2900849567 /* AAAppDelegate.m */; };
-		D94BAB9D15BC5C2900849567 /* AAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BAB9C15BC5C2900849567 /* AAViewController.m */; };
-		D94BABA015BC5C2900849567 /* AAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94BAB9E15BC5C2900849567 /* AAViewController.xib */; };
+		D94BABA815BC657000849567 /* Scores.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D94BABA615BC657000849567 /* Scores.xcdatamodeld */; };
+		D94BABB815BC7CD500849567 /* ScoreCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BABB615BC7CD500849567 /* ScoreCollectionViewController.m */; };
+		D94BABB915BC7CD500849567 /* ScoreCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94BABB715BC7CD500849567 /* ScoreCollectionViewController.xib */; };
+		D9997F4D15BCD83E00C6E252 /* AAPDFPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9997F4C15BCD83E00C6E252 /* AAPDFPageView.m */; };
+		D9A0A52315C47C69008EEFAF /* ScorePDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A0A52115C47C69008EEFAF /* ScorePDFViewController.m */; };
+		D9A0A52415C47C69008EEFAF /* ScorePDFViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A0A52215C47C69008EEFAF /* ScorePDFViewController.xib */; };
+		D9A5010415C6C3CC005B789E /* AAPDFDrawingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A5010315C6C3CB005B789E /* AAPDFDrawingOperation.m */; };
+		D9B78CAA15BEF1B200F0446F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B78CA915BEF1B200F0446F /* CoreData.framework */; };
+		D9B78CAE15BF220C00F0446F /* AAScorePDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B78CAD15BF220C00F0446F /* AAScorePDFView.m */; };
+		D9B78CB615BF223E00F0446F /* AAViewRecycler.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B78CB515BF223E00F0446F /* AAViewRecycler.m */; };
+		D9F090FF15BCE0AF0088652B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9F090FE15BCE0AF0088652B /* QuartzCore.framework */; };
+		D9F0910315BCE1DE0088652B /* AAMetadataQueryController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F0910215BCE1DE0088652B /* AAMetadataQueryController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D93EE90415BF23DF0003AA3F /* AAViewSelecting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAViewSelecting.h; sourceTree = "<group>"; };
+		D93EE90715BF27770003AA3F /* AAScorePDFPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAScorePDFPageView.h; sourceTree = "<group>"; };
+		D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFPageView.m; sourceTree = "<group>"; };
 		D94BAB8515BC5C2900849567 /* Scores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94BAB8915BC5C2900849567 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D94BAB8B15BC5C2900849567 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D94BAB8D15BC5C2900849567 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D94BAB9115BC5C2900849567 /* Scores-Info.plist */ = {isa = PBXFileReference; path = "Scores-Info.plist"; sourceTree = "<group>"; };
+		D94BAB9115BC5C2900849567 /* Scores-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Scores-Info.plist"; sourceTree = "<group>"; };
 		D94BAB9315BC5C2900849567 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D94BAB9515BC5C2900849567 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D94BAB9715BC5C2900849567 /* Scores-Prefix.pch */ = {isa = PBXFileReference; path = "Scores-Prefix.pch"; sourceTree = "<group>"; };
-		D94BAB9815BC5C2900849567 /* AAAppDelegate.h */ = {isa = PBXFileReference; path = AAAppDelegate.h; sourceTree = "<group>"; };
+		D94BAB9715BC5C2900849567 /* Scores-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scores-Prefix.pch"; sourceTree = "<group>"; };
+		D94BAB9815BC5C2900849567 /* AAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AAAppDelegate.h; sourceTree = "<group>"; };
 		D94BAB9915BC5C2900849567 /* AAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AAAppDelegate.m; sourceTree = "<group>"; };
-		D94BAB9B15BC5C2900849567 /* AAViewController.h */ = {isa = PBXFileReference; path = AAViewController.h; sourceTree = "<group>"; };
-		D94BAB9C15BC5C2900849567 /* AAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AAViewController.m; sourceTree = "<group>"; };
-		D94BAB9F15BC5C2900849567 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/AAViewController.xib; sourceTree = "<group>"; };
+		D94BABA715BC657000849567 /* Scores.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Scores.xcdatamodel; sourceTree = "<group>"; };
+		D94BABB515BC7CD500849567 /* ScoreCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreCollectionViewController.h; sourceTree = "<group>"; };
+		D94BABB615BC7CD500849567 /* ScoreCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreCollectionViewController.m; sourceTree = "<group>"; };
+		D94BABB715BC7CD500849567 /* ScoreCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreCollectionViewController.xib; sourceTree = "<group>"; };
+		D9997F4B15BCD83E00C6E252 /* AAPDFPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFPageView.h; sourceTree = "<group>"; };
+		D9997F4C15BCD83E00C6E252 /* AAPDFPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFPageView.m; sourceTree = "<group>"; };
+		D9A0A52015C47C69008EEFAF /* ScorePDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScorePDFViewController.h; sourceTree = "<group>"; };
+		D9A0A52115C47C69008EEFAF /* ScorePDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScorePDFViewController.m; sourceTree = "<group>"; };
+		D9A0A52215C47C69008EEFAF /* ScorePDFViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScorePDFViewController.xib; sourceTree = "<group>"; };
+		D9A5010215C6C3CB005B789E /* AAPDFDrawingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFDrawingOperation.h; sourceTree = "<group>"; };
+		D9A5010315C6C3CB005B789E /* AAPDFDrawingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFDrawingOperation.m; sourceTree = "<group>"; };
+		D9B78CA915BEF1B200F0446F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D9B78CAC15BF220C00F0446F /* AAScorePDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAScorePDFView.h; sourceTree = "<group>"; };
+		D9B78CAD15BF220C00F0446F /* AAScorePDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFView.m; sourceTree = "<group>"; };
+		D9B78CB315BF223E00F0446F /* AAViewRecyclerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAViewRecyclerDelegate.h; sourceTree = "<group>"; };
+		D9B78CB415BF223E00F0446F /* AAViewRecycler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAViewRecycler.h; sourceTree = "<group>"; };
+		D9B78CB515BF223E00F0446F /* AAViewRecycler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAViewRecycler.m; sourceTree = "<group>"; };
+		D9B78CB815BF237900F0446F /* AAViewEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAViewEditing.h; sourceTree = "<group>"; };
+		D9F090FE15BCE0AF0088652B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D9F0910115BCE1DE0088652B /* AAMetadataQueryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAMetadataQueryController.h; sourceTree = "<group>"; };
+		D9F0910215BCE1DE0088652B /* AAMetadataQueryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAMetadataQueryController.m; sourceTree = "<group>"; };
+		D9F0910415BCE35F0088652B /* AAMetadataQueryControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAMetadataQueryControllerDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9B78CAA15BEF1B200F0446F /* CoreData.framework in Frameworks */,
+				D9F090FF15BCE0AF0088652B /* QuartzCore.framework in Frameworks */,
 				D94BAB8A15BC5C2900849567 /* UIKit.framework in Frameworks */,
 				D94BAB8C15BC5C2900849567 /* Foundation.framework in Frameworks */,
 				D94BAB8E15BC5C2900849567 /* CoreGraphics.framework in Frameworks */,
@@ -47,6 +82,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D93EE90615BF27520003AA3F /* AAScorePDFView */ = {
+			isa = PBXGroup;
+			children = (
+				D9B78CAC15BF220C00F0446F /* AAScorePDFView.h */,
+				D9B78CAD15BF220C00F0446F /* AAScorePDFView.m */,
+				D93EE90715BF27770003AA3F /* AAScorePDFPageView.h */,
+				D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */,
+			);
+			name = AAScorePDFView;
+			sourceTree = "<group>";
+		};
 		D94BAB7A15BC5C2900849567 = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +113,8 @@
 		D94BAB8815BC5C2900849567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9B78CA915BEF1B200F0446F /* CoreData.framework */,
+				D9F090FE15BCE0AF0088652B /* QuartzCore.framework */,
 				D94BAB8915BC5C2900849567 /* UIKit.framework */,
 				D94BAB8B15BC5C2900849567 /* Foundation.framework */,
 				D94BAB8D15BC5C2900849567 /* CoreGraphics.framework */,
@@ -77,11 +125,11 @@
 		D94BAB8F15BC5C2900849567 /* Scores */ = {
 			isa = PBXGroup;
 			children = (
+				D94BABA915BC657600849567 /* Model */,
 				D94BAB9815BC5C2900849567 /* AAAppDelegate.h */,
 				D94BAB9915BC5C2900849567 /* AAAppDelegate.m */,
-				D94BAB9B15BC5C2900849567 /* AAViewController.h */,
-				D94BAB9C15BC5C2900849567 /* AAViewController.m */,
-				D94BAB9E15BC5C2900849567 /* AAViewController.xib */,
+				D9594D1A15BCDB2C00AC0A2B /* View */,
+				D9997F4915BCD82300C6E252 /* Controller */,
 				D94BAB9015BC5C2900849567 /* Supporting Files */,
 			);
 			path = Scores;
@@ -96,6 +144,55 @@
 				D94BAB9715BC5C2900849567 /* Scores-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D94BABA915BC657600849567 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D94BABA615BC657000849567 /* Scores.xcdatamodeld */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		D9594D1A15BCDB2C00AC0A2B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D93EE90615BF27520003AA3F /* AAScorePDFView */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		D9997F4915BCD82300C6E252 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D9B78CB715BF224300F0446F /* AAViewRecycler */,
+				D9F0910415BCE35F0088652B /* AAMetadataQueryControllerDelegate.h */,
+				D9F0910115BCE1DE0088652B /* AAMetadataQueryController.h */,
+				D9F0910215BCE1DE0088652B /* AAMetadataQueryController.m */,
+				D94BABB515BC7CD500849567 /* ScoreCollectionViewController.h */,
+				D94BABB615BC7CD500849567 /* ScoreCollectionViewController.m */,
+				D9A0A52015C47C69008EEFAF /* ScorePDFViewController.h */,
+				D9A0A52115C47C69008EEFAF /* ScorePDFViewController.m */,
+				D9A5010215C6C3CB005B789E /* AAPDFDrawingOperation.h */,
+				D9A5010315C6C3CB005B789E /* AAPDFDrawingOperation.m */,
+				D9A0A52215C47C69008EEFAF /* ScorePDFViewController.xib */,
+				D94BABB715BC7CD500849567 /* ScoreCollectionViewController.xib */,
+				D9997F4B15BCD83E00C6E252 /* AAPDFPageView.h */,
+				D9997F4C15BCD83E00C6E252 /* AAPDFPageView.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		D9B78CB715BF224300F0446F /* AAViewRecycler */ = {
+			isa = PBXGroup;
+			children = (
+				D9B78CB815BF237900F0446F /* AAViewEditing.h */,
+				D93EE90415BF23DF0003AA3F /* AAViewSelecting.h */,
+				D9B78CB315BF223E00F0446F /* AAViewRecyclerDelegate.h */,
+				D9B78CB415BF223E00F0446F /* AAViewRecycler.h */,
+				D9B78CB515BF223E00F0446F /* AAViewRecycler.m */,
+			);
+			name = AAViewRecycler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,7 +248,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94BAB9415BC5C2900849567 /* InfoPlist.strings in Resources */,
-				D94BABA015BC5C2900849567 /* AAViewController.xib in Resources */,
+				D94BABB915BC7CD500849567 /* ScoreCollectionViewController.xib in Resources */,
+				D9A0A52415C47C69008EEFAF /* ScorePDFViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,7 +262,15 @@
 			files = (
 				D94BAB9615BC5C2900849567 /* main.m in Sources */,
 				D94BAB9A15BC5C2900849567 /* AAAppDelegate.m in Sources */,
-				D94BAB9D15BC5C2900849567 /* AAViewController.m in Sources */,
+				D94BABA815BC657000849567 /* Scores.xcdatamodeld in Sources */,
+				D94BABB815BC7CD500849567 /* ScoreCollectionViewController.m in Sources */,
+				D9997F4D15BCD83E00C6E252 /* AAPDFPageView.m in Sources */,
+				D9F0910315BCE1DE0088652B /* AAMetadataQueryController.m in Sources */,
+				D9B78CAE15BF220C00F0446F /* AAScorePDFView.m in Sources */,
+				D9B78CB615BF223E00F0446F /* AAViewRecycler.m in Sources */,
+				D93EE90915BF27770003AA3F /* AAScorePDFPageView.m in Sources */,
+				D9A0A52315C47C69008EEFAF /* ScorePDFViewController.m in Sources */,
+				D9A5010415C6C3CC005B789E /* AAPDFDrawingOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,14 +283,6 @@
 				D94BAB9315BC5C2900849567 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D94BAB9E15BC5C2900849567 /* AAViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D94BAB9F15BC5C2900849567 /* en */,
-			);
-			name = AAViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -276,8 +374,22 @@
 				D94BABA515BC5C2900849567 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D94BABA615BC657000849567 /* Scores.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D94BABA715BC657000849567 /* Scores.xcdatamodel */,
+			);
+			currentVersion = D94BABA715BC657000849567 /* Scores.xcdatamodel */;
+			path = Scores.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D94BAB7C15BC5C2900849567 /* Project object */;
 }

@@ -1,5 +1,5 @@
 //
-//  AAViewController.h
+//  AAPDFPageView.h
 //  Scores
 //
 //  Created by Sasha Friedenberg on 7/22/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AAViewController : UIViewController
+@interface AAPDFPageView : UIView
 
 @end

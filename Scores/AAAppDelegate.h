@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@class AAViewController;
+extern NSString *DocumentsDirectory();
+
+@class ScoreCollectionViewController;
 
 @interface AAAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) AAViewController *viewController;
+@property (strong, nonatomic) ScoreCollectionViewController *viewController;
 
 @end

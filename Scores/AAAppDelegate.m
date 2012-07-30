@@ -8,7 +8,9 @@
 
 #import "AAAppDelegate.h"
 
-#import "AAViewController.h"
+#import "ScoreCollectionViewController.h"
+
+NSString *DocumentsDirectory() { return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]; };
 
 @implementation AAAppDelegate
 
@@ -22,12 +24,23 @@
     [super dealloc];
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    NSString *documentsPath = DocumentsDirectory();
+    NSURL *documentURL = [NSURL fileURLWithPath:[documentsPath stringByAppendingPathComponent:url.lastPathComponent]];
+    NSError *error = nil;
+    [[NSFileManager defaultManager] moveItemAtURL:url toURL:documentURL error:&error];
+    NSLog(@"%@", [error localizedDescription]);
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    self.viewController = [[[AAViewController alloc] initWithNibName:@"AAViewController" bundle:nil] autorelease];
-    self.window.rootViewController = self.viewController;
+      self.viewController = [[[ScoreCollectionViewController alloc] initWithNibName:@"ScoreCollectionViewController" bundle:nil] autorelease];
+    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:self.viewController] autorelease];
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     return YES;
 }
