@@ -13,6 +13,8 @@
 
 @interface AAScorePDFView : UIScrollView <AAViewRecyclerDelegate>
 {
+	NSOperationQueue *pdfPageDrawingQueue;
+	
     NSUInteger numberOfPages;
     CGFloat pageWidth;
     CGFloat pagePadding;

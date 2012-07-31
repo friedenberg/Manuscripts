@@ -18,12 +18,12 @@
 
 @protocol AAViewRecyclerDelegate <NSObject>
 
-- (UIView <AAViewRecycling> *)unusedViewForViewRecycler:(AAViewRecycler *)someViewRecycler; //adding a new view to this recycler's pool
+- (UIView *)unusedViewForViewRecycler:(AAViewRecycler *)someViewRecycler; //adding a new view to this recycler's pool
 - (BOOL)visibilityForKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler; //checking to see if this view should be visible or cached
 - (CGRect)rectForViewWithKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler;
 - (UIView *)superviewForViewWithKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler;
 
-- (void)viewRecycler:(AAViewRecycler *)someViewReuseController didLoadView:(UIView <AAViewRecycling> *)view withKey:(id)key;
+- (void)viewRecycler:(AAViewRecycler *)someViewReuseController didLoadView:(UIView *)view withKey:(id)key;
 
 @optional
 

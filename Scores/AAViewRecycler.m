@@ -84,7 +84,7 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 
 - (void)processViewForKey:(id)key
 {
-	UIView <AAViewRecycling> *view = [self visibleViewForKey:key];
+	UIView *view = [self visibleViewForKey:key];
 	BOOL isVisible = [self.delegate visibilityForKey:key viewRecycler:self];
 	BOOL wasVisible = view != nil;
 	
@@ -114,10 +114,10 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 	return [cachedViews lastObject];
 }
 
-- (void)setView:(UIView <AAViewRecycling> *)view forKey:(id)key
+- (void)setView:(UIView *)view forKey:(id)key
 {
-	view.editing = self.editing;
-	view.selected = [selectedViews containsObject:key];
+	//if ([view conformsToProtocol:@protocol(AAViewEditing)]) view.editing = self.editing;
+	//if ([view conformsToProtocol:@protocol(AAViewSelecting)]) view.selected = [selectedViews containsObject:key];
 	[self.delegate viewRecycler:self didLoadView:view withKey:key];
 	
 	view.frame = [self.delegate rectForViewWithKey:key viewRecycler:self];
@@ -127,7 +127,7 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 	[cachedViews removeObject:view];
 }
 
-- (void)cacheView:(UIView <AAViewRecycling> *)view forKey:(id)key
+- (void)cacheView:(UIView *)view forKey:(id)key
 {
 	[cachedViews addObject:view];
 	[visibleViews removeObjectForKey:key];
@@ -180,7 +180,7 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 		
 		if (obj != [NSNull null])
 		{
-			UIView <AAViewEditing> *view = obj;
+			UIView <AAViewRecycling> *view = obj;
 			id key = [deselectedViews objectAtIndex:idx];
 			
 			[self.delegate viewRecycler:self didLoadView:view withKey:key];

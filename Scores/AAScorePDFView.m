@@ -11,6 +11,8 @@
 #import "AAViewRecycler.h"
 
 #import "AAScorePDFPageView.h"
+#import "AAPDFDrawingOperation.h"
+
 
 
 @implementation AAScorePDFView
@@ -19,9 +21,15 @@
 {
     if (self = [super initWithCoder:aDecoder])
     {
+		self.showsHorizontalScrollIndicator = NO;
+		self.canCancelContentTouches = NO;
+		
         self.pagingEnabled = YES;
         pdfPageRecycler = [[AAViewRecycler alloc] initWithDelegate:self];
         
+		pdfPageDrawingQueue = [NSOperationQueue new];
+		pdfPageDrawingQueue.maxConcurrentOperationCount = 1;
+		
         pagePadding = 0;
     }
     
@@ -32,9 +40,14 @@
 {
     if (self = [super initWithFrame:CGRectZero])
     {
+		self.showsHorizontalScrollIndicator = NO;
+		self.canCancelContentTouches = NO;
         self.pagingEnabled = YES;
-        pdfDocument = CGPDFDocumentCreateWithURL((__bridge CFURLRef)pdfURL);
+        pdfDocument = CGPDFDocumentCreateWithURL((CFURLRef)pdfURL);
         
+		pdfPageDrawingQueue = [NSOperationQueue new];
+		pdfPageDrawingQueue.maxConcurrentOperationCount = 1;
+		
         pdfPageRecycler = [[AAViewRecycler alloc] initWithDelegate:self];
         
         pagePadding = 0;
@@ -62,9 +75,10 @@
     [self setNeedsLayout];
 }
 
-- (UIView <AAViewRecycling> *)unusedViewForViewRecycler:(AAViewRecycler *)someViewRecycler
+- (UIView *)unusedViewForViewRecycler:(AAViewRecycler *)someViewRecycler
 {
-    return [[[AAScorePDFPageView alloc] initWithFrame:CGRectZero] autorelease];
+	UIView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
+    return [view autorelease];
 }
 
 - (BOOL)visibilityForKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler
@@ -126,15 +140,43 @@
     });
 }
 
-- (void)viewRecycler:(AAViewRecycler *)someViewReuseController didLoadView:(UIView <AAViewRecycling> *)view withKey:(id)key
+static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationObservingContext";
+
+- (void)viewRecycler:(AAViewRecycler *)someViewReuseController didLoadView:(UIView *)view withKey:(id)key
 {
     NSNumber *index = key;
-    AAScorePDFPageView *pageView = view;
-    pageView.pdfPage = CGPDFDocumentGetPage(pdfDocument, [index unsignedIntegerValue] + 1);
+    UIImageView *pageView = view;
+	CGPDFPageRef pdfPage = CGPDFDocumentGetPage(pdfDocument, [index unsignedIntegerValue] + 1);
+    
+	AAPDFDrawingOperation *drawingOperation = [AAPDFDrawingOperation new];
+	drawingOperation.canvasSize = self.bounds.size;
+	drawingOperation.pdfPage = pdfPage;
+	drawingOperation.viewRecyclingKey = key;
+	[drawingOperation addObserver:self forKeyPath:@"isFinished" options:0 context:kPDFDrawingOperationObservingContext];
+	[pdfPageDrawingQueue addOperation:drawingOperation];
+	[drawingOperation release];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if (context == kPDFDrawingOperationObservingContext)
+	{
+		dispatch_async(dispatch_get_main_queue(), ^{
+			
+			AAPDFDrawingOperation *drawingOperation = object;
+			UIImageView *imageView = [pdfPageRecycler visibleViewForKey:drawingOperation.viewRecyclingKey];
+			imageView.image = drawingOperation.pdfPageImage;
+			[imageView setNeedsDisplay];
+		});
+		
+		[object removeObserver:self forKeyPath:keyPath];
+	}
+	else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 - (void)dealloc
 {
+	[pdfPageDrawingQueue release];
     CGPDFDocumentRelease(pdfDocument);
     [super dealloc];
 }

@@ -38,7 +38,7 @@
     self.navigationItem.rightBarButtonItem = tableOfContentsItem;
     [tableOfContentsItem release];
     
-    CGPDFDocumentRef pdfDocument = CGPDFDocumentCreateWithURL((__bridge CFURLRef)documentURL);
+    CGPDFDocumentRef pdfDocument = CGPDFDocumentCreateWithURL((CFURLRef)documentURL);
     pdfView.pdfDocument = pdfDocument;
     CGPDFDocumentRelease(pdfDocument);
 }

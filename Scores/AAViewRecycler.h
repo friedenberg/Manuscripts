@@ -49,8 +49,8 @@ extern void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnum
 - (id)visibleViewForKey:(id)key;
 - (id)cachedView;
 
-- (void)setView:(UIView <AAViewRecycling> *)view forKey:(id)key;
-- (void)cacheView:(UIView <AAViewRecycling> *)view forKey:(id)key;
+- (void)setView:(UIView *)view forKey:(id)key;
+- (void)cacheView:(UIView *)view forKey:(id)key;
 
 - (void)cacheAllViews;
 - (void)removeAllCachedViews;
