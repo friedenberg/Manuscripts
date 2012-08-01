@@ -6,34 +6,20 @@
 //  Copyright (c) 2012 Apple, Stamford. All rights reserved.
 //
 
-#import "AAAppDelegate.h"
+#import "ScoreAppDelegate.h"
 
 #import "ScoreCollectionViewController.h"
 
 #import "ScorePDFViewController.h"
 
 
-NSString *DocumentsDirectory() { return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]; };
+@implementation ScoreAppDelegate
 
-@implementation AAAppDelegate
-
-@synthesize window = _window;
-@synthesize viewController = _viewController;
-
-- (void)dealloc
-{
-    [_window release];
-    [_viewController release];
-    [super dealloc];
-}
+@synthesize window, viewController;
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    NSString *documentsPath = DocumentsDirectory();
-    NSURL *documentURL = [NSURL fileURLWithPath:[documentsPath stringByAppendingPathComponent:url.lastPathComponent]];
-    NSError *error = nil;
-    [[NSFileManager defaultManager] moveItemAtURL:url toURL:documentURL error:&error];
-    NSLog(@"%@", [error localizedDescription]);
+    [coreDataController addScoreDocumentFromFileURL:url];
     return YES;
 }
 
@@ -48,9 +34,11 @@ NSString *DocumentsDirectory() { return [NSSearchPathForDirectoriesInDomains(NSD
     barButtonItem.tintColor = [UIColor grayColor];
     barButtonItem.tintColor = [UIColor grayColor];
     
+    coreDataController = [ScoreCoreDataController new];
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.viewController = [[[ScoreCollectionViewController alloc] initWithNibName:@"ScoreCollectionViewController" bundle:nil] autorelease];
+    self.viewController = [[[ScoreCollectionViewController alloc] initWithNibName:@"ScoreCollectionViewController" managedObjectContext:coreDataController.managedObjectContext] autorelease];
     UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:self.viewController] autorelease];
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
@@ -82,6 +70,14 @@ NSString *DocumentsDirectory() { return [NSSearchPathForDirectoriesInDomains(NSD
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)dealloc
+{
+    [coreDataController release];
+    [window release];
+    [viewController release];
+    [super dealloc];
 }
 
 @end

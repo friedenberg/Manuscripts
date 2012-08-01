@@ -58,6 +58,8 @@
 		self.showsHorizontalScrollIndicator = NO;
 		self.canCancelContentTouches = NO;
         self.pagingEnabled = YES;
+        //self.bounces = NO;
+        
         pdfDocument = CGPDFDocumentCreateWithURL((CFURLRef)pdfURL);
         
 		pdfPageDrawingQueue = [NSOperationQueue new];

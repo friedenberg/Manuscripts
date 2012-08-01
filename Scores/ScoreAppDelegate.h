@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ScoreCoreDataController.h"
 
-extern NSString *DocumentsDirectory();
 
 @class ScoreCollectionViewController;
 
-@interface AAAppDelegate : UIResponder <UIApplicationDelegate>
+@interface ScoreAppDelegate : UIResponder <UIApplicationDelegate>
+{
+    ScoreCoreDataController *coreDataController;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

@@ -6,13 +6,12 @@
 //  Copyright (c) 2012 Apple, Stamford. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "AAFetchedResultsTableViewController.h"
 
 
-
-@interface ScoreCollectionViewController : UITableViewController
+@interface ScoreCollectionViewController : AAFetchedResultsTableViewController
 {
-    NSMutableArray *documents;
+    
 }
 
 @end

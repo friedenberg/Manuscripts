@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="ScorePDF" syncable="YES">
-        <attribute name="pdfDocument" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="12A269" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MarkedObject" representedClassName="MarkedObject" syncable="YES">
+        <attribute name="pageIndex" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="scoreDocument" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ScoreDocument" inverseName="markedObjects" inverseEntity="ScoreDocument" syncable="YES"/>
     </entity>
-    <entity name="Section" syncable="YES">
-        <attribute name="endPage" optional="YES" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
-        <attribute name="startPage" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
-        <relationship name="childSections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Section" inverseName="parentSection" inverseEntity="Section" syncable="YES"/>
-        <relationship name="parentSection" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="childSections" inverseEntity="Section" syncable="YES"/>
+    <entity name="ScoreDocument" representedClassName="ScoreDocument" syncable="YES">
+        <attribute name="composer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dateLastOpened" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="markedObjects" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MarkedObject" inverseName="scoreDocument" inverseEntity="MarkedObject" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Section" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="ScorePDF" positionX="160" positionY="192" width="128" height="60"/>
+        <element name="ScoreDocument" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MarkedObject" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

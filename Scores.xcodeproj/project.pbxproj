@@ -8,13 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		D932782415C9BC9B00A7AC47 /* clearImage.png in Resources */ = {isa = PBXBuildFile; fileRef = D932782315C9BC9B00A7AC47 /* clearImage.png */; };
+		D932782C15C9DE6800A7AC47 /* AACoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932782B15C9DE6800A7AC47 /* AACoreDataController.m */; };
+		D932782F15C9E08F00A7AC47 /* ScoreCoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932782E15C9E08F00A7AC47 /* ScoreCoreDataController.m */; };
+		D932783815C9E31C00A7AC47 /* MarkedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D932783715C9E31C00A7AC47 /* MarkedObject.m */; };
+		D932783B15C9E31C00A7AC47 /* ScoreDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D932783A15C9E31C00A7AC47 /* ScoreDocument.m */; };
+		D932784215C9E3D400A7AC47 /* AACoreDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932783D15C9E3D300A7AC47 /* AACoreDataViewController.m */; };
+		D932784315C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932783F15C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m */; };
+		D932784415C9E3D400A7AC47 /* AAFetchedResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932784115C9E3D400A7AC47 /* AAFetchedResultsViewController.m */; };
 		D93EE90915BF27770003AA3F /* AAScorePDFPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */; };
 		D94BAB8A15BC5C2900849567 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BAB8915BC5C2900849567 /* UIKit.framework */; };
 		D94BAB8C15BC5C2900849567 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BAB8B15BC5C2900849567 /* Foundation.framework */; };
 		D94BAB8E15BC5C2900849567 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BAB8D15BC5C2900849567 /* CoreGraphics.framework */; };
 		D94BAB9415BC5C2900849567 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D94BAB9215BC5C2900849567 /* InfoPlist.strings */; };
 		D94BAB9615BC5C2900849567 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BAB9515BC5C2900849567 /* main.m */; };
-		D94BAB9A15BC5C2900849567 /* AAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BAB9915BC5C2900849567 /* AAAppDelegate.m */; };
+		D94BAB9A15BC5C2900849567 /* ScoreAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BAB9915BC5C2900849567 /* ScoreAppDelegate.m */; };
 		D94BABA815BC657000849567 /* Scores.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D94BABA615BC657000849567 /* Scores.xcdatamodeld */; };
 		D94BABB815BC7CD500849567 /* ScoreCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BABB615BC7CD500849567 /* ScoreCollectionViewController.m */; };
 		D94BABB915BC7CD500849567 /* ScoreCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94BABB715BC7CD500849567 /* ScoreCollectionViewController.xib */; };
@@ -32,6 +39,20 @@
 
 /* Begin PBXFileReference section */
 		D932782315C9BC9B00A7AC47 /* clearImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clearImage.png; sourceTree = "<group>"; };
+		D932782A15C9DE6800A7AC47 /* AACoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AACoreDataController.h; sourceTree = "<group>"; };
+		D932782B15C9DE6800A7AC47 /* AACoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AACoreDataController.m; sourceTree = "<group>"; };
+		D932782D15C9E08F00A7AC47 /* ScoreCoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreCoreDataController.h; sourceTree = "<group>"; };
+		D932782E15C9E08F00A7AC47 /* ScoreCoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreCoreDataController.m; sourceTree = "<group>"; };
+		D932783615C9E31C00A7AC47 /* MarkedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkedObject.h; sourceTree = "<group>"; };
+		D932783715C9E31C00A7AC47 /* MarkedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkedObject.m; sourceTree = "<group>"; };
+		D932783915C9E31C00A7AC47 /* ScoreDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreDocument.h; sourceTree = "<group>"; };
+		D932783A15C9E31C00A7AC47 /* ScoreDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreDocument.m; sourceTree = "<group>"; };
+		D932783C15C9E3D300A7AC47 /* AACoreDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AACoreDataViewController.h; sourceTree = "<group>"; };
+		D932783D15C9E3D300A7AC47 /* AACoreDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AACoreDataViewController.m; sourceTree = "<group>"; };
+		D932783E15C9E3D400A7AC47 /* AAFetchedResultsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAFetchedResultsTableViewController.h; sourceTree = "<group>"; };
+		D932783F15C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAFetchedResultsTableViewController.m; sourceTree = "<group>"; };
+		D932784015C9E3D400A7AC47 /* AAFetchedResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAFetchedResultsViewController.h; sourceTree = "<group>"; };
+		D932784115C9E3D400A7AC47 /* AAFetchedResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAFetchedResultsViewController.m; sourceTree = "<group>"; };
 		D93EE90415BF23DF0003AA3F /* AAViewSelecting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAViewSelecting.h; sourceTree = "<group>"; };
 		D93EE90715BF27770003AA3F /* AAScorePDFPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAScorePDFPageView.h; sourceTree = "<group>"; };
 		D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFPageView.m; sourceTree = "<group>"; };
@@ -43,8 +64,8 @@
 		D94BAB9315BC5C2900849567 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D94BAB9515BC5C2900849567 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D94BAB9715BC5C2900849567 /* Scores-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scores-Prefix.pch"; sourceTree = "<group>"; };
-		D94BAB9815BC5C2900849567 /* AAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AAAppDelegate.h; sourceTree = "<group>"; };
-		D94BAB9915BC5C2900849567 /* AAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AAAppDelegate.m; sourceTree = "<group>"; };
+		D94BAB9815BC5C2900849567 /* ScoreAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreAppDelegate.h; sourceTree = "<group>"; };
+		D94BAB9915BC5C2900849567 /* ScoreAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreAppDelegate.m; sourceTree = "<group>"; };
 		D94BABA715BC657000849567 /* Scores.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Scores.xcdatamodel; sourceTree = "<group>"; };
 		D94BABB515BC7CD500849567 /* ScoreCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreCollectionViewController.h; sourceTree = "<group>"; };
 		D94BABB615BC7CD500849567 /* ScoreCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreCollectionViewController.m; sourceTree = "<group>"; };
@@ -135,8 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				D94BABA915BC657600849567 /* Model */,
-				D94BAB9815BC5C2900849567 /* AAAppDelegate.h */,
-				D94BAB9915BC5C2900849567 /* AAAppDelegate.m */,
 				D9594D1A15BCDB2C00AC0A2B /* View */,
 				D9997F4915BCD82300C6E252 /* Controller */,
 				D94BAB9015BC5C2900849567 /* Supporting Files */,
@@ -160,6 +179,10 @@
 			children = (
 				D932782315C9BC9B00A7AC47 /* clearImage.png */,
 				D94BABA615BC657000849567 /* Scores.xcdatamodeld */,
+				D932783915C9E31C00A7AC47 /* ScoreDocument.h */,
+				D932783A15C9E31C00A7AC47 /* ScoreDocument.m */,
+				D932783615C9E31C00A7AC47 /* MarkedObject.h */,
+				D932783715C9E31C00A7AC47 /* MarkedObject.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -176,9 +199,21 @@
 			isa = PBXGroup;
 			children = (
 				D9B78CB715BF224300F0446F /* AAViewRecycler */,
+				D94BAB9815BC5C2900849567 /* ScoreAppDelegate.h */,
+				D94BAB9915BC5C2900849567 /* ScoreAppDelegate.m */,
+				D932782A15C9DE6800A7AC47 /* AACoreDataController.h */,
+				D932782B15C9DE6800A7AC47 /* AACoreDataController.m */,
+				D932782D15C9E08F00A7AC47 /* ScoreCoreDataController.h */,
+				D932782E15C9E08F00A7AC47 /* ScoreCoreDataController.m */,
 				D9F0910415BCE35F0088652B /* AAMetadataQueryControllerDelegate.h */,
 				D9F0910115BCE1DE0088652B /* AAMetadataQueryController.h */,
 				D9F0910215BCE1DE0088652B /* AAMetadataQueryController.m */,
+				D932783C15C9E3D300A7AC47 /* AACoreDataViewController.h */,
+				D932783D15C9E3D300A7AC47 /* AACoreDataViewController.m */,
+				D932784015C9E3D400A7AC47 /* AAFetchedResultsViewController.h */,
+				D932784115C9E3D400A7AC47 /* AAFetchedResultsViewController.m */,
+				D932783E15C9E3D400A7AC47 /* AAFetchedResultsTableViewController.h */,
+				D932783F15C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m */,
 				D94BABB515BC7CD500849567 /* ScoreCollectionViewController.h */,
 				D94BABB615BC7CD500849567 /* ScoreCollectionViewController.m */,
 				D9A0A52015C47C69008EEFAF /* ScorePDFViewController.h */,
@@ -270,7 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94BAB9615BC5C2900849567 /* main.m in Sources */,
-				D94BAB9A15BC5C2900849567 /* AAAppDelegate.m in Sources */,
+				D94BAB9A15BC5C2900849567 /* ScoreAppDelegate.m in Sources */,
 				D94BABA815BC657000849567 /* Scores.xcdatamodeld in Sources */,
 				D94BABB815BC7CD500849567 /* ScoreCollectionViewController.m in Sources */,
 				D9997F4D15BCD83E00C6E252 /* AAPDFPageView.m in Sources */,
@@ -281,6 +316,13 @@
 				D9A0A52315C47C69008EEFAF /* ScorePDFViewController.m in Sources */,
 				D9A5010415C6C3CC005B789E /* AAPDFDrawingOperation.m in Sources */,
 				D9F5B1B615C7788E0021FA25 /* AAPageIndexView.m in Sources */,
+				D932782C15C9DE6800A7AC47 /* AACoreDataController.m in Sources */,
+				D932782F15C9E08F00A7AC47 /* ScoreCoreDataController.m in Sources */,
+				D932783815C9E31C00A7AC47 /* MarkedObject.m in Sources */,
+				D932783B15C9E31C00A7AC47 /* ScoreDocument.m in Sources */,
+				D932784215C9E3D400A7AC47 /* AACoreDataViewController.m in Sources */,
+				D932784315C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m in Sources */,
+				D932784415C9E3D400A7AC47 /* AAFetchedResultsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
