@@ -11,6 +11,8 @@
 #import "AAViewRecycler.h"
 
 
+@class AAPageIndexView;
+
 @interface AAScorePDFView : UIScrollView <AAViewRecyclerDelegate>
 {
 	NSOperationQueue *pdfPageDrawingQueue;
@@ -23,10 +25,16 @@
     AAViewRecycler *pdfPageRecycler;
     NSRange visibleIndexes;
 	NSUInteger indexOfCurrentPage;
+    
+    AAPageIndexView *pageIndexView;
+    UIView *pdfPageContentView;
 }
 
 - (id)initWithURL:(NSURL *)pdfURL;
 
 @property (nonatomic) CGPDFDocumentRef pdfDocument;
+
+@property (nonatomic) NSUInteger pageIndex;
+- (void)setPageIndex:(NSUInteger)pageIndex animated:(BOOL)shouldAnimate;
 
 @end

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AAPageIndexView : UIView
+@interface AAPageIndexView : UIControl
+{
+    CGFloat currentTrackingProgress;
+	UIView *backgroundView;
+}
+
+@property (nonatomic) NSUInteger pageCount;
+@property (nonatomic) NSUInteger currentPage;
+@property (nonatomic, readonly) CGFloat currentTrackingProgress;
 
 @end

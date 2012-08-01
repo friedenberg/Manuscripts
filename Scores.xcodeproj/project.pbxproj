@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D932782415C9BC9B00A7AC47 /* clearImage.png in Resources */ = {isa = PBXBuildFile; fileRef = D932782315C9BC9B00A7AC47 /* clearImage.png */; };
 		D93EE90915BF27770003AA3F /* AAScorePDFPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */; };
 		D94BAB8A15BC5C2900849567 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BAB8915BC5C2900849567 /* UIKit.framework */; };
 		D94BAB8C15BC5C2900849567 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BAB8B15BC5C2900849567 /* Foundation.framework */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D932782315C9BC9B00A7AC47 /* clearImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clearImage.png; sourceTree = "<group>"; };
 		D93EE90415BF23DF0003AA3F /* AAViewSelecting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAViewSelecting.h; sourceTree = "<group>"; };
 		D93EE90715BF27770003AA3F /* AAScorePDFPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAScorePDFPageView.h; sourceTree = "<group>"; };
 		D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFPageView.m; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 		D94BABA915BC657600849567 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D932782315C9BC9B00A7AC47 /* clearImage.png */,
 				D94BABA615BC657000849567 /* Scores.xcdatamodeld */,
 			);
 			name = Model;
@@ -255,6 +258,7 @@
 				D94BAB9415BC5C2900849567 /* InfoPlist.strings in Resources */,
 				D94BABB915BC7CD500849567 /* ScoreCollectionViewController.xib in Resources */,
 				D9A0A52415C47C69008EEFAF /* ScorePDFViewController.xib in Resources */,
+				D932782415C9BC9B00A7AC47 /* clearImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

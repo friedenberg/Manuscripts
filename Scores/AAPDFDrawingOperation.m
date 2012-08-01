@@ -26,7 +26,10 @@
 	CGRect bounds = CGRectMake(0, 0, canvasSize.width, canvasSize.height);
     CGContextRef context = UIGraphicsGetCurrentContext();
 	
-	CGPDFBox pdfBox = kCGPDFBleedBox;
+	[[UIColor whiteColor] set];
+	CGContextFillRect(context, bounds);
+	
+	CGPDFBox pdfBox = kCGPDFMediaBox;
 	CGRect pdfRect = CGPDFPageGetBoxRect(pdfPage, pdfBox);
 	
 	BOOL scaleByWidth = (bounds.size.width / bounds.size.height) < (pdfRect.size.width / pdfRect.size.height);
@@ -38,17 +41,19 @@
 	else
 		scaleFactor = bounds.size.height / pdfRect.size.height;
 	
-	CGContextScaleCTM(context, scaleFactor, -scaleFactor);
-	
-	if (scaleByWidth)
-		CGContextTranslateCTM(context, 0, (bounds.size.height - pdfRect.size.height) / 4);
+    if (scaleByWidth)
+    {
+        CGFloat heightPadding = CGRectGetMidY(bounds) - pdfRect.size.height * scaleFactor / 2;
+        CGContextTranslateCTM(context, 0, floor(heightPadding));
+    }
 	else
-		CGContextTranslateCTM(context, (bounds.size.width - pdfRect.size.width) / 4, 0);
-	
+    {
+        CGFloat widthPadding = CGRectGetMidX(bounds) - pdfRect.size.width * scaleFactor / 2;
+        CGContextTranslateCTM(context, floor(widthPadding), 0);
+    }
+    
+	CGContextScaleCTM(context, scaleFactor, -scaleFactor);
 	CGContextTranslateCTM(context, 1.0, -pdfRect.size.height);
-	
-	[[UIColor whiteColor] set];
-	CGContextFillRect(context, CGRectInset(pdfRect, -1, -1));
 	
     CGContextDrawPDFPage(context, pdfPage);
 	

@@ -10,6 +10,9 @@
 
 #import "ScoreCollectionViewController.h"
 
+#import "ScorePDFViewController.h"
+
+
 NSString *DocumentsDirectory() { return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]; };
 
 @implementation AAAppDelegate
@@ -36,9 +39,18 @@ NSString *DocumentsDirectory() { return [NSSearchPathForDirectoriesInDomains(NSD
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    UINavigationBar *navigationBar = [UINavigationBar appearance];
+    //navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    navigationBar.titleTextAttributes = @{UITextAttributeTextColor : [UIColor darkTextColor], UITextAttributeTextShadowColor : [UIColor lightTextColor]};
+    [navigationBar setBackgroundImage:[UIImage imageNamed:@"clearImage"] forBarMetrics:UIBarMetricsDefault];
+    
+    UIBarButtonItem *barButtonItem = [UIBarButtonItem appearance];
+    barButtonItem.tintColor = [UIColor grayColor];
+    barButtonItem.tintColor = [UIColor grayColor];
+    
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
-      self.viewController = [[[ScoreCollectionViewController alloc] initWithNibName:@"ScoreCollectionViewController" bundle:nil] autorelease];
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.viewController = [[[ScoreCollectionViewController alloc] initWithNibName:@"ScoreCollectionViewController" bundle:nil] autorelease];
     UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:self.viewController] autorelease];
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];

@@ -19,6 +19,27 @@
 
 @implementation ScorePDFViewController
 
++ (void)initialize
+{
+	if (self == [ScorePDFViewController class])
+	{
+		@autoreleasepool
+		{
+//			UIGraphicsBeginImageContextWithOptions(CGSizeMake(1, 1), NO, 0);
+//			
+//			UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//			
+//			UIGraphicsEndImageContext();
+//			
+//			id appearance = [UINavigationBar appearanceWhenContainedIn:self, nil];
+//			appearance = [UINavigationBar appearance];
+//			[appearance setBarStyle:UIBarStyleBlackTranslucent];
+//			[appearance setTintColor:[UIColor blueColor]];
+//			[appearance setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+		}
+	}
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil documentURL:(NSURL *)someURL
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nil])
@@ -41,6 +62,13 @@
     CGPDFDocumentRef pdfDocument = CGPDFDocumentCreateWithURL((CFURLRef)documentURL);
     pdfView.pdfDocument = pdfDocument;
     CGPDFDocumentRelease(pdfDocument);
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)bookmarksButton:(id)sender

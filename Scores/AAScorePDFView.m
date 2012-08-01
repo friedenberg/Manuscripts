@@ -13,7 +13,14 @@
 #import "AAScorePDFPageView.h"
 #import "AAPDFDrawingOperation.h"
 
+#import "AAPageIndexView.h"
 
+
+@interface AAScorePDFView ()
+
+- (void)pageChanged:(id)sender;
+
+@end
 
 @implementation AAScorePDFView
 
@@ -28,9 +35,17 @@
         pdfPageRecycler = [[AAViewRecycler alloc] initWithDelegate:self];
         
 		pdfPageDrawingQueue = [NSOperationQueue new];
-		pdfPageDrawingQueue.maxConcurrentOperationCount = 1;
+		pdfPageDrawingQueue.maxConcurrentOperationCount = 3;
 		
         pagePadding = 0;
+        
+        pageIndexView = [[AAPageIndexView alloc] initWithFrame:CGRectZero];
+        pdfPageContentView = [[UIView alloc] initWithFrame:CGRectZero];
+        
+        [pageIndexView addTarget:self action:@selector(pageChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        [self addSubview:pdfPageContentView];
+        [self addSubview:pageIndexView];
     }
     
     return self;
@@ -51,6 +66,14 @@
         pdfPageRecycler = [[AAViewRecycler alloc] initWithDelegate:self];
         
         pagePadding = 0;
+        
+        pageIndexView = [[AAPageIndexView alloc] initWithFrame:CGRectZero];
+        pdfPageContentView = [[UIView alloc] initWithFrame:CGRectZero];
+        
+        [pageIndexView addTarget:self action:@selector(pageChanged:) forControlEvents:UIControlEventValueChanged];
+        
+        [self addSubview:pdfPageContentView];
+        [self addSubview:pageIndexView];
     }
     
     return self;
@@ -71,6 +94,7 @@
     CGPDFDocumentRelease(old);
     
     numberOfPages = CGPDFDocumentGetNumberOfPages(pdfDocument);
+    pageIndexView.pageCount = numberOfPages;
     
     [self setNeedsLayout];
 }
@@ -78,6 +102,7 @@
 - (UIView *)unusedViewForViewRecycler:(AAViewRecycler *)someViewRecycler
 {
 	UIView *view = [[UIImageView alloc] initWithFrame:CGRectZero];
+    view.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
     return [view autorelease];
 }
 
@@ -105,7 +130,7 @@
 
 - (UIView *)superviewForViewWithKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler
 {
-    return self;
+    return pdfPageContentView;
 }
 
 - (void)layoutSubviews
@@ -122,22 +147,38 @@
     contentSize.width *= (numberOfPages + (pagePadding * 2));
     self.contentSize = contentSize;
     
+    CGRect pdfPageContentRect = CGRectMake(0, 0, contentSize.width, contentSize.height);
+    pdfPageContentView.frame = pdfPageContentRect;
+    
+    [pageIndexView sizeToFit];
+    CGRect pageIndexRect = pageIndexView.frame;
+    pageIndexRect.size.width = bounds.size.width - 12;
+    pageIndexRect.origin.x = visibleRect.origin.x + 6;
+    pageIndexRect.origin.y = bounds.size.height - pageIndexRect.size.height - 4;
+    pageIndexView.frame = pageIndexRect;
+    
 	CGFloat layoutWidthForPage = (pageWidth + (pagePadding * 2));
 	
 	indexOfCurrentPage = floor((visibleRect.origin.x + (layoutWidthForPage / 2)) / layoutWidthForPage);
 	
 	indexOfCurrentPage = BETWEEN(0, indexOfCurrentPage, numberOfPages);
-    NSUInteger firstIndex = BETWEEN(0, indexOfCurrentPage == 0 ? 0 : indexOfCurrentPage - 1, numberOfPages);
-	NSUInteger lastIndex = BETWEEN(0, indexOfCurrentPage + 2, numberOfPages);
+    NSUInteger previousPage = BETWEEN(0, indexOfCurrentPage == 0 ? 0 : indexOfCurrentPage - 1, numberOfPages);
+	NSUInteger nextPage = BETWEEN(0, indexOfCurrentPage + 2, numberOfPages);
     
     NSRange previouslyVisibleIndexes = visibleIndexes;
-    visibleIndexes = NSMakeRange(firstIndex, lastIndex - firstIndex);
+    visibleIndexes = NSMakeRange(previousPage, nextPage - previousPage);
     
-    NSRangeEnumerateUnion(previouslyVisibleIndexes, visibleIndexes, ^(NSUInteger index) {
+    NSUIntegerEnumerationBlock processPageAtIndexBlock = ^(NSUInteger index) {
         
         NSNumber *number = [NSNumber numberWithUnsignedInteger:index];
         [pdfPageRecycler processViewForKey:number];
-    });
+    };
+    
+    NSRangeEnumerate(previouslyVisibleIndexes, processPageAtIndexBlock);
+    
+    processPageAtIndexBlock(indexOfCurrentPage);
+    processPageAtIndexBlock(nextPage);
+    processPageAtIndexBlock(previousPage);
 }
 
 static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationObservingContext";
@@ -145,7 +186,8 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 - (void)viewRecycler:(AAViewRecycler *)someViewReuseController didLoadView:(UIView *)view withKey:(id)key
 {
     NSNumber *index = key;
-    UIImageView *pageView = view;
+    UIImageView *pageView = (UIImageView *)view;
+    pageView.image = nil;
 	CGPDFPageRef pdfPage = CGPDFDocumentGetPage(pdfDocument, [index unsignedIntegerValue] + 1);
     
 	AAPDFDrawingOperation *drawingOperation = [AAPDFDrawingOperation new];
@@ -174,8 +216,39 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 	else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
+- (void)scrollRectToVisible:(CGRect)rect animated:(BOOL)animated
+{
+    [super scrollRectToVisible:rect animated:animated];
+}
+
+- (NSUInteger)pageIndex
+{
+    return indexOfCurrentPage;
+}
+
+- (void)setPageIndex:(NSUInteger)newPageIndex
+{
+    [self setPageIndex:newPageIndex animated:NO];
+}
+
+- (void)setPageIndex:(NSUInteger)pageIndex animated:(BOOL)shouldAnimate
+{
+    CGRect pageRect = [self rectForViewWithKey:[NSNumber numberWithUnsignedInteger:pageIndex] viewRecycler:pdfPageRecycler];
+    [self scrollRectToVisible:pageRect animated:shouldAnimate];
+}
+
+- (void)pageChanged:(id)sender
+{
+    CGFloat progress = pageIndexView.currentTrackingProgress;
+    
+    if (progress >= 0 && progress < 1)
+        [self setPageIndex:floor(numberOfPages * pageIndexView.currentTrackingProgress) animated:NO];
+}
+
 - (void)dealloc
 {
+    [pdfPageContentView release];
+    [pageIndexView release];
 	[pdfPageDrawingQueue release];
     CGPDFDocumentRelease(pdfDocument);
     [super dealloc];

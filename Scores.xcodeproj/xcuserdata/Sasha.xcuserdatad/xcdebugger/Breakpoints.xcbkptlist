@@ -7,13 +7,26 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Scores/AAAppDelegate.m"
-         timestampString = "364837708.183738"
+         filePath = "Scores/AAPageIndexView.m"
+         timestampString = "365537851.649771"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "34"
-         endingLineNumber = "34"
-         landmarkName = "-application:openURL:sourceApplication:annotation:"
+         startingLineNumber = "92"
+         endingLineNumber = "92"
+         landmarkName = "-drawRect:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Scores/AAScorePDFView.m"
+         timestampString = "365538719.225562"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "244"
+         endingLineNumber = "244"
+         landmarkName = "-pageChanged:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
