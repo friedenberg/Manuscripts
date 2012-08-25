@@ -9,32 +9,44 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "AAViewRecycler.h"
+#import "AAOperationQueue.h"
 
 
-@class AAPageIndexView;
+@class AAPageControl;
 
 @interface AAScorePDFView : UIScrollView <AAViewRecyclerDelegate>
 {
-	NSOperationQueue *pdfPageDrawingQueue;
+	AAOperationQueue *drawingQueue;
 	
+    BOOL shouldShowTwoPages;
+	BOOL isRotating;
+    
+    NSMutableSet *visibleViewKeys;
+    
     NSUInteger numberOfPages;
     CGFloat pageWidth;
     CGFloat pagePadding;
     CGPDFDocumentRef pdfDocument;
     
-    AAViewRecycler *pdfPageRecycler;
+    AAViewRecycler *pageRecycler;
+    AAViewRecycler *noteRecycler;
     NSRange visibleIndexes;
 	NSUInteger indexOfCurrentPage;
     
-    AAPageIndexView *pageIndexView;
+    AAPageControl *pageControl;
     UIView *pdfPageContentView;
+    UIView *noteContentView;
 }
 
-- (id)initWithURL:(NSURL *)pdfURL;
-
 @property (nonatomic) CGPDFDocumentRef pdfDocument;
+@property (nonatomic) BOOL shouldRenderNewPages;
 
 @property (nonatomic) NSUInteger pageIndex;
 - (void)setPageIndex:(NSUInteger)pageIndex animated:(BOOL)shouldAnimate;
+
+@property (nonatomic, readonly) AAPageControl *pageControl;
+
+- (void)beginRotation;
+- (void)endRotation;
 
 @end

@@ -29,7 +29,7 @@
     
     ScoreDocument *newDocument = [NSEntityDescription insertNewObjectForEntityForName:@"ScoreDocument" inManagedObjectContext:managedObjectContext];
     newDocument.path = filePath;
-    newDocument.title = [documentURL lastPathComponent];
+    newDocument.title = [[oldURL lastPathComponent] stringByDeletingPathExtension];
     
     [self saveContext];
 }

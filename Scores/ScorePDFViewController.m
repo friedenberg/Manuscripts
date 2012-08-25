@@ -13,39 +13,15 @@
 
 @interface ScorePDFViewController ()
 
-- (void)bookmarksButton:(id)sender;
-
 @end
 
 @implementation ScorePDFViewController
-
-+ (void)initialize
-{
-	if (self == [ScorePDFViewController class])
-	{
-		@autoreleasepool
-		{
-//			UIGraphicsBeginImageContextWithOptions(CGSizeMake(1, 1), NO, 0);
-//			
-//			UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//			
-//			UIGraphicsEndImageContext();
-//			
-//			id appearance = [UINavigationBar appearanceWhenContainedIn:self, nil];
-//			appearance = [UINavigationBar appearance];
-//			[appearance setBarStyle:UIBarStyleBlackTranslucent];
-//			[appearance setTintColor:[UIColor blueColor]];
-//			[appearance setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-		}
-	}
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil documentURL:(NSURL *)someURL
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nil])
 	{
         documentURL = [someURL copy];
-		self.title = [documentURL lastPathComponent];
     }
 	
     return self;
@@ -55,13 +31,11 @@
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *tableOfContentsItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarksButton:)];
-    self.navigationItem.rightBarButtonItem = tableOfContentsItem;
-    [tableOfContentsItem release];
-    
     CGPDFDocumentRef pdfDocument = CGPDFDocumentCreateWithURL((CFURLRef)documentURL);
     pdfView.pdfDocument = pdfDocument;
     CGPDFDocumentRelease(pdfDocument);
+    
+    pdfView.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,9 +45,50 @@
     self.navigationController.navigationBar.translucent = YES;
 }
 
-- (void)bookmarksButton:(id)sender
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (scrollView == pdfView)
+    {
+        CGRect navBarRect = self.navigationController.navigationBar.frame;
+        
+        CGFloat xOffset = scrollView.contentOffset.x;
+        CGFloat contentWidth = scrollView.contentSize.width;
+        CGFloat boundsWidth = scrollView.bounds.size.width;
+        
+        navBarRect.origin.x = 0;
+        
+        if (xOffset < 0)
+            navBarRect.origin.x -= xOffset;
+        else if (xOffset > contentWidth - boundsWidth)
+            navBarRect.origin.x -= fmod(xOffset, boundsWidth);
+        
+        self.navigationController.navigationBar.frame = navBarRect;
+    }
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+	return YES;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
+    //pdfView.shouldRenderNewPages = NO;
+    currentPage = pdfView.pageIndex;
+	NSLog(@"%@", pdfView);
+	[pdfView beginRotation];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    
+    pdfView.pageIndex = currentPage;
+    //pdfView.shouldRenderNewPages = YES;
+	[pdfView endRotation];
+	NSLog(@"%@", pdfView);
 }
 
 - (void)viewDidUnload
@@ -81,11 +96,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return YES;
 }
 
 - (void)dealloc

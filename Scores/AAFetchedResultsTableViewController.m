@@ -72,9 +72,11 @@
 - (void)tableView:(UITableView *)aTableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath 
 {
 	assert(aTableView == self.tableView);
-	isReordering = YES;
-	[self.managedObjectContext processPendingChanges];
-	isReordering = NO;
+    
+    [self performBlockWhileIgnoringFetchedResultControllerChanges:^{
+        
+        [self.managedObjectContext processPendingChanges];
+    }];
 }
 
 - (void)performBlock:(dispatch_block_t)block withTableViewRowAnimationStyle:(UITableViewRowAnimation)style
@@ -84,12 +86,21 @@
 	currentStyle = -1;
 }
 
+- (void)performBlockWhileIgnoringFetchedResultControllerChanges:(dispatch_block_t)block
+{
+    shouldIgnoreFetchedResultControllerEvents = YES;
+    block();
+    [managedObjectContext processPendingChanges];
+    shouldIgnoreFetchedResultControllerEvents = NO;
+}
+
 #pragma mark -
 #pragma mark Fetched results controller delegate
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
-	if (isReordering) return;
+	if (shouldIgnoreFetchedResultControllerEvents) return;
+    
 	[self.tableView beginUpdates];
 }
 
@@ -98,6 +109,8 @@
 		   atIndex:(NSUInteger)sectionIndex 
 	 forChangeType:(NSFetchedResultsChangeType)type
 {
+    if (shouldIgnoreFetchedResultControllerEvents) @throw [NSException exceptionWithName:NSGenericException reason:@"section was added or removed while ignoring fetched result controller events" userInfo:nil];
+    
 	switch (type) 
 	{
 		case NSFetchedResultsChangeInsert:
@@ -116,43 +129,41 @@
 	 forChangeType:(NSFetchedResultsChangeType)type
 	  newIndexPath:(NSIndexPath *)newIndexPath
 {
-	if (isReordering) return;
+	if (shouldIgnoreFetchedResultControllerEvents)
+	{
+		
+		
+		return;
+	}
 	
-	UITableView *aTableView = self.tableView;
+	UITableView *someTableView = self.tableView;
 	NSIndexPath *newIP = [self tableViewIndexPathFromIndexPath:newIndexPath];
 	NSIndexPath *oldIP = [self tableViewIndexPathFromIndexPath:indexPath];
 	
 	switch (type) 
 	{	
 		case NSFetchedResultsChangeInsert:
-			[aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIP] withRowAnimation:currentStyle ?: UITableViewRowAnimationTop];
+			[someTableView insertRowsAtIndexPaths:@[newIP] withRowAnimation:currentStyle ?: UITableViewRowAnimationTop];
 			break;
 			
 		case NSFetchedResultsChangeDelete:
-			[aTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:oldIP] withRowAnimation:currentStyle ?: UITableViewRowAnimationLeft];
+			[someTableView deleteRowsAtIndexPaths:@[oldIP] withRowAnimation:currentStyle ?: UITableViewRowAnimationLeft];
 			break;
 			
 		case NSFetchedResultsChangeUpdate:
-			[aTableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:oldIP] withRowAnimation:currentStyle ?: UITableViewRowAnimationNone];
+			[someTableView reloadRowsAtIndexPaths:@[oldIP] withRowAnimation:currentStyle ?: UITableViewRowAnimationNone];
 			break;
 			
 		case NSFetchedResultsChangeMove:
-		{
-			BOOL lowerPosition = oldIP.row < newIP.row;
-			
-			[aTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:oldIP] 
-							 withRowAnimation:currentStyle ?: (lowerPosition ? UITableViewRowAnimationBottom : UITableViewRowAnimationTop)];
-			
-			[aTableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIP] 
-							 withRowAnimation:currentStyle ?: (lowerPosition ? UITableViewRowAnimationTop : UITableViewRowAnimationBottom)];
-		}
+			[someTableView moveRowAtIndexPath:oldIP toIndexPath:newIP];
 			break;
 	}
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller 
 {
-	if (isReordering) return;
+	if (shouldIgnoreFetchedResultControllerEvents) return;
+    
 	[self.tableView endUpdates];
 }
 

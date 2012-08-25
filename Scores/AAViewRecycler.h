@@ -24,10 +24,11 @@ extern void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnum
 {
 	id <AAViewRecyclerDelegate> delegate;
 	
-	NSUInteger *visibleViewIndexes;
 	NSMutableDictionary *visibleViews;
 	NSMutableArray *cachedViews;
 	
+    NSMutableSet *visibleViewKeys;
+    
 	//NSMutableDictionary *cachedReuseIdentifierKeys;
 	
 	//selection
@@ -35,7 +36,17 @@ extern void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnum
 	NSMutableSet *selectedViews;
 	
 	//mutation
+    BOOL isMutating;
 	NSMutableSet *viewsToReload;
+	
+	struct
+	{
+		unsigned int didLoadView:1;
+		unsigned int prepareViewForRecycling:1;
+		unsigned int visibleKeys:1;
+		unsigned int didSelect:1;
+		
+	} delegateMethodFlags;
 }
 
 - (id)initWithDelegate:(id <AAViewRecyclerDelegate>)someObject;
@@ -44,6 +55,7 @@ extern void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnum
 @property (nonatomic, readonly) NSArray *visibleViews;
 
 //recycling
+- (void)processViews;
 - (void)processViewForKey:(id)key;
 
 - (id)visibleViewForKey:(id)key;
@@ -66,6 +78,10 @@ extern void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnum
 - (id)currentlyTouchedView;
 
 //mutation
-- (void)addKeyToReload:(id)key;
+- (void)beginMutation;
+- (void)reloadViewWithKey:(id)key;
+- (void)endMutation;
+
+- (void)reloadVisibleViews;
 
 @end

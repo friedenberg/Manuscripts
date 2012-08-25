@@ -6,19 +6,19 @@
 //  Copyright (c) 2012 Apple, Stamford. All rights reserved.
 //
 
-#import "ScoreCollectionViewController.h"
+#import "ScoreTableViewController.h"
 #import "ScoreAppDelegate.h"
 
-#import "ScorePDFViewController.h"
+#import "ScoreDocumentViewController.h"
 
 
-@interface ScoreCollectionViewController ()
+@interface ScoreTableViewController ()
 
 
 
 @end
 
-@implementation ScoreCollectionViewController
+@implementation ScoreTableViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,8 +63,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSURL *fileURL = [NSURL fileURLWithPath:[[self.fetchedResultsController objectAtIndexPath:indexPath] path]];
-    ScorePDFViewController *pdfController = [[ScorePDFViewController alloc] initWithNibName:@"ScorePDFViewController" documentURL:fileURL];
+    id document = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    ScorePDFViewController *pdfController = [[ScoreDocumentViewController alloc] initWithNibName:@"ScorePDFViewController" scoreDocument:document];
     [self.navigationController pushViewController:pdfController animated:YES];
     [pdfController release];
 }

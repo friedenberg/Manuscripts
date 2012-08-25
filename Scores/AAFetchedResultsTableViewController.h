@@ -12,13 +12,15 @@
 @interface AAFetchedResultsTableViewController : AAFetchedResultsViewController <UITableViewDataSource, UITableViewDelegate>
 {
 	IBOutlet UITableView *tableView;
-	BOOL isReordering;
-	
+
+    BOOL shouldIgnoreFetchedResultControllerEvents;
+    
 	UITableViewRowAnimation currentStyle;
 }
 
 @property (nonatomic, readonly) IBOutlet UITableView *tableView;
 
+- (void)performBlockWhileIgnoringFetchedResultControllerChanges:(dispatch_block_t)block;
 - (void)performBlock:(dispatch_block_t)block withTableViewRowAnimationStyle:(UITableViewRowAnimation)style;
 
 - (NSIndexPath *)fetchedResultsControllerIndexPathFromIndexPath:(NSIndexPath *)indexPath;

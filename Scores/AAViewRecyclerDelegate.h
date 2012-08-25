@@ -23,9 +23,12 @@
 - (CGRect)rectForViewWithKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler;
 - (UIView *)superviewForViewWithKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler;
 
-- (void)viewRecycler:(AAViewRecycler *)someViewReuseController didLoadView:(UIView *)view withKey:(id)key;
-
 @optional
+
+- (void)viewRecycler:(AAViewRecycler *)someViewReuseController didLoadView:(UIView *)view withKey:(id)key;
+- (void)viewRecycler:(AAViewRecycler *)someViewReuseController prepareViewForRecycling:(UIView *)view;
+
+- (NSSet *)visibleKeysForViewRecycler:(AAViewRecycler *)someViewRecycler;
 
 - (void)viewRecycler:(AAViewRecycler *)someViewReuseController selectViewWithKey:(id)key selected:(BOOL)isSelected;
 

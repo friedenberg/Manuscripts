@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D90A4A6515CDD8FA00C10556 /* AAEditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A4A6415CDD8FA00C10556 /* AAEditableTableViewCell.m */; };
 		D932782415C9BC9B00A7AC47 /* clearImage.png in Resources */ = {isa = PBXBuildFile; fileRef = D932782315C9BC9B00A7AC47 /* clearImage.png */; };
 		D932782C15C9DE6800A7AC47 /* AACoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932782B15C9DE6800A7AC47 /* AACoreDataController.m */; };
 		D932782F15C9E08F00A7AC47 /* ScoreCoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932782E15C9E08F00A7AC47 /* ScoreCoreDataController.m */; };
@@ -15,6 +16,7 @@
 		D932784215C9E3D400A7AC47 /* AACoreDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932783D15C9E3D300A7AC47 /* AACoreDataViewController.m */; };
 		D932784315C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932783F15C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m */; };
 		D932784415C9E3D400A7AC47 /* AAFetchedResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932784115C9E3D400A7AC47 /* AAFetchedResultsViewController.m */; };
+		D9366DF815D5CAF00043EAA1 /* NSIndexSet+AAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D9366DF715D5CAF00043EAA1 /* NSIndexSet+AAAdditions.m */; };
 		D93EE90915BF27770003AA3F /* AAScorePDFPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */; };
 		D94BAB8A15BC5C2900849567 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BAB8915BC5C2900849567 /* UIKit.framework */; };
 		D94BAB8C15BC5C2900849567 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94BAB8B15BC5C2900849567 /* Foundation.framework */; };
@@ -23,21 +25,38 @@
 		D94BAB9615BC5C2900849567 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BAB9515BC5C2900849567 /* main.m */; };
 		D94BAB9A15BC5C2900849567 /* ScoreAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BAB9915BC5C2900849567 /* ScoreAppDelegate.m */; };
 		D94BABA815BC657000849567 /* Scores.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D94BABA615BC657000849567 /* Scores.xcdatamodeld */; };
-		D94BABB815BC7CD500849567 /* ScoreCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BABB615BC7CD500849567 /* ScoreCollectionViewController.m */; };
-		D94BABB915BC7CD500849567 /* ScoreCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94BABB715BC7CD500849567 /* ScoreCollectionViewController.xib */; };
+		D94BABB815BC7CD500849567 /* ScoreTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D94BABB615BC7CD500849567 /* ScoreTableViewController.m */; };
+		D94BABB915BC7CD500849567 /* ScoreTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94BABB715BC7CD500849567 /* ScoreTableViewController.xib */; };
+		D96CAC3A15D1EC8C0055B315 /* AAOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D96CAC3915D1EC8C0055B315 /* AAOperationQueue.m */; };
+		D973AD4915CA10C3009C0AC4 /* BookmarkTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D973AD4715CA10C3009C0AC4 /* BookmarkTableViewController.xib */; };
+		D973AD4B15CA1397009C0AC4 /* BookmarkTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D973AD4A15CA1397009C0AC4 /* BookmarkTableViewController.m */; };
+		D977B55215CA0EC00057C95F /* ScoreDocumentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D977B55115CA0EC00057C95F /* ScoreDocumentViewController.m */; };
 		D9997F4D15BCD83E00C6E252 /* AAPDFPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9997F4C15BCD83E00C6E252 /* AAPDFPageView.m */; };
 		D9A0A52315C47C69008EEFAF /* ScorePDFViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A0A52115C47C69008EEFAF /* ScorePDFViewController.m */; };
 		D9A0A52415C47C69008EEFAF /* ScorePDFViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A0A52215C47C69008EEFAF /* ScorePDFViewController.xib */; };
+		D9A4EF0515D2FC5B009F6866 /* barButtonItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A4EF0315D2FC5B009F6866 /* barButtonItem.png */; };
+		D9A4EF0615D2FC5B009F6866 /* backBarButtonItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A4EF0415D2FC5B009F6866 /* backBarButtonItem.png */; };
 		D9A5010415C6C3CC005B789E /* AAPDFDrawingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A5010315C6C3CB005B789E /* AAPDFDrawingOperation.m */; };
+		D9A5AC5115D16BDF008428B7 /* Bookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A5AC5015D16BDF008428B7 /* Bookmark.m */; };
+		D9A5AC5515D16BDF008428B7 /* FramedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A5AC5415D16BDF008428B7 /* FramedObject.m */; };
+		D9A5AC5815D16F91008428B7 /* AAOutlinedNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A5AC5715D16F91008428B7 /* AAOutlinedNavigationController.m */; };
+		D9A9559D15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A9559C15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m */; };
+		D9AEA0C315CD4A3D00899651 /* AAEditableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA0C215CD4A3D00899651 /* AAEditableTableView.m */; };
 		D9B78CAA15BEF1B200F0446F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B78CA915BEF1B200F0446F /* CoreData.framework */; };
 		D9B78CAE15BF220C00F0446F /* AAScorePDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B78CAD15BF220C00F0446F /* AAScorePDFView.m */; };
 		D9B78CB615BF223E00F0446F /* AAViewRecycler.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B78CB515BF223E00F0446F /* AAViewRecycler.m */; };
+		D9DADF5715E98066005CE564 /* AATilingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DADF5615E98066005CE564 /* AATilingScrollView.m */; };
+		D9DADF5B15E980B9005CE564 /* AATiledContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DADF5A15E980B9005CE564 /* AATiledContentView.m */; };
+		D9DADF5F15E981AC005CE564 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DADF5E15E981AC005CE564 /* Note.m */; };
+		D9DADF6215E981D7005CE564 /* AAScorePDFNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DADF6115E981D7005CE564 /* AAScorePDFNoteView.m */; };
 		D9F090FF15BCE0AF0088652B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9F090FE15BCE0AF0088652B /* QuartzCore.framework */; };
 		D9F0910315BCE1DE0088652B /* AAMetadataQueryController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F0910215BCE1DE0088652B /* AAMetadataQueryController.m */; };
-		D9F5B1B615C7788E0021FA25 /* AAPageIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5B1B515C7788E0021FA25 /* AAPageIndexView.m */; };
+		D9F5B1B615C7788E0021FA25 /* AAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5B1B515C7788E0021FA25 /* AAPageControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D90A4A6315CDD8F900C10556 /* AAEditableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAEditableTableViewCell.h; sourceTree = "<group>"; };
+		D90A4A6415CDD8FA00C10556 /* AAEditableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAEditableTableViewCell.m; sourceTree = "<group>"; };
 		D932782315C9BC9B00A7AC47 /* clearImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clearImage.png; sourceTree = "<group>"; };
 		D932782A15C9DE6800A7AC47 /* AACoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AACoreDataController.h; sourceTree = "<group>"; };
 		D932782B15C9DE6800A7AC47 /* AACoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AACoreDataController.m; sourceTree = "<group>"; };
@@ -53,6 +72,8 @@
 		D932783F15C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAFetchedResultsTableViewController.m; sourceTree = "<group>"; };
 		D932784015C9E3D400A7AC47 /* AAFetchedResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAFetchedResultsViewController.h; sourceTree = "<group>"; };
 		D932784115C9E3D400A7AC47 /* AAFetchedResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAFetchedResultsViewController.m; sourceTree = "<group>"; };
+		D9366DF615D5CAF00043EAA1 /* NSIndexSet+AAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+AAAdditions.h"; sourceTree = "<group>"; };
+		D9366DF715D5CAF00043EAA1 /* NSIndexSet+AAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+AAAdditions.m"; sourceTree = "<group>"; };
 		D93EE90415BF23DF0003AA3F /* AAViewSelecting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAViewSelecting.h; sourceTree = "<group>"; };
 		D93EE90715BF27770003AA3F /* AAScorePDFPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAScorePDFPageView.h; sourceTree = "<group>"; };
 		D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFPageView.m; sourceTree = "<group>"; };
@@ -67,16 +88,36 @@
 		D94BAB9815BC5C2900849567 /* ScoreAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreAppDelegate.h; sourceTree = "<group>"; };
 		D94BAB9915BC5C2900849567 /* ScoreAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreAppDelegate.m; sourceTree = "<group>"; };
 		D94BABA715BC657000849567 /* Scores.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Scores.xcdatamodel; sourceTree = "<group>"; };
-		D94BABB515BC7CD500849567 /* ScoreCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreCollectionViewController.h; sourceTree = "<group>"; };
-		D94BABB615BC7CD500849567 /* ScoreCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreCollectionViewController.m; sourceTree = "<group>"; };
-		D94BABB715BC7CD500849567 /* ScoreCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreCollectionViewController.xib; sourceTree = "<group>"; };
+		D94BABB515BC7CD500849567 /* ScoreTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreTableViewController.h; sourceTree = "<group>"; };
+		D94BABB615BC7CD500849567 /* ScoreTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreTableViewController.m; sourceTree = "<group>"; };
+		D94BABB715BC7CD500849567 /* ScoreTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScoreTableViewController.xib; sourceTree = "<group>"; };
+		D961021215D47012004B67BB /* AAEditableTableView_PrivateCellMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAEditableTableView_PrivateCellMethods.h; sourceTree = "<group>"; };
+		D96CAC3815D1EC8C0055B315 /* AAOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAOperationQueue.h; sourceTree = "<group>"; };
+		D96CAC3915D1EC8C0055B315 /* AAOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAOperationQueue.m; sourceTree = "<group>"; };
+		D973AD4515CA10C3009C0AC4 /* BookmarkTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookmarkTableViewController.h; sourceTree = "<group>"; };
+		D973AD4715CA10C3009C0AC4 /* BookmarkTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BookmarkTableViewController.xib; sourceTree = "<group>"; };
+		D973AD4A15CA1397009C0AC4 /* BookmarkTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookmarkTableViewController.m; sourceTree = "<group>"; };
+		D977B55015CA0EC00057C95F /* ScoreDocumentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreDocumentViewController.h; sourceTree = "<group>"; };
+		D977B55115CA0EC00057C95F /* ScoreDocumentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreDocumentViewController.m; sourceTree = "<group>"; };
 		D9997F4B15BCD83E00C6E252 /* AAPDFPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFPageView.h; sourceTree = "<group>"; };
 		D9997F4C15BCD83E00C6E252 /* AAPDFPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFPageView.m; sourceTree = "<group>"; };
 		D9A0A52015C47C69008EEFAF /* ScorePDFViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScorePDFViewController.h; sourceTree = "<group>"; };
 		D9A0A52115C47C69008EEFAF /* ScorePDFViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScorePDFViewController.m; sourceTree = "<group>"; };
 		D9A0A52215C47C69008EEFAF /* ScorePDFViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScorePDFViewController.xib; sourceTree = "<group>"; };
+		D9A4EF0315D2FC5B009F6866 /* barButtonItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barButtonItem.png; sourceTree = "<group>"; };
+		D9A4EF0415D2FC5B009F6866 /* backBarButtonItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backBarButtonItem.png; sourceTree = "<group>"; };
 		D9A5010215C6C3CB005B789E /* AAPDFDrawingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFDrawingOperation.h; sourceTree = "<group>"; };
 		D9A5010315C6C3CB005B789E /* AAPDFDrawingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFDrawingOperation.m; sourceTree = "<group>"; };
+		D9A5AC4F15D16BDF008428B7 /* Bookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bookmark.h; sourceTree = "<group>"; };
+		D9A5AC5015D16BDF008428B7 /* Bookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bookmark.m; sourceTree = "<group>"; };
+		D9A5AC5315D16BDF008428B7 /* FramedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FramedObject.h; sourceTree = "<group>"; };
+		D9A5AC5415D16BDF008428B7 /* FramedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FramedObject.m; sourceTree = "<group>"; };
+		D9A5AC5615D16F91008428B7 /* AAOutlinedNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAOutlinedNavigationController.h; sourceTree = "<group>"; };
+		D9A5AC5715D16F91008428B7 /* AAOutlinedNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAOutlinedNavigationController.m; sourceTree = "<group>"; };
+		D9A9559B15CEBBC700732802 /* UIView+UIViewAnimationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIViewAnimationAdditions.h"; sourceTree = "<group>"; };
+		D9A9559C15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIViewAnimationAdditions.m"; sourceTree = "<group>"; };
+		D9AEA0C115CD4A3D00899651 /* AAEditableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAEditableTableView.h; sourceTree = "<group>"; };
+		D9AEA0C215CD4A3D00899651 /* AAEditableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAEditableTableView.m; sourceTree = "<group>"; };
 		D9B78CA915BEF1B200F0446F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D9B78CAC15BF220C00F0446F /* AAScorePDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAScorePDFView.h; sourceTree = "<group>"; };
 		D9B78CAD15BF220C00F0446F /* AAScorePDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFView.m; sourceTree = "<group>"; };
@@ -84,12 +125,20 @@
 		D9B78CB415BF223E00F0446F /* AAViewRecycler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAViewRecycler.h; sourceTree = "<group>"; };
 		D9B78CB515BF223E00F0446F /* AAViewRecycler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAViewRecycler.m; sourceTree = "<group>"; };
 		D9B78CB815BF237900F0446F /* AAViewEditing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAViewEditing.h; sourceTree = "<group>"; };
+		D9DADF5515E98066005CE564 /* AATilingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AATilingScrollView.h; sourceTree = "<group>"; };
+		D9DADF5615E98066005CE564 /* AATilingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATilingScrollView.m; sourceTree = "<group>"; };
+		D9DADF5915E980B9005CE564 /* AATiledContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AATiledContentView.h; sourceTree = "<group>"; };
+		D9DADF5A15E980B9005CE564 /* AATiledContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATiledContentView.m; sourceTree = "<group>"; };
+		D9DADF5D15E981AC005CE564 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		D9DADF5E15E981AC005CE564 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		D9DADF6015E981D7005CE564 /* AAScorePDFNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAScorePDFNoteView.h; sourceTree = "<group>"; };
+		D9DADF6115E981D7005CE564 /* AAScorePDFNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFNoteView.m; sourceTree = "<group>"; };
 		D9F090FE15BCE0AF0088652B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D9F0910115BCE1DE0088652B /* AAMetadataQueryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAMetadataQueryController.h; sourceTree = "<group>"; };
 		D9F0910215BCE1DE0088652B /* AAMetadataQueryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAMetadataQueryController.m; sourceTree = "<group>"; };
 		D9F0910415BCE35F0088652B /* AAMetadataQueryControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAMetadataQueryControllerDelegate.h; sourceTree = "<group>"; };
-		D9F5B1B415C7788E0021FA25 /* AAPageIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPageIndexView.h; sourceTree = "<group>"; };
-		D9F5B1B515C7788E0021FA25 /* AAPageIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPageIndexView.m; sourceTree = "<group>"; };
+		D9F5B1B415C7788E0021FA25 /* AAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPageControl.h; sourceTree = "<group>"; };
+		D9F5B1B515C7788E0021FA25 /* AAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPageControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,10 +164,14 @@
 				D9B78CAD15BF220C00F0446F /* AAScorePDFView.m */,
 				D93EE90715BF27770003AA3F /* AAScorePDFPageView.h */,
 				D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */,
+				D9DADF6015E981D7005CE564 /* AAScorePDFNoteView.h */,
+				D9DADF6115E981D7005CE564 /* AAScorePDFNoteView.m */,
 				D9A5010215C6C3CB005B789E /* AAPDFDrawingOperation.h */,
 				D9A5010315C6C3CB005B789E /* AAPDFDrawingOperation.m */,
-				D9F5B1B415C7788E0021FA25 /* AAPageIndexView.h */,
-				D9F5B1B515C7788E0021FA25 /* AAPageIndexView.m */,
+				D9F5B1B415C7788E0021FA25 /* AAPageControl.h */,
+				D9F5B1B515C7788E0021FA25 /* AAPageControl.m */,
+				D9366DF615D5CAF00043EAA1 /* NSIndexSet+AAAdditions.h */,
+				D9366DF715D5CAF00043EAA1 /* NSIndexSet+AAAdditions.m */,
 			);
 			name = AAScorePDFView;
 			sourceTree = "<group>";
@@ -156,6 +209,8 @@
 			isa = PBXGroup;
 			children = (
 				D94BABA915BC657600849567 /* Model */,
+				D96CAC3815D1EC8C0055B315 /* AAOperationQueue.h */,
+				D96CAC3915D1EC8C0055B315 /* AAOperationQueue.m */,
 				D9594D1A15BCDB2C00AC0A2B /* View */,
 				D9997F4915BCD82300C6E252 /* Controller */,
 				D94BAB9015BC5C2900849567 /* Supporting Files */,
@@ -166,6 +221,8 @@
 		D94BAB9015BC5C2900849567 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D9A4EF0315D2FC5B009F6866 /* barButtonItem.png */,
+				D9A4EF0415D2FC5B009F6866 /* backBarButtonItem.png */,
 				D94BAB9115BC5C2900849567 /* Scores-Info.plist */,
 				D94BAB9215BC5C2900849567 /* InfoPlist.strings */,
 				D94BAB9515BC5C2900849567 /* main.m */,
@@ -179,6 +236,12 @@
 			children = (
 				D932782315C9BC9B00A7AC47 /* clearImage.png */,
 				D94BABA615BC657000849567 /* Scores.xcdatamodeld */,
+				D9A5AC5315D16BDF008428B7 /* FramedObject.h */,
+				D9A5AC5415D16BDF008428B7 /* FramedObject.m */,
+				D9A5AC4F15D16BDF008428B7 /* Bookmark.h */,
+				D9A5AC5015D16BDF008428B7 /* Bookmark.m */,
+				D9DADF5D15E981AC005CE564 /* Note.h */,
+				D9DADF5E15E981AC005CE564 /* Note.m */,
 				D932783915C9E31C00A7AC47 /* ScoreDocument.h */,
 				D932783A15C9E31C00A7AC47 /* ScoreDocument.m */,
 				D932783615C9E31C00A7AC47 /* MarkedObject.h */,
@@ -190,9 +253,28 @@
 		D9594D1A15BCDB2C00AC0A2B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D9DADF5C15E98126005CE564 /* Tiled Scrolling */,
+				D9AEA0C515CD4A5A00899651 /* AAEditableTableView */,
 				D93EE90615BF27520003AA3F /* AAScorePDFView */,
+				D9A9559B15CEBBC700732802 /* UIView+UIViewAnimationAdditions.h */,
+				D9A9559C15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		D973AD4415CA10A0009C0AC4 /* PDF viewer */ = {
+			isa = PBXGroup;
+			children = (
+				D9A0A52015C47C69008EEFAF /* ScorePDFViewController.h */,
+				D9A0A52115C47C69008EEFAF /* ScorePDFViewController.m */,
+				D9A0A52215C47C69008EEFAF /* ScorePDFViewController.xib */,
+				D977B55015CA0EC00057C95F /* ScoreDocumentViewController.h */,
+				D977B55115CA0EC00057C95F /* ScoreDocumentViewController.m */,
+				D973AD4515CA10C3009C0AC4 /* BookmarkTableViewController.h */,
+				D973AD4A15CA1397009C0AC4 /* BookmarkTableViewController.m */,
+				D973AD4715CA10C3009C0AC4 /* BookmarkTableViewController.xib */,
+			);
+			name = "PDF viewer";
 			sourceTree = "<group>";
 		};
 		D9997F4915BCD82300C6E252 /* Controller */ = {
@@ -214,16 +296,28 @@
 				D932784115C9E3D400A7AC47 /* AAFetchedResultsViewController.m */,
 				D932783E15C9E3D400A7AC47 /* AAFetchedResultsTableViewController.h */,
 				D932783F15C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m */,
-				D94BABB515BC7CD500849567 /* ScoreCollectionViewController.h */,
-				D94BABB615BC7CD500849567 /* ScoreCollectionViewController.m */,
-				D9A0A52015C47C69008EEFAF /* ScorePDFViewController.h */,
-				D9A0A52115C47C69008EEFAF /* ScorePDFViewController.m */,
-				D9A0A52215C47C69008EEFAF /* ScorePDFViewController.xib */,
-				D94BABB715BC7CD500849567 /* ScoreCollectionViewController.xib */,
+				D9A5AC5615D16F91008428B7 /* AAOutlinedNavigationController.h */,
+				D9A5AC5715D16F91008428B7 /* AAOutlinedNavigationController.m */,
+				D94BABB515BC7CD500849567 /* ScoreTableViewController.h */,
+				D94BABB615BC7CD500849567 /* ScoreTableViewController.m */,
+				D973AD4415CA10A0009C0AC4 /* PDF viewer */,
+				D94BABB715BC7CD500849567 /* ScoreTableViewController.xib */,
 				D9997F4B15BCD83E00C6E252 /* AAPDFPageView.h */,
 				D9997F4C15BCD83E00C6E252 /* AAPDFPageView.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		D9AEA0C515CD4A5A00899651 /* AAEditableTableView */ = {
+			isa = PBXGroup;
+			children = (
+				D961021215D47012004B67BB /* AAEditableTableView_PrivateCellMethods.h */,
+				D9AEA0C115CD4A3D00899651 /* AAEditableTableView.h */,
+				D9AEA0C215CD4A3D00899651 /* AAEditableTableView.m */,
+				D90A4A6315CDD8F900C10556 /* AAEditableTableViewCell.h */,
+				D90A4A6415CDD8FA00C10556 /* AAEditableTableViewCell.m */,
+			);
+			name = AAEditableTableView;
 			sourceTree = "<group>";
 		};
 		D9B78CB715BF224300F0446F /* AAViewRecycler */ = {
@@ -236,6 +330,17 @@
 				D9B78CB515BF223E00F0446F /* AAViewRecycler.m */,
 			);
 			name = AAViewRecycler;
+			sourceTree = "<group>";
+		};
+		D9DADF5C15E98126005CE564 /* Tiled Scrolling */ = {
+			isa = PBXGroup;
+			children = (
+				D9DADF5515E98066005CE564 /* AATilingScrollView.h */,
+				D9DADF5615E98066005CE564 /* AATilingScrollView.m */,
+				D9DADF5915E980B9005CE564 /* AATiledContentView.h */,
+				D9DADF5A15E980B9005CE564 /* AATiledContentView.m */,
+			);
+			name = "Tiled Scrolling";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,9 +396,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94BAB9415BC5C2900849567 /* InfoPlist.strings in Resources */,
-				D94BABB915BC7CD500849567 /* ScoreCollectionViewController.xib in Resources */,
+				D94BABB915BC7CD500849567 /* ScoreTableViewController.xib in Resources */,
 				D9A0A52415C47C69008EEFAF /* ScorePDFViewController.xib in Resources */,
 				D932782415C9BC9B00A7AC47 /* clearImage.png in Resources */,
+				D973AD4915CA10C3009C0AC4 /* BookmarkTableViewController.xib in Resources */,
+				D9A4EF0515D2FC5B009F6866 /* barButtonItem.png in Resources */,
+				D9A4EF0615D2FC5B009F6866 /* backBarButtonItem.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +415,7 @@
 				D94BAB9615BC5C2900849567 /* main.m in Sources */,
 				D94BAB9A15BC5C2900849567 /* ScoreAppDelegate.m in Sources */,
 				D94BABA815BC657000849567 /* Scores.xcdatamodeld in Sources */,
-				D94BABB815BC7CD500849567 /* ScoreCollectionViewController.m in Sources */,
+				D94BABB815BC7CD500849567 /* ScoreTableViewController.m in Sources */,
 				D9997F4D15BCD83E00C6E252 /* AAPDFPageView.m in Sources */,
 				D9F0910315BCE1DE0088652B /* AAMetadataQueryController.m in Sources */,
 				D9B78CAE15BF220C00F0446F /* AAScorePDFView.m in Sources */,
@@ -315,7 +423,7 @@
 				D93EE90915BF27770003AA3F /* AAScorePDFPageView.m in Sources */,
 				D9A0A52315C47C69008EEFAF /* ScorePDFViewController.m in Sources */,
 				D9A5010415C6C3CC005B789E /* AAPDFDrawingOperation.m in Sources */,
-				D9F5B1B615C7788E0021FA25 /* AAPageIndexView.m in Sources */,
+				D9F5B1B615C7788E0021FA25 /* AAPageControl.m in Sources */,
 				D932782C15C9DE6800A7AC47 /* AACoreDataController.m in Sources */,
 				D932782F15C9E08F00A7AC47 /* ScoreCoreDataController.m in Sources */,
 				D932783815C9E31C00A7AC47 /* MarkedObject.m in Sources */,
@@ -323,6 +431,20 @@
 				D932784215C9E3D400A7AC47 /* AACoreDataViewController.m in Sources */,
 				D932784315C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m in Sources */,
 				D932784415C9E3D400A7AC47 /* AAFetchedResultsViewController.m in Sources */,
+				D977B55215CA0EC00057C95F /* ScoreDocumentViewController.m in Sources */,
+				D973AD4B15CA1397009C0AC4 /* BookmarkTableViewController.m in Sources */,
+				D9AEA0C315CD4A3D00899651 /* AAEditableTableView.m in Sources */,
+				D90A4A6515CDD8FA00C10556 /* AAEditableTableViewCell.m in Sources */,
+				D9A9559D15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m in Sources */,
+				D9A5AC5115D16BDF008428B7 /* Bookmark.m in Sources */,
+				D9A5AC5515D16BDF008428B7 /* FramedObject.m in Sources */,
+				D9A5AC5815D16F91008428B7 /* AAOutlinedNavigationController.m in Sources */,
+				D96CAC3A15D1EC8C0055B315 /* AAOperationQueue.m in Sources */,
+				D9366DF815D5CAF00043EAA1 /* NSIndexSet+AAAdditions.m in Sources */,
+				D9DADF5715E98066005CE564 /* AATilingScrollView.m in Sources */,
+				D9DADF5B15E980B9005CE564 /* AATiledContentView.m in Sources */,
+				D9DADF5F15E981AC005CE564 /* Note.m in Sources */,
+				D9DADF6215E981D7005CE564 /* AAScorePDFNoteView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

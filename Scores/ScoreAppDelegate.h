@@ -10,7 +10,7 @@
 #import "ScoreCoreDataController.h"
 
 
-@class ScoreCollectionViewController;
+@class ScoreTableViewController;
 
 @interface ScoreAppDelegate : UIResponder <UIApplicationDelegate>
 {
@@ -19,6 +19,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) ScoreCollectionViewController *viewController;
+@property (strong, nonatomic) ScoreTableViewController *viewController;
 
 @end

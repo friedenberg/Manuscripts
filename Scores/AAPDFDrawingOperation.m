@@ -22,9 +22,10 @@
 - (void)main
 {
 	UIGraphicsBeginImageContextWithOptions(self.canvasSize, YES, 0);
-	
-	CGRect bounds = CGRectMake(0, 0, canvasSize.width, canvasSize.height);
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextRef context = NULL;
+    
+    CGRect bounds = CGRectMake(0, 0, canvasSize.width, canvasSize.height);
+    context = UIGraphicsGetCurrentContext();
 	
 	[[UIColor whiteColor] set];
 	CGContextFillRect(context, bounds);

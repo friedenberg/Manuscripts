@@ -13,6 +13,17 @@
 
 @dynamic pageIndex;
 @dynamic title;
+@dynamic lastModified;
 @dynamic scoreDocument;
+
+- (void)didChangeValueForKey:(NSString *)key
+{
+    [super didChangeValueForKey:key];
+    
+    if (![key isEqualToString:@"lastModified"])
+    {
+        self.lastModified = [NSDate date];
+    }
+}
 
 @end

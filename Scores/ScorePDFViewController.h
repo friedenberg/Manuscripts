@@ -11,8 +11,10 @@
 
 @class AAScorePDFView;
 
-@interface ScorePDFViewController : UIViewController
+@interface ScorePDFViewController : UIViewController <UIScrollViewDelegate>
 {
+    CGFloat currentPage;
+    
     IBOutlet AAScorePDFView *pdfView;
     NSURL *documentURL;
 }

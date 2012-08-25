@@ -63,12 +63,25 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 		
 		//cachedReuseIdentifierKeys = [NSMutableDictionary new];
 		selectedViews = [NSMutableSet new];
+        visibleViewKeys = [NSMutableSet new];
+        
+        viewsToReload = [NSMutableSet new];
 	}
 	
 	return self;
 }
 
 @synthesize delegate, editing;
+
+- (void)setDelegate:(id <AAViewRecyclerDelegate>)value
+{
+	delegate = value;
+	
+	delegateMethodFlags.didLoadView = [delegate respondsToSelector:@selector(viewRecycler:didLoadView:withKey:)];
+	delegateMethodFlags.prepareViewForRecycling = [delegate respondsToSelector:@selector(viewRecycler:prepareViewForRecycling:)];
+	delegateMethodFlags.visibleKeys = [delegate respondsToSelector:@selector(visibleKeysForViewRecycler:)];
+	delegateMethodFlags.didSelect = [delegate respondsToSelector:@selector(viewRecycler:selectViewWithKey:selected:)];
+}
 
 - (void)setEditing:(BOOL)value
 {
@@ -82,6 +95,21 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 	[self clearSelection];
 }
 
+- (void)processViews
+{
+    NSSet *newVisibleViews = [delegate visibleKeysForViewRecycler:self];
+    NSSet *oldVisibleViews = [visibleViewKeys copy];
+    
+    for (id key in oldVisibleViews)
+        [self processViewForKey:key];
+    
+    for (id key in newVisibleViews)
+        [self processViewForKey:key];
+        
+    [visibleViewKeys setSet:newVisibleViews];
+    [oldVisibleViews release];
+}
+
 - (void)processViewForKey:(id)key
 {
 	UIView *view = [self visibleViewForKey:key];
@@ -90,8 +118,19 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 	
 	if (isVisible)
 	{
-		if (!view) view = [self cachedView];
-		if (!view) view = [self.delegate unusedViewForViewRecycler:self];
+		if (!view)
+        {
+            view = [self cachedView];
+			if (delegateMethodFlags.prepareViewForRecycling)
+            	[delegate viewRecycler:self prepareViewForRecycling:view];
+        }
+        
+		if (!view)
+        {
+            view = [self.delegate unusedViewForViewRecycler:self];
+            if (delegateMethodFlags.prepareViewForRecycling)
+            	[delegate viewRecycler:self prepareViewForRecycling:view];
+        }
 		
 		if ([viewsToReload containsObject:key] || !wasVisible) [self setView:view forKey:key];
 		else view.frame = [self.delegate rectForViewWithKey:key viewRecycler:self];
@@ -118,13 +157,16 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 {
 	//if ([view conformsToProtocol:@protocol(AAViewEditing)]) view.editing = self.editing;
 	//if ([view conformsToProtocol:@protocol(AAViewSelecting)]) view.selected = [selectedViews containsObject:key];
-	[self.delegate viewRecycler:self didLoadView:view withKey:key];
-	
 	view.frame = [self.delegate rectForViewWithKey:key viewRecycler:self];
+	if (delegateMethodFlags.didLoadView)
+		[self.delegate viewRecycler:self didLoadView:view withKey:key];
 	
 	[[self.delegate superviewForViewWithKey:key viewRecycler:self] addSubview:view];
 	[visibleViews setObject:view forKey:key];
 	[cachedViews removeObject:view];
+    
+    if (!isMutating)
+        [viewsToReload removeObject:key];
 }
 
 - (void)cacheView:(UIView *)view forKey:(id)key
@@ -168,7 +210,8 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 	if (isSelected) [selectedViews removeObject:key];
 	else [selectedViews addObject:key];
 	
-	[self.delegate viewRecycler:self selectViewWithKey:key selected:!isSelected];
+	if (delegateMethodFlags.didSelect)
+		[self.delegate viewRecycler:self selectViewWithKey:key selected:!isSelected];
 }
 
 - (void)clearSelection
@@ -183,7 +226,8 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 			UIView <AAViewRecycling> *view = obj;
 			id key = [deselectedViews objectAtIndex:idx];
 			
-			[self.delegate viewRecycler:self didLoadView:view withKey:key];
+			if (delegateMethodFlags.didLoadView)
+				[self.delegate viewRecycler:self didLoadView:view withKey:key];
 		}
 	}];
 }
@@ -199,7 +243,7 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 {
 	BOOL isSelected = [selectedViews containsObject:keyForCurrentlyTouchedView];
 	
-	if ([delegate respondsToSelector:@selector(viewRecycler:selectViewWithKey:selected:)])
+	if (delegateMethodFlags.didSelect)
 		[delegate viewRecycler:self selectViewWithKey:keyForCurrentlyTouchedView selected:isSelected];
 }
 
@@ -210,13 +254,43 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 
 #pragma mark - mutation
 
-- (void)addKeyToReload:(id)key
+- (void)beginMutation
 {
-	[viewsToReload addObject:key];
+    isMutating = YES;
+    [viewsToReload removeAllObjects];
+}
+
+- (void)reloadViewWithKey:(id)key
+{
+    [viewsToReload addObject:key];
+}
+
+- (void)endMutation
+{
+    NSArray *reloadingKeys = [viewsToReload allObjects];
+    NSArray *reloadingViews = [visibleViews objectsForKeys:reloadingKeys notFoundMarker:[NSNull null]];
+    
+    [reloadingKeys enumerateObjectsUsingBlock:^(id key, NSUInteger index, BOOL *stop) {
+        
+        id view = [reloadingViews objectAtIndex:index];
+        if (view != [NSNull null]) [self setView:view forKey:key];
+    }];
+    
+    [viewsToReload removeAllObjects];
+    isMutating = NO;
+}
+
+- (void)reloadVisibleViews
+{
+    [self beginMutation];
+    [viewsToReload addObjectsFromArray:[visibleViews allKeys]];
+    [self endMutation];
 }
 
 - (void)dealloc
 {
+    [viewsToReload release];
+    [visibleViewKeys release];
 	[visibleViews release];
 	[cachedViews release];
 	[selectedViews release];
