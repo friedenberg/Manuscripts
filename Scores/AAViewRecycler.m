@@ -133,7 +133,7 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
         }
 		
 		if ([viewsToReload containsObject:key] || !wasVisible) [self setView:view forKey:key];
-		else view.frame = [self.delegate rectForViewWithKey:key viewRecycler:self];
+		else view.frame = [self.delegate rectForViewWithKey:key view:view viewRecycler:self];
 	}
 	else if (wasVisible) [self cacheView:view forKey:key];
 }
@@ -157,7 +157,7 @@ void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumeration
 {
 	//if ([view conformsToProtocol:@protocol(AAViewEditing)]) view.editing = self.editing;
 	//if ([view conformsToProtocol:@protocol(AAViewSelecting)]) view.selected = [selectedViews containsObject:key];
-	view.frame = [self.delegate rectForViewWithKey:key viewRecycler:self];
+	view.frame = [self.delegate rectForViewWithKey:key view:view viewRecycler:self];
 	if (delegateMethodFlags.didLoadView)
 		[self.delegate viewRecycler:self didLoadView:view withKey:key];
 	

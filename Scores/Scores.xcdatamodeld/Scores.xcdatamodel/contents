@@ -2,33 +2,40 @@
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1487" systemVersion="12B19" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Bookmark" representedClassName="Bookmark" parentEntity="MarkedObject" syncable="YES">
         <attribute name="indentationLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-    </entity>
-    <entity name="FramedObject" representedClassName="FramedObject" syncable="YES">
-        <attribute name="frameString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="page" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="bookmarks" inverseEntity="Page" syncable="YES"/>
     </entity>
     <entity name="MarkedObject" representedClassName="MarkedObject" syncable="YES">
         <attribute name="lastModified" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="pageIndex" attributeType="Integer 16" minValueString="0" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="scoreDocument" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ScoreDocument" inverseName="markedObjects" inverseEntity="ScoreDocument" syncable="YES"/>
     </entity>
     <entity name="Note" representedClassName="Note" parentEntity="MarkedObject" syncable="YES">
         <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="centerPointString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="page" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Page" inverseName="notes" inverseEntity="Page" syncable="YES"/>
+    </entity>
+    <entity name="Page" representedClassName="Page" syncable="YES">
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <relationship name="bookmarks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Bookmark" inverseName="page" inverseEntity="Bookmark" syncable="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Note" inverseName="page" inverseEntity="Note" syncable="YES"/>
+        <relationship name="scoreDocument" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="ScoreDocument" inverseName="pages" inverseEntity="ScoreDocument" syncable="YES"/>
     </entity>
     <entity name="ScoreDocument" representedClassName="ScoreDocument" syncable="YES">
         <attribute name="composer" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coverImage" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="dateLastOpened" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="markedObjects" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MarkedObject" inverseName="scoreDocument" inverseEntity="MarkedObject" syncable="YES"/>
+        <relationship name="pages" toMany="YES" minCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="Page" inverseName="scoreDocument" inverseEntity="Page" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Bookmark" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="FramedObject" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MarkedObject" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ScoreDocument" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Note" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Bookmark" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="MarkedObject" positionX="0" positionY="0" width="128" height="75"/>
+        <element name="Note" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="Page" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="ScoreDocument" positionX="0" positionY="0" width="128" height="150"/>
     </elements>
 </model>

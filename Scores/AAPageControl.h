@@ -15,6 +15,8 @@
 {
 	AAViewRecycler *dotRecycler;
 	
+    BOOL isScrubbing;
+    
     UIView *progressView;
 	UIView *dotContentView;
 	
@@ -22,6 +24,8 @@
     NSUInteger dotCount;
     NSMutableIndexSet *largeDotIndexes;
     NSUInteger highlightedDotIndex;
+    
+    NSInteger currentPageIndexAtStartOfScrubbing;
 	
     NSDictionary *sections;
     NSIndexSet *bookmarkedIndexes;
@@ -33,8 +37,10 @@
 @property (nonatomic, retain) NSIndexSet *bookmarkedIndexes;
 @property (nonatomic, retain) NSDictionary *sections; //@{@[sectionStartIndex] : @"sectionTitle"}
 
+@property (nonatomic, readonly) BOOL isScrubbing;
+
 - (CGPoint)centerForDotAtIndex:(NSUInteger)dotIndex;
 
-- (NSUInteger)pageIndexForPoint:(CGPoint)point affinityForBookmarks:(BOOL)prefersBookmarks;
+- (NSUInteger)pageIndexForPoint:(CGPoint)point prefersBookmarks:(BOOL)prefersBookmarks;
 
 @end

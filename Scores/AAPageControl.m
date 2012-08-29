@@ -14,6 +14,8 @@
 
 @interface AAPageControl () <AAViewRecyclerDelegate>
 
+@property (nonatomic, readwrite, setter = scrubbing:) BOOL isScrubbing;
+
 - (NSUInteger)convertPageIndexToDotIndex:(NSUInteger)pageIndex;
 - (NSUInteger)convertDotIndexToPageIndex:(NSUInteger)dotIndex;
 
@@ -79,6 +81,8 @@ static UIImage *dotImageHighlighted;
 {
     if (self = [super initWithFrame:frame])
 	{
+        currentPageIndexAtStartOfScrubbing = -1;
+        
         self.backgroundColor = [UIColor clearColor];
         backgroundView = [[UIImageView alloc] initWithImage:backgroundImage];
         backgroundView.hidden = YES;
@@ -86,7 +90,7 @@ static UIImage *dotImageHighlighted;
 		
 		dotContentView = [[UIView alloc] initWithFrame:CGRectZero];
 		dotContentView.userInteractionEnabled = NO;
-		
+        
         [self addSubview:backgroundView];
         [self addSubview:dotContentView];
         
@@ -96,8 +100,6 @@ static UIImage *dotImageHighlighted;
         [self addSubview:progressView];
 		
         largeDotIndexes = [NSMutableIndexSet new];
-        
-        self.contentMode = UIViewContentModeRedraw;
 		
 		dotRecycler = [[AAViewRecycler alloc] initWithDelegate:self];
     }
@@ -114,6 +116,23 @@ static UIImage *dotImageHighlighted;
     {
         [dotRecycler reloadVisibleViews];
     }
+}
+
+@synthesize isScrubbing;
+
+- (void)setScrubbing:(BOOL)value
+{
+    if (isScrubbing != value && value)
+    {
+        currentPageIndexAtStartOfScrubbing = currentPage;
+    }
+    else if (!value)
+    {
+        currentPageIndexAtStartOfScrubbing = -1;
+    }
+    
+    isScrubbing = value;
+    backgroundView.hidden = !value;
 }
 
 @synthesize pageCount, currentPage, bookmarkedIndexes, sections;
@@ -146,7 +165,7 @@ static UIImage *dotImageHighlighted;
 	return YES;
 }
 
-- (CGRect)rectForViewWithKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler
+- (CGRect)rectForViewWithKey:(id)key view:(UIView *)view viewRecycler:(AAViewRecycler *)someViewRecycler
 {
 	NSUInteger dotIndex = [key unsignedIntegerValue];
 	CGPoint center = [dotContentView convertPoint:[self centerForDotAtIndex:dotIndex] fromView:self];
@@ -225,6 +244,7 @@ static UIImage *dotImageHighlighted;
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
+    self.scrubbing = YES;
 	backgroundView.hidden = NO;
     [self setPageIndexFromTrackingPoint:[touch locationInView:self]];
     return YES;
@@ -238,22 +258,24 @@ static UIImage *dotImageHighlighted;
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-	backgroundView.hidden = YES;
+	self.scrubbing = NO;
     [self setPageIndexFromTrackingPoint:[touch locationInView:self]];
 }
 
 - (void)cancelTrackingWithEvent:(UIEvent *)event
 {
-    backgroundView.hidden = YES;
+    self.currentPage = currentPageIndexAtStartOfScrubbing;
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
+    self.scrubbing = NO;
 }
 
 - (void)setPageIndexFromTrackingPoint:(CGPoint)point
 {
-    self.currentPage = [self pageIndexForPoint:point affinityForBookmarks:YES];
+    self.currentPage = [self pageIndexForPoint:point prefersBookmarks:YES];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
-- (NSUInteger)pageIndexForPoint:(CGPoint)point affinityForBookmarks:(BOOL)prefersBookmarks
+- (NSUInteger)pageIndexForPoint:(CGPoint)point prefersBookmarks:(BOOL)prefersBookmarks
 {
     point.x = MAX(CGRectGetMinX(dotContentRect), point.x);
     point.x = MIN(CGRectGetMaxX(dotContentRect), point.x);
@@ -283,7 +305,6 @@ static UIImage *dotImageHighlighted;
 	
 	NSUInteger index = (NSUInteger)round(convertedXOrigin / dotContentRect.size.width * (CGFloat)pageCount);
     
-    if (index == pageCount) index--;
     return index;
 }
 

@@ -12,9 +12,7 @@
 
 @interface MarkedObject : NSManagedObject
 
-@property (nonatomic) int16_t pageIndex;
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSDate *lastModified;
-@property (nonatomic, retain) NSManagedObject *scoreDocument;
 
 @end

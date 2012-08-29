@@ -12,6 +12,7 @@
 #import "AAEditableTableView.h"
 
 #import "ScoreDocument.h"
+#import "Page.h"
 #import "Bookmark.h"
 
 
@@ -104,7 +105,7 @@
 	Bookmark *bookmark = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	
     cell.textField.text = bookmark.title;
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", bookmark.pageIndex + 1];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", bookmark.page.index + 1];
 	cell.indentationLevel =  bookmark.indentationLevel;
     
     return cell;
@@ -148,15 +149,14 @@
 	[self performBlock:^{
 		
 		Bookmark *bookmark = [NSEntityDescription insertNewObjectForEntityForName:@"Bookmark" inManagedObjectContext:managedObjectContext];
-		bookmark.pageIndex = currentIndex;
-		bookmark.scoreDocument = document;
+		bookmark.page = [document.pages objectAtIndex:currentIndex];
 		bookmark.title = [NSString stringWithFormat:@"Page %i", currentIndex + 1];
 		
 		[self saveContext];
 		
 		[self setEditing:YES animated:YES];
 		
-		double delayInSeconds = 0.0;
+		double delayInSeconds = 0.35;
 		dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
 		dispatch_after(popTime, dispatch_get_main_queue(), ^{
 			

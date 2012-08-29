@@ -9,7 +9,9 @@
 #import "ScoreDocumentViewController.h"
 
 #import "ScoreDocument.h"
+#import "Page.h"
 #import "Bookmark.h"
+#import "Note.h"
 
 #import "BookmarkTableViewController.h"
 
@@ -46,15 +48,20 @@
     [tableOfContentsItem release];
     
     [self calculatePageIndexBookmarks];
+    
+    pdfView.noteDataSource = self;
 }
 
 - (void)calculatePageIndexBookmarks
 {
     NSMutableIndexSet *bookmarkedIndexes = [NSMutableIndexSet new];
     
-    for (NSNumber *pageIndexNumber in [document.markedObjects valueForKey:@"pageIndex"])
+    for (Page *page in document.pages)
     {
-        [bookmarkedIndexes addIndex:[pageIndexNumber unsignedIntegerValue]];
+        if (page.bookmarks.count)
+        {
+            [bookmarkedIndexes addIndex:page.index];
+        }
     }
     
     pdfView.pageControl.bookmarkedIndexes = [[bookmarkedIndexes copy] autorelease];
@@ -118,12 +125,50 @@
 
 - (void)bookmarkTableViewController:(BookmarkTableViewController *)someController didSelectBookmark:(Bookmark *)someBookmark
 {
-    [pdfView setPageIndex:someBookmark.pageIndex animated:YES];
+    [pdfView setPageIndex:someBookmark.page.index animated:YES];
 }
 
 - (void)bookmarkTableViewControllerDidChangeBookmarks:(BookmarkTableViewController *)someController
 {
     [self calculatePageIndexBookmarks];
+}
+
+#pragma mark - note data source
+
+- (NSUInteger)numberOfNotesAtPageIndex:(NSUInteger)pageIndex scorePDFView:(AAScorePDFView *)someScorePDFView
+{
+    return [[[document.pages objectAtIndex:pageIndex] notes] count];
+}
+
+- (NSString *)bodyForNoteAtIndexPath:(NSIndexPath *)noteIndexPath scorePDFView:(AAScorePDFView *)someScorePDFView
+{
+    return [[[[document.pages objectAtIndex:noteIndexPath.section] notes] objectAtIndex:noteIndexPath.row] body];
+}
+
+- (CGPoint)centerPointForNoteAtIndexPath:(NSIndexPath *)noteIndexPath scorePDFView:(AAScorePDFView *)someScorePDFView
+{
+    return [[[[document.pages objectAtIndex:noteIndexPath.section] notes] objectAtIndex:noteIndexPath.row] centerPoint];
+}
+
+- (void)setCenterPoint:(CGPoint)noteCenterPoint indexPath:(NSIndexPath *)noteIndexPath scorePDFView:(AAScorePDFView *)someScorePDFView
+{
+    [[[[document.pages objectAtIndex:noteIndexPath.section] notes] objectAtIndex:noteIndexPath.row] setCenterPoint:noteCenterPoint];
+}
+
+- (void)scorePDFView:(AAScorePDFView *)someScorePDFView didMoveNoteWithIndexPathToFront:(NSIndexPath *)indexPath
+{
+    
+}
+
+- (NSIndexPath *)addNoteWithCenterPoint:(CGPoint)newNoteCenter pageIndex:(NSUInteger)pageIndex scorePDFView:(AAScorePDFView *)someScorePDFView
+{
+    Note *newNote = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:document.managedObjectContext];
+    newNote.centerPoint = newNoteCenter;
+    Page *page = [document.pages objectAtIndex:pageIndex];
+    newNote.page = page;
+    //[page addNotesObject:newNote];
+    
+    return [NSIndexPath indexPathForRow:page.notes.count - 1 inSection:pageIndex];
 }
 
 - (void)dealloc

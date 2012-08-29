@@ -17,9 +17,10 @@
 #import "AAPageControl.h"
 
 
-@interface AAScorePDFView ()
+@interface AAScorePDFView () <UIGestureRecognizerDelegate>
 
 - (void)tap:(UITapGestureRecognizer *)sender;
+- (void)press:(UILongPressGestureRecognizer *)sender;
 - (void)pageChanged:(id)sender;
 
 @end
@@ -31,8 +32,8 @@
     if (self = [super initWithCoder:aDecoder])
     {
 		self.showsHorizontalScrollIndicator = NO;
-		self.canCancelContentTouches = NO;
-        self.delaysContentTouches = NO;
+		//self.canCancelContentTouches = NO;
+        //self.delaysContentTouches = NO;
 		
         self.pagingEnabled = YES;
         noteRecycler = [[AAViewRecycler alloc] initWithDelegate:self];
@@ -51,16 +52,24 @@
         [pageControl addTarget:self action:@selector(pageChanged:) forControlEvents:UIControlEventValueChanged];
         
         [self addSubview:pdfPageContentView];
-        [self addSubview:pageControl];
         [self addSubview:noteContentView];
+        [self addSubview:pageControl];
 		
         visibleViewKeys = [NSMutableSet new];
         
-		UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-		tapGesture.numberOfTapsRequired = 1;
-		tapGesture.numberOfTouchesRequired = 1;
-		[self addGestureRecognizer:tapGesture];
-		[tapGesture release];
+		tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        pressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(press:)];
+        pressRecognizer.delegate = self;
+        
+        [pressRecognizer requireGestureRecognizerToFail:tapRecognizer];
+        
+        for (UIGestureRecognizer *recognizer in self.gestureRecognizers)
+        {
+            [recognizer requireGestureRecognizerToFail:pressRecognizer];
+        }
+        
+        [self addGestureRecognizer:tapRecognizer];
+        [noteContentView addGestureRecognizer:pressRecognizer];
     }
     
     return self;
@@ -84,7 +93,9 @@
     super.frame = value;
 }
 
-@synthesize pdfDocument, pageControl;
+#pragma mark - properties
+
+@synthesize pdfDocument, noteDataSource, pageControl;
 
 - (void)setPdfDocument:(CGPDFDocumentRef)value
 {
@@ -97,6 +108,69 @@
     
     [self setNeedsLayout];
 }
+
+- (void)setNoteDataSource:(id<AAScorePDFViewNoteDataSource>)value
+{
+    noteDataSource = value;
+    [self setNeedsLayout];
+}
+
+#pragma mark - geometry
+
+- (BOOL)visibilityForKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler
+{
+    if (someViewRecycler == pageRecycler)
+    {
+        NSNumber *number = key;
+        NSUInteger index = [number unsignedIntegerValue];
+        
+        BOOL visibility = NSLocationInRange(index, visibleIndexes);
+        return visibility;
+    }
+    else if (someViewRecycler == noteRecycler)
+    {
+        NSIndexPath *indexPath = key;
+        return NSLocationInRange(indexPath.section, visibleIndexes);
+    }
+    else return NO;
+}
+
+- (CGRect)rectForViewWithKey:(id)key view:(UIView *)view viewRecycler:(AAViewRecycler *)someViewRecycler
+{
+    CGRect rect = CGRectZero;
+    
+    if (someViewRecycler == pageRecycler)
+    {
+        NSNumber *number = key;
+        NSUInteger index = [number unsignedIntegerValue];
+        
+        rect = self.bounds;
+        
+        rect.size.width = pageWidth;
+        rect.origin.x = pagePadding;
+        rect.origin.x += index * (pageWidth + (pagePadding * 2));
+    }
+    else if (someViewRecycler == noteRecycler)
+    {
+        CGSize size = [view sizeThatFits:view.frame.size];
+        size.width = MAX(size.width, 100);
+        size.height = MAX(size.height, 100);
+        
+        CGPoint centerPoint = [self.noteDataSource centerPointForNoteAtIndexPath:key scorePDFView:self];
+        
+        rect.size = size;
+        rect.origin = CGPointMake(floor(centerPoint.x - size.width / 2), floor(centerPoint.y - size.height / 2));
+    }
+    
+    return rect;
+}
+
+- (NSUInteger)pageIndexForPoint:(CGPoint)point
+{
+    return floor(point.x / pageWidth);
+}
+
+#pragma mark - view recycling
 
 - (UIView *)unusedViewForViewRecycler:(AAViewRecycler *)someViewRecycler
 {
@@ -116,46 +190,6 @@
     }
     
     return view;
-}
-
-- (BOOL)visibilityForKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler
-{
-    if (someViewRecycler == pageRecycler)
-    {
-        NSNumber *number = key;
-        NSUInteger index = [number unsignedIntegerValue];
-        
-        BOOL visibility = NSLocationInRange(index, visibleIndexes);
-        return visibility;
-    }
-    else if (someViewRecycler == noteRecycler)
-    {
-        return NO;
-    }
-    else return NO;
-}
-
-- (CGRect)rectForViewWithKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler
-{
-    CGRect rect = CGRectZero;
-    
-    if (someViewRecycler == pageRecycler)
-    {
-        NSNumber *number = key;
-        NSUInteger index = [number unsignedIntegerValue];
-        
-        rect = self.bounds;
-        
-        rect.size.width = pageWidth;
-        rect.origin.x = pagePadding;
-        rect.origin.x += index * (pageWidth + (pagePadding * 2));
-    }
-    else if (someViewRecycler == noteRecycler)
-    {
-        
-    }
-    
-    return rect;
 }
 
 - (UIView *)superviewForViewWithKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler
@@ -230,9 +264,9 @@
 		isRotating = NO;
 	}
 	
-    NSUIntegerEnumerationBlock processPageAtIndexBlock = ^(NSUInteger index) {
+    NSUIntegerEnumerationBlock processPageAtIndexBlock = ^(NSUInteger pageIndex) {
         
-        NSNumber *number = [NSNumber numberWithUnsignedInteger:index];
+        NSNumber *number = [NSNumber numberWithUnsignedInteger:pageIndex];
         [pageRecycler processViewForKey:number];
     };
     
@@ -251,22 +285,48 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 
 - (void)viewRecycler:(AAViewRecycler *)someViewReuseController didLoadView:(UIView *)view withKey:(id)key
 {
-    NSNumber *index = key;
-	CGPDFPageRef pdfPage = CGPDFDocumentGetPage(pdfDocument, [index unsignedIntegerValue] + 1);
-    
-	AAPDFDrawingOperation *drawingOperation = [AAPDFDrawingOperation new];
-	drawingOperation.canvasSize = [self rectForViewWithKey:key viewRecycler:pageRecycler].size;
-	drawingOperation.pdfPage = pdfPage;
-	drawingOperation.viewRecyclingKey = key;
-	[drawingOperation addObserver:self forKeyPath:@"isFinished" options:0 context:kPDFDrawingOperationObservingContext];
-	[drawingQueue addOperation:drawingOperation];
-	[drawingOperation release];
+    if (someViewReuseController == pageRecycler)
+    {
+        NSNumber *index = key;
+        NSUInteger pageIndex = [index unsignedIntegerValue];
+        CGPDFPageRef pdfPage = CGPDFDocumentGetPage(pdfDocument, [index unsignedIntegerValue] + 1);
+        
+        AAPDFDrawingOperation *drawingOperation = [AAPDFDrawingOperation new];
+        drawingOperation.canvasSize = [self rectForViewWithKey:key view:view viewRecycler:pageRecycler].size;
+        drawingOperation.pdfPage = pdfPage;
+        drawingOperation.viewRecyclingKey = key;
+        [drawingOperation addObserver:self forKeyPath:@"isFinished" options:0 context:kPDFDrawingOperationObservingContext];
+        [drawingQueue addOperation:drawingOperation];
+        [drawingOperation release];
+        
+        NSUInteger numberOfNotesOnThisPage = [self.noteDataSource numberOfNotesAtPageIndex:pageIndex scorePDFView:self];
+        
+        NSUIntegerEnumerate(numberOfNotesOnThisPage, ^(NSUInteger noteIndex) {
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:noteIndex inSection:pageIndex];
+            [noteRecycler processViewForKey:indexPath];
+        });
+    }
+    else
+    {
+        NSIndexPath *indexPath = key;
+        AAScorePDFNoteView *noteView = view;
+        
+        noteView.textLabel.text = [self.noteDataSource bodyForNoteAtIndexPath:indexPath scorePDFView:self];
+    }
 }
 
 - (void)viewRecycler:(AAViewRecycler *)someViewReuseController prepareViewForRecycling:(UIView *)view
 {
-    UIImageView *pageView = (UIImageView *)view;
-    pageView.image = nil;
+    if (someViewReuseController == pageRecycler)
+    {
+        UIImageView *pageView = (UIImageView *)view;
+        pageView.image = nil;
+    }
+    else if (someViewReuseController == noteRecycler)
+    {
+        
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -300,14 +360,6 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
     [super scrollRectToVisible:rect animated:animated];
 }
 
-- (BOOL)touchesShouldBegin:(NSSet *)touches withEvent:(UIEvent *)event inContentView:(UIView *)view
-{
-    if (view == pageControl)
-        return YES;
-    
-    return NO;
-}
-
 - (NSUInteger)pageIndex
 {
     return indexOfCurrentPage;
@@ -320,13 +372,24 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 
 - (void)setPageIndex:(NSUInteger)pageIndex animated:(BOOL)shouldAnimate
 {
-    CGRect pageRect = [self rectForViewWithKey:@(pageIndex) viewRecycler:pageRecycler];
+    NSNumber *key = @(pageIndex);
+    CGRect pageRect = [self rectForViewWithKey:key view:[pageRecycler visibleViewForKey:key] viewRecycler:pageRecycler];
     [self scrollRectToVisible:pageRect animated:shouldAnimate];
 }
 
 - (void)pageChanged:(id)sender
 {
     self.pageIndex = pageControl.currentPage;
+}
+
+#pragma mark - user interaction
+
+- (BOOL)touchesShouldBegin:(NSSet *)touches withEvent:(UIEvent *)event inContentView:(UIView *)view
+{
+    if (view == pageControl)
+        return YES;
+    
+    return NO;
 }
 
 - (void)tap:(UITapGestureRecognizer *)sender
@@ -339,6 +402,69 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
     
 	if (xOrigin <= width / 3) [self setPageIndex:indexOfCurrentPage - 1 animated:YES];
 	else if (xOrigin >= width * 2 / 3) [self setPageIndex:indexOfCurrentPage + 1 animated:YES];
+}
+
+- (void)press:(UILongPressGestureRecognizer *)sender
+{
+    CGPoint touchLocation = [sender locationInView:noteContentView];
+    NSUInteger thisPage = [self pageIndexForPoint:touchLocation];
+    
+    switch (sender.state)
+    {
+        case UIGestureRecognizerStateBegan:
+        {
+            NSUInteger numberOfNotesOnThisPage = [self.noteDataSource numberOfNotesAtPageIndex:thisPage scorePDFView:self];
+            
+            NSUIntegerEnumerate(numberOfNotesOnThisPage, ^(NSUInteger index) {
+                
+                index = numberOfNotesOnThisPage - index - 1;
+                NSIndexPath *noteKey = [NSIndexPath indexPathForRow:index inSection:thisPage];
+                
+                CGRect frame = [[noteRecycler visibleViewForKey:noteKey] frame];
+                
+                if (CGRectContainsPoint(frame, touchLocation) && !noteRecycler.keyForCurrentlyTouchedView)
+                {
+                    noteRecycler.keyForCurrentlyTouchedView = noteKey;
+                }
+                
+            });
+            
+            if (noteRecycler.keyForCurrentlyTouchedView)
+            {
+                [noteRecycler.currentlyTouchedView startDragAsExistingView];
+            }
+            else
+            {
+                noteRecycler.keyForCurrentlyTouchedView = [self.noteDataSource addNoteWithCenterPoint:touchLocation pageIndex:indexOfCurrentPage scorePDFView:self];
+                [noteRecycler processViewForKey:noteRecycler.keyForCurrentlyTouchedView];
+                [noteRecycler.currentlyTouchedView startDragAsNewView];
+            }
+            
+            [noteContentView bringSubviewToFront:noteRecycler.currentlyTouchedView];
+        }
+            break;
+            
+        case UIGestureRecognizerStateChanged:
+        {
+            AAScorePDFNoteView *noteView = noteRecycler.currentlyTouchedView;
+            noteView.center = touchLocation;
+        }
+            break;
+        
+        case UIGestureRecognizerStateEnded:
+        {
+            AAScorePDFNoteView *noteView = noteRecycler.currentlyTouchedView;
+            [noteView endDrag];
+            
+            [self.noteDataSource scorePDFView:self didMoveNoteWithIndexPathToFront:noteRecycler.keyForCurrentlyTouchedView];
+            [self.noteDataSource setCenterPoint:touchLocation indexPath:noteRecycler.keyForCurrentlyTouchedView scorePDFView:self];
+            noteRecycler.keyForCurrentlyTouchedView = nil;
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (void)beginRotation
@@ -354,6 +480,9 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 
 - (void)dealloc
 {
+    [tapRecognizer release];
+    [pressRecognizer release];
+    
     [noteRecycler release];
     [noteContentView release];
     [visibleViewKeys release];

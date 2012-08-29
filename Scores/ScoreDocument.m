@@ -2,21 +2,22 @@
 //  ScoreDocument.m
 //  Scores
 //
-//  Created by Sasha Friedenberg on 8/1/12.
+//  Created by Sasha Friedenberg on 8/28/12.
 //  Copyright (c) 2012 Apple, Stamford. All rights reserved.
 //
 
 #import "ScoreDocument.h"
-#import "MarkedObject.h"
+#import "Page.h"
 
 
 @implementation ScoreDocument
 
+@dynamic composer;
+@dynamic dateLastOpened;
 @dynamic path;
 @dynamic title;
-@dynamic dateLastOpened;
 @dynamic year;
-@dynamic composer;
-@dynamic markedObjects;
+@dynamic coverImage;
+@dynamic pages;
 
 @end

@@ -20,7 +20,7 @@
 
 - (UIView *)unusedViewForViewRecycler:(AAViewRecycler *)someViewRecycler; //adding a new view to this recycler's pool
 - (BOOL)visibilityForKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler; //checking to see if this view should be visible or cached
-- (CGRect)rectForViewWithKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler;
+- (CGRect)rectForViewWithKey:(id)key view:(UIView *)view viewRecycler:(AAViewRecycler *)someViewRecycler;
 - (UIView *)superviewForViewWithKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler;
 
 @optional

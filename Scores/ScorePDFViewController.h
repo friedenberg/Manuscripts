@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AAScorePDFView.h"
 
-
-@class AAScorePDFView;
 
 @interface ScorePDFViewController : UIViewController <UIScrollViewDelegate>
 {

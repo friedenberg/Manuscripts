@@ -11,10 +11,8 @@
 
 @implementation MarkedObject
 
-@dynamic pageIndex;
 @dynamic title;
 @dynamic lastModified;
-@dynamic scoreDocument;
 
 - (void)didChangeValueForKey:(NSString *)key
 {

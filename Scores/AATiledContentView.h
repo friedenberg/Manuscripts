@@ -15,4 +15,9 @@
 
 @property (nonatomic) CGRect visibleRect;
 
+- (UIView *)newTile;
+- (BOOL)visibilityForTileWithKey:(id)key;
+- (CGRect)rectForTileWithKey:(id)key;
+- (void)didLoadTileWithKey:(id)key;
+
 @end

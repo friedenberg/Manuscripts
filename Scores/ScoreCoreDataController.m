@@ -8,7 +8,9 @@
 
 #import "ScoreCoreDataController.h"
 
+#import "AAViewRecycler.h"
 #import "ScoreDocument.h"
+#import "Page.h"
 
 
 @implementation ScoreCoreDataController
@@ -30,6 +32,18 @@
     ScoreDocument *newDocument = [NSEntityDescription insertNewObjectForEntityForName:@"ScoreDocument" inManagedObjectContext:managedObjectContext];
     newDocument.path = filePath;
     newDocument.title = [[oldURL lastPathComponent] stringByDeletingPathExtension];
+    
+    CGPDFDocumentRef doc = CGPDFDocumentCreateWithURL((CFURLRef)[NSURL fileURLWithPath:filePath]);
+    
+    NSUIntegerEnumerate(CGPDFDocumentGetNumberOfPages(doc), ^(NSUInteger index) {
+        
+        Page *page = [NSEntityDescription insertNewObjectForEntityForName:@"Page" inManagedObjectContext:managedObjectContext];
+        page.index = index;
+        page.scoreDocument = newDocument;
+        //[newDocument addPagesObject:page];
+    });
+    
+    CGPDFDocumentRelease(doc);
     
     [self saveContext];
 }
