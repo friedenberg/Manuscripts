@@ -441,6 +441,7 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
             }
             
             [noteContentView bringSubviewToFront:noteRecycler.currentlyTouchedView];
+            [noteRecycler.currentlyTouchedView setCenter:touchLocation];
         }
             break;
             

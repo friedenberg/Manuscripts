@@ -42,8 +42,8 @@
 - (void)modifyFetchRequest
 {
 	[self.fetchRequest setEntity:[NSEntityDescription entityForName:@"Bookmark" inManagedObjectContext:managedObjectContext]];
-	fetchRequest.predicate = [NSPredicate predicateWithFormat:@"scoreDocument == %@", document];
-	fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"pageIndex" ascending:YES],
+	fetchRequest.predicate = [NSPredicate predicateWithFormat:@"page.scoreDocument == %@", document];
+	fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"page.index" ascending:YES],
 									 [NSSortDescriptor sortDescriptorWithKey:@"indentationLevel" ascending:YES]];
 }
 
