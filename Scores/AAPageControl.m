@@ -228,7 +228,7 @@ static UIImage *dotImageHighlighted;
     progressView.frame = progressRect;
 }
 
-- (void)viewRecycler:(AAViewRecycler *)someViewReuseController didLoadView:(UIView *)view withKey:(id)key
+- (void)viewRecycler:(AAViewRecycler *)someViewReuseController didLoadView:(UIImageView *)view withKey:(id)key
 {
     UIImageView *dotView = view;
     dotView.highlighted = [key unsignedIntegerValue] == highlightedDotIndex;

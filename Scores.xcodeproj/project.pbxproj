@@ -39,7 +39,7 @@
 		D9A0A52415C47C69008EEFAF /* ScorePDFViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9A0A52215C47C69008EEFAF /* ScorePDFViewController.xib */; };
 		D9A4EF0515D2FC5B009F6866 /* barButtonItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A4EF0315D2FC5B009F6866 /* barButtonItem.png */; };
 		D9A4EF0615D2FC5B009F6866 /* backBarButtonItem.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A4EF0415D2FC5B009F6866 /* backBarButtonItem.png */; };
-		D9A5010415C6C3CC005B789E /* AAPDFDrawingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A5010315C6C3CB005B789E /* AAPDFDrawingOperation.m */; };
+		D9A5010415C6C3CC005B789E /* AAPDFPageDrawingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A5010315C6C3CB005B789E /* AAPDFPageDrawingOperation.m */; };
 		D9A5AC5815D16F91008428B7 /* AAOutlinedNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A5AC5715D16F91008428B7 /* AAOutlinedNavigationController.m */; };
 		D9A9559D15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A9559C15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m */; };
 		D9AEA0C315CD4A3D00899651 /* AAEditableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA0C215CD4A3D00899651 /* AAEditableTableView.m */; };
@@ -49,6 +49,8 @@
 		D9DADF5715E98066005CE564 /* AATilingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DADF5615E98066005CE564 /* AATilingScrollView.m */; };
 		D9DADF5B15E980B9005CE564 /* AATiledContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DADF5A15E980B9005CE564 /* AATiledContentView.m */; };
 		D9DADF6215E981D7005CE564 /* AAScorePDFNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DADF6115E981D7005CE564 /* AAScorePDFNoteView.m */; };
+		D9DCCD0415F2B8D8003459ED /* AAPDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DCCD0315F2B8D8003459ED /* AAPDFView.m */; };
+		D9DCCD0915F2B8F8003459ED /* AAPDFContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DCCD0815F2B8F8003459ED /* AAPDFContentView.m */; };
 		D9F090FF15BCE0AF0088652B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9F090FE15BCE0AF0088652B /* QuartzCore.framework */; };
 		D9F0910315BCE1DE0088652B /* AAMetadataQueryController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F0910215BCE1DE0088652B /* AAMetadataQueryController.m */; };
 		D9F5B1B615C7788E0021FA25 /* AAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5B1B515C7788E0021FA25 /* AAPageControl.m */; };
@@ -112,8 +114,8 @@
 		D9A0A52215C47C69008EEFAF /* ScorePDFViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScorePDFViewController.xib; sourceTree = "<group>"; };
 		D9A4EF0315D2FC5B009F6866 /* barButtonItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barButtonItem.png; sourceTree = "<group>"; };
 		D9A4EF0415D2FC5B009F6866 /* backBarButtonItem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backBarButtonItem.png; sourceTree = "<group>"; };
-		D9A5010215C6C3CB005B789E /* AAPDFDrawingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFDrawingOperation.h; sourceTree = "<group>"; };
-		D9A5010315C6C3CB005B789E /* AAPDFDrawingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFDrawingOperation.m; sourceTree = "<group>"; };
+		D9A5010215C6C3CB005B789E /* AAPDFPageDrawingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFPageDrawingOperation.h; sourceTree = "<group>"; };
+		D9A5010315C6C3CB005B789E /* AAPDFPageDrawingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFPageDrawingOperation.m; sourceTree = "<group>"; };
 		D9A5AC5615D16F91008428B7 /* AAOutlinedNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAOutlinedNavigationController.h; sourceTree = "<group>"; };
 		D9A5AC5715D16F91008428B7 /* AAOutlinedNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAOutlinedNavigationController.m; sourceTree = "<group>"; };
 		D9A9559B15CEBBC700732802 /* UIView+UIViewAnimationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIViewAnimationAdditions.h"; sourceTree = "<group>"; };
@@ -133,6 +135,10 @@
 		D9DADF5A15E980B9005CE564 /* AATiledContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AATiledContentView.m; sourceTree = "<group>"; };
 		D9DADF6015E981D7005CE564 /* AAScorePDFNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAScorePDFNoteView.h; sourceTree = "<group>"; };
 		D9DADF6115E981D7005CE564 /* AAScorePDFNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFNoteView.m; sourceTree = "<group>"; };
+		D9DCCD0215F2B8D8003459ED /* AAPDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFView.h; sourceTree = "<group>"; };
+		D9DCCD0315F2B8D8003459ED /* AAPDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFView.m; sourceTree = "<group>"; };
+		D9DCCD0715F2B8F8003459ED /* AAPDFContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFContentView.h; sourceTree = "<group>"; };
+		D9DCCD0815F2B8F8003459ED /* AAPDFContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFContentView.m; sourceTree = "<group>"; };
 		D9F090FE15BCE0AF0088652B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D9F0910115BCE1DE0088652B /* AAMetadataQueryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAMetadataQueryController.h; sourceTree = "<group>"; };
 		D9F0910215BCE1DE0088652B /* AAMetadataQueryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAMetadataQueryController.m; sourceTree = "<group>"; };
@@ -166,8 +172,8 @@
 				D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */,
 				D9DADF6015E981D7005CE564 /* AAScorePDFNoteView.h */,
 				D9DADF6115E981D7005CE564 /* AAScorePDFNoteView.m */,
-				D9A5010215C6C3CB005B789E /* AAPDFDrawingOperation.h */,
-				D9A5010315C6C3CB005B789E /* AAPDFDrawingOperation.m */,
+				D9A5010215C6C3CB005B789E /* AAPDFPageDrawingOperation.h */,
+				D9A5010315C6C3CB005B789E /* AAPDFPageDrawingOperation.m */,
 				D9F5B1B415C7788E0021FA25 /* AAPageControl.h */,
 				D9F5B1B515C7788E0021FA25 /* AAPageControl.m */,
 				D9366DF615D5CAF00043EAA1 /* NSIndexSet+AAAdditions.h */,
@@ -255,6 +261,7 @@
 			children = (
 				D9DADF5C15E98126005CE564 /* Tiled Scrolling */,
 				D9AEA0C515CD4A5A00899651 /* AAEditableTableView */,
+				D9DCCD0615F2B8E1003459ED /* AAPDFView */,
 				D93EE90615BF27520003AA3F /* AAScorePDFView */,
 				D9A9559B15CEBBC700732802 /* UIView+UIViewAnimationAdditions.h */,
 				D9A9559C15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m */,
@@ -343,6 +350,17 @@
 			name = "Tiled Scrolling";
 			sourceTree = "<group>";
 		};
+		D9DCCD0615F2B8E1003459ED /* AAPDFView */ = {
+			isa = PBXGroup;
+			children = (
+				D9DCCD0215F2B8D8003459ED /* AAPDFView.h */,
+				D9DCCD0315F2B8D8003459ED /* AAPDFView.m */,
+				D9DCCD0715F2B8F8003459ED /* AAPDFContentView.h */,
+				D9DCCD0815F2B8F8003459ED /* AAPDFContentView.m */,
+			);
+			name = AAPDFView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -422,7 +440,7 @@
 				D9B78CB615BF223E00F0446F /* AAViewRecycler.m in Sources */,
 				D93EE90915BF27770003AA3F /* AAScorePDFPageView.m in Sources */,
 				D9A0A52315C47C69008EEFAF /* ScorePDFViewController.m in Sources */,
-				D9A5010415C6C3CC005B789E /* AAPDFDrawingOperation.m in Sources */,
+				D9A5010415C6C3CC005B789E /* AAPDFPageDrawingOperation.m in Sources */,
 				D9F5B1B615C7788E0021FA25 /* AAPageControl.m in Sources */,
 				D932782C15C9DE6800A7AC47 /* AACoreDataController.m in Sources */,
 				D932782F15C9E08F00A7AC47 /* ScoreCoreDataController.m in Sources */,
@@ -445,6 +463,8 @@
 				D99AA39F15EDB74F00C4BA5A /* Note.m in Sources */,
 				D99AA3A215EDB77C00C4BA5A /* Page.m in Sources */,
 				D99AA3A515EDBD5A00C4BA5A /* ScoreDocument.m in Sources */,
+				D9DCCD0415F2B8D8003459ED /* AAPDFView.m in Sources */,
+				D9DCCD0915F2B8F8003459ED /* AAPDFContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

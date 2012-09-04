@@ -34,8 +34,8 @@
     
     UIBarButtonItem *barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[AAOutlinedNavigationController class], nil];
     barButtonItem.tintColor = [UIColor grayColor];
-    UIImage *backButtonImage = [[UIImage imageNamed:@"backBarButtonItem"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 12, 5, 5)];
-    UIImage *buttonImage = [[UIImage imageNamed:@"barButtonItem"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
+    //UIImage *backButtonImage = [[UIImage imageNamed:@"backBarButtonItem"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 12, 5, 5)];
+    //UIImage *buttonImage = [[UIImage imageNamed:@"barButtonItem"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     //[barButtonItem setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     //[barButtonItem setBackgroundImage:buttonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 	

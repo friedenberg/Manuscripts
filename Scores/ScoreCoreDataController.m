@@ -19,6 +19,7 @@
 {
     CFUUIDRef uuidRef = CFUUIDCreate(NULL);
     NSString *fileName = [(NSString *)CFUUIDCreateString(NULL, uuidRef) autorelease];
+    CFRelease(uuidRef);
     
     fileName = [fileName stringByAppendingPathExtension:@"pdf"];
     

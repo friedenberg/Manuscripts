@@ -7,6 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+
+
+extern NSString * const AAViewTilingVisibleKey;
+extern NSString * const AAViewTilingNotVisibleKey;
 
 @interface AATiledContentView : UIView
 {
@@ -14,7 +19,11 @@
     CGRect previouslyVisibleRect;
     CGRect visibleRect;
     
+    NSMutableDictionary *tileStates;
+    
     NSMutableArray *spareTiles;
+    
+    NSMutableDictionary *tileKeyStates;
     
     NSMutableSet *visibleTileKeys;
     NSMutableDictionary *visibleTiles;
@@ -22,13 +31,20 @@
 }
 
 @property (nonatomic, readonly, assign) UIScrollView *scrollView;
+@property (nonatomic, readonly) CGSize contentSize;
 @property (nonatomic) CGRect visibleRect;
 
+//tile population
+@property (nonatomic, readonly) NSUInteger tileCount;
+- (id)tileKeyAtIndex:(NSUInteger)index;
+
+//tile mutation
+- (void)reloadTiles;
+
 //tiling
-
-- (NSSet *)visibleTileKeysForRect:(CGRect)rect;
-
 - (id)tile;
+- (id)tileForKey:(id)key;
+
 - (BOOL)visibilityForTileKey:(id <NSCopying>)key;
 - (CGRect)frameForTileKey:(id <NSCopying>)key;
 - (void)prepareTileForReuse:(id)tile withKey:(id <NSCopying>)key;

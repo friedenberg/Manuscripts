@@ -20,7 +20,6 @@
         //[self addSubview:textLabel];
         
         CALayer *layer = self.layer;
-        layer = nil;
         layer.shadowColor = [UIColor blackColor].CGColor;
         layer.shadowOpacity = 1.0;
         layer.shadowRadius = 5;

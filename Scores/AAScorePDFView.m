@@ -12,7 +12,7 @@
 
 #import "AAScorePDFPageView.h"
 #import "AAScorePDFNoteView.h"
-#import "AAPDFDrawingOperation.h"
+#import "AAPDFPageDrawingOperation.h"
 
 #import "AAPageControl.h"
 
@@ -291,10 +291,10 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
         NSUInteger pageIndex = [index unsignedIntegerValue];
         CGPDFPageRef pdfPage = CGPDFDocumentGetPage(pdfDocument, [index unsignedIntegerValue] + 1);
         
-        AAPDFDrawingOperation *drawingOperation = [AAPDFDrawingOperation new];
+        AAPDFPageDrawingOperation *drawingOperation = [AAPDFPageDrawingOperation new];
         drawingOperation.canvasSize = [self rectForViewWithKey:key view:view viewRecycler:pageRecycler].size;
         drawingOperation.pdfPage = pdfPage;
-        drawingOperation.viewRecyclingKey = key;
+        drawingOperation.key = key;
         [drawingOperation addObserver:self forKeyPath:@"isFinished" options:0 context:kPDFDrawingOperationObservingContext];
         [drawingQueue addOperation:drawingOperation];
         [drawingOperation release];
@@ -335,8 +335,8 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 	{
 		dispatch_async(dispatch_get_main_queue(), ^{
 			
-			AAPDFDrawingOperation *drawingOperation = object;
-			UIImageView *imageView = [pageRecycler visibleViewForKey:drawingOperation.viewRecyclingKey];
+			AAPDFPageDrawingOperation *drawingOperation = object;
+			UIImageView *imageView = [pageRecycler visibleViewForKey:drawingOperation.key];
 			imageView.image = drawingOperation.pdfPageImage;
 		});
 		

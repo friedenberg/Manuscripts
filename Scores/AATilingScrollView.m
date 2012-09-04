@@ -8,21 +8,53 @@
 
 #import "AATilingScrollView.h"
 
+#import "AATiledContentView.h"
+
 @implementation AATilingScrollView
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:frame];
-    if (self) {
+    if (self = [super initWithFrame:frame])\
+    {
         // Initialization code
     }
+    
     return self;
 }
 
+static NSString * const kContentViewContentSizeObservingContext = @"kContentViewContentSizeObservingContext";
+
 - (void)addContentView:(AATiledContentView *)someContentView
 {
-    //[self addSubview:someContentView];
+    [self addSubview:someContentView];
     [contentViews addObject:someContentView];
+    [someContentView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionInitial context:kContentViewContentSizeObservingContext];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == kContentViewContentSizeObservingContext)
+    {
+        [self setNeedsLayout];
+    }
+    else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    CGRect contentRect = CGRectZero;
+    
+    for (AATiledContentView *contentView in contentViews)
+    {
+        [contentView sizeToFit];
+        CGRect frame = contentView.frame;
+        
+        contentRect = CGRectUnion(contentRect, frame);
+    }
+    
+    self.contentSize = contentRect.size;
 }
 
 @end

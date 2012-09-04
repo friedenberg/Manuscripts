@@ -21,6 +21,8 @@
 		UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cellTap:)];
 		tap.numberOfTapsRequired = 1;
 		tap.numberOfTouchesRequired = 1;
+        
+        [tap release];
 	}
 	
 	return self;

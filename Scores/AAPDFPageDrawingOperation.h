@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AAPDFDrawingOperation : NSOperation
+@interface AAPDFPageDrawingOperation : NSOperation
 {
 	CGSize canvasSize;
 	CGPDFPageRef pdfPage;
@@ -16,7 +16,7 @@
 	UIImage *pdfPageImage;
 }
 
-@property (nonatomic, copy) id viewRecyclingKey;
+@property (nonatomic, copy) id key;
 @property (nonatomic) CGSize canvasSize;
 @property (nonatomic) CGPDFPageRef pdfPage;
 

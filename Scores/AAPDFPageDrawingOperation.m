@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 Apple, Stamford. All rights reserved.
 //
 
-#import "AAPDFDrawingOperation.h"
+#import "AAPDFPageDrawingOperation.h"
 
-@implementation AAPDFDrawingOperation
+@implementation AAPDFPageDrawingOperation
 
-@synthesize pdfPage, pdfPageImage, canvasSize, viewRecyclingKey;
+@synthesize pdfPage, pdfPageImage, canvasSize, key;
 
 - (void)setPdfPage:(CGPDFPageRef)value
 {
