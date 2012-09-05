@@ -7,6 +7,7 @@
 //
 
 #import "AATiledContentView.h"
+#import "AAPDFView.h"
 
 
 @class AAOperationQueue;
@@ -14,18 +15,21 @@
 @interface AAPDFContentView : AATiledContentView
 {
     AAOperationQueue *drawingQueue;
-	
+	NSCache *pdfPageCache;
+    
 	BOOL isRotating;
     
     NSUInteger pageCount;
-    CGFloat pageWidth;
     CGPDFDocumentRef pdfDocument;
     
-    NSRange currentPages;
-	NSUInteger currentPage;
+    UITapGestureRecognizer *tapGesture;
 }
 
+@property (nonatomic, readonly, assign) AAPDFView *scrollView;
+
 @property (nonatomic) CGPDFDocumentRef pdfDocument;
+@property (nonatomic, readonly) NSUInteger pageCount;
+
 @property (nonatomic) BOOL shouldRenderNewPages;
 
 @end

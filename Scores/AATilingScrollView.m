@@ -12,11 +12,11 @@
 
 @implementation AATilingScrollView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self = [super initWithFrame:frame])\
+    if (self = [super initWithCoder:aDecoder])
     {
-        // Initialization code
+        contentViews = [NSMutableArray new];
     }
     
     return self;
@@ -40,9 +40,30 @@ static NSString * const kContentViewContentSizeObservingContext = @"kContentView
     else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
+@synthesize visibleBounds;
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+    CGRect bounds = self.bounds;
+    
+    [self willChangeValueForKey:@"visibleBounds"];
+    
+    visibleBounds = bounds;
+    visibleBounds.origin = self.contentOffset;
+    
+    CGFloat scale = (CGFloat)1 / self.zoomScale;
+    
+    if (scale < 1)
+    {
+        visibleBounds.origin.x *= scale;
+        visibleBounds.origin.y *= scale;
+        visibleBounds.size.width *= scale;
+        visibleBounds.size.height *= scale;
+    }
+    
+    [self didChangeValueForKey:@"visibleBounds"];
     
     CGRect contentRect = CGRectZero;
     
@@ -55,6 +76,12 @@ static NSString * const kContentViewContentSizeObservingContext = @"kContentView
     }
     
     self.contentSize = contentRect.size;
+}
+
+- (void)dealloc
+{
+    [contentViews release];
+    [super dealloc];
 }
 
 @end

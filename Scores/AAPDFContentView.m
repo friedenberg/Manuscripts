@@ -8,12 +8,18 @@
 
 #import "AAPDFContentView.h"
 
+#import "AAPDFView.h"
+#import "AAPageControl.h"
+
 #import "AAOperationQueue.h"
 #import "AAPDFPageDrawingOperation.h"
+
+#import "AAViewRecycler.h"
 
 
 @interface AAPDFContentView ()
 
+- (void)tapGesture:(UITapGestureRecognizer *)sender;
 - (void)pdfPageDrawingOperationDidFinish:(AAPDFPageDrawingOperation *)operation;
 
 @end
@@ -28,6 +34,12 @@
         drawingQueue = [AAOperationQueue new];
 		drawingQueue.maxConcurrentOperationCount = 3;
 		drawingQueue.operationCountLimit = 3;
+        
+        pdfPageCache = [NSCache new];
+        pdfPageCache.countLimit = 3;
+        
+        tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+        [self addGestureRecognizer:tapGesture];
     }
     
     return self;
@@ -49,7 +61,8 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 	else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-@synthesize pdfDocument;
+@synthesize pdfDocument, pageCount;
+@dynamic scrollView;
 
 - (void)setPdfDocument:(CGPDFDocumentRef)value
 {
@@ -58,55 +71,49 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
     CGPDFDocumentRelease(old);
     
     pageCount = CGPDFDocumentGetNumberOfPages(pdfDocument);
+    self.scrollView.pageControl.pageCount = pageCount;
     
-    [self setNeedsLayout];
+    [self reloadTiles];
+}
+
+- (CGFloat)pageWidth
+{
+    return self.scrollView.bounds.size.width;
 }
 
 - (CGSize)contentSize
 {
-    return CGSizeMake(pageWidth * pageCount, self.scrollView.bounds.size.height);
-}
-
-- (void)layoutSubviews
-{
-    pageWidth = self.scrollView.bounds.size.width;
-        
-    currentPage = floor(self.visibleRect.origin.x / pageWidth);
-    NSUInteger currentPageCount = (currentPage > 0) + (currentPage < pageCount - 1) + 1;
-    currentPages = NSMakeRange(currentPage > 0 ? currentPage - 1 : 0, currentPageCount);
-    
-    [super layoutSubviews];
-}
-
-#pragma mark - tile population
-
-- (NSUInteger)tileCount
-{
-    return pageCount;
-}
-
-- (id)tileKeyAtIndex:(NSUInteger)index
-{
-    return @(index);
+    return CGSizeMake(self.pageWidth * pageCount, self.scrollView.bounds.size.height);
 }
 
 #pragma mark - tiling
 
-- (id)tile
+- (NSEnumerator *)tileKeyEnumerator
 {
-    UIImageView *pageView = [UIImageView new];
-    return [pageView autorelease];
+    NSMutableArray *tileKeys = [NSMutableArray arrayWithCapacity:pageCount];
+    
+    NSUIntegerEnumerate(pageCount, ^(NSUInteger index) {
+        
+        [tileKeys addObject:@(index)];
+    });
+    
+    return [tileKeys objectEnumerator];
+}
+
+- (id)newTile
+{
+    return [UIImageView new];
 }
 
 - (BOOL)visibilityForTileKey:(NSNumber *)key
 {
-    return NSLocationInRange(key.unsignedIntegerValue, currentPages);
+    return NSLocationInRange(key.unsignedIntegerValue, self.scrollView.activePages);
 }
 
 - (CGRect)frameForTileKey:(NSNumber *)key
 {
     CGRect frame = self.scrollView.bounds;
-    frame.origin.x = (CGFloat)key.unsignedIntegerValue * pageWidth;
+    frame.origin.x = (CGFloat)key.unsignedIntegerValue * self.pageWidth;
     return frame;
 }
 
@@ -119,15 +126,25 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 {
     CGPDFPageRef pdfPage = CGPDFDocumentGetPage(pdfDocument, key.unsignedIntegerValue + 1);
     
-    AAPDFPageDrawingOperation *drawingOperation = [AAPDFPageDrawingOperation new];
-    drawingOperation.canvasSize = self.scrollView.bounds.size;
-    drawingOperation.pdfPage = pdfPage;
-    drawingOperation.key = key;
-    [drawingOperation addObserver:self forKeyPath:@"isFinished" options:0 context:kPDFDrawingOperationObservingContext];
+    UIImage *cachedPDFPageImage = [pdfPageCache objectForKey:key];
     
-    [drawingQueue addOperation:drawingOperation];
-    
-    [drawingOperation release];
+    if (cachedPDFPageImage)
+    {
+        tile.image = cachedPDFPageImage;
+        [pdfPageCache removeObjectForKey:key];
+    }
+    else
+    {
+        AAPDFPageDrawingOperation *drawingOperation = [AAPDFPageDrawingOperation new];
+        drawingOperation.canvasSize = self.scrollView.bounds.size;
+        drawingOperation.pdfPage = pdfPage;
+        drawingOperation.key = key;
+        [drawingOperation addObserver:self forKeyPath:@"isFinished" options:0 context:kPDFDrawingOperationObservingContext];
+        
+        [drawingQueue addOperation:drawingOperation];
+        
+        [drawingOperation release];
+    }
 }
 
 - (void)pdfPageDrawingOperationDidFinish:(AAPDFPageDrawingOperation *)operation
@@ -138,13 +155,31 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 
 - (void)tileDidDisappear:(UIImageView *)tile withKey:(NSNumber *)key
 {
+    //TODO: check to see if image is low-res or high-res
+    UIImage *image = tile.image;
     
+    if (image)
+    {
+        [pdfPageCache setObject:image forKey:key];
+    }
+}
+
+- (void)tapGesture:(UITapGestureRecognizer *)sender
+{
+    CGFloat width = CGRectGetWidth(self.scrollView.bounds);
+	CGPoint tapPoint = [sender locationInView:self];
+	CGFloat xOrigin = tapPoint.x - self.scrollView.contentOffset.x;
+    
+	if (xOrigin <= width / 3) [self.scrollView setCurrentPage:self.scrollView.currentPage - 1 animated:YES];
+	else if (xOrigin >= width * 2 / 3) [self.scrollView setCurrentPage:self.scrollView.currentPage + 1 animated:YES];
 }
 
 - (void)dealloc
 {
     CGPDFDocumentRelease(pdfDocument);
+    [tapGesture release];
     [drawingQueue release];
+    [pdfPageCache release];
     [super dealloc];
 }
 

@@ -8,7 +8,8 @@
 
 #import "ScorePDFViewController.h"
 
-#import "AAScorePDFView.h"
+#import "AAPDFView.h"
+#import "AAPDFContentView.h"
 
 
 @interface ScorePDFViewController ()
@@ -32,10 +33,10 @@
     [super viewDidLoad];
     
     CGPDFDocumentRef pdfDocument = CGPDFDocumentCreateWithURL((CFURLRef)documentURL);
-    pdfView.pdfDocument = pdfDocument;
+    pdfView.pdfContentView.pdfDocument = pdfDocument;
     CGPDFDocumentRelease(pdfDocument);
     
-    pdfView.delegate = self;
+    //pdfView.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -69,26 +70,6 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    
-    //pdfView.shouldRenderNewPages = NO;
-    currentPage = pdfView.pageIndex;
-	NSLog(@"%@", pdfView);
-	[pdfView beginRotation];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    
-    pdfView.pageIndex = currentPage;
-    //pdfView.shouldRenderNewPages = YES;
-	[pdfView endRotation];
-	NSLog(@"%@", pdfView);
 }
 
 - (void)viewDidUnload

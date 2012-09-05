@@ -10,8 +10,8 @@
 #import "AAViewRecycler.h"
 
 
-NSString * const AAViewTilingVisibleKey = @"AAViewTilingVisibleKey";
-NSString * const AAViewTilingNotVisibleKey = @"AAViewTilingNotVisibleKey";
+NSString * const AAViewTilingOnscreenKey = @"AAViewTilingOnscreenKey";
+NSString * const AAViewTilingOffscreenKey = @"AAViewTilingOffscreenKey";
 
 
 @interface AATiledContentView ()
@@ -29,12 +29,7 @@ NSString * const AAViewTilingNotVisibleKey = @"AAViewTilingNotVisibleKey";
     {
         spareTiles = [NSMutableArray new];
         
-        visibleTileKeys = [NSMutableSet new];
-        
         visibleTiles = [NSMutableDictionary new];
-        selectedTileKeys = [NSMutableSet new];
-        
-        tileStates = [NSMutableDictionary new];
         tileKeyStates = [NSMutableDictionary new];
     }
     
@@ -120,14 +115,14 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     
     void (^processView)(id key, BOOL wasVisible, BOOL isVisible) = ^(id key, BOOL wasVisible, BOOL isVisible) {
         
-        //removed
+        //offscreen
         if (wasVisible && !isVisible)
         {
             UIView *view = [visibleTiles objectForKey:key];
             [spareTiles addObject:view];
-            [visibleTiles removeObjectForKey:key];
             [view removeFromSuperview];
             [self tileDidDisappear:view withKey:key];
+            [visibleTiles removeObjectForKey:key];
         }
         //remained
         else if (wasVisible && isVisible)
@@ -135,83 +130,107 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
             UIView *view = [visibleTiles objectForKey:key];
             view.frame = [self frameForTileKey:key];
         }
-        //added
+        //onscreen
         else if (!wasVisible && isVisible)
         {
-            UIView *view = spareTiles.count ? [spareTiles objectAtIndex:0] : nil;
+            UIView *view = spareTiles.count ? [[spareTiles objectAtIndex:0] retain] : nil;
             
             if (view)
             {
                 [spareTiles removeObjectAtIndex:0];
+                [self prepareTileForReuse:view];
             }
             else
             {
-                view = [self tile];
+                view = [self newTile];
             }
             
             view.frame = [self frameForTileKey:key];
             [self tileWillAppear:view withKey:key];
+            [visibleTiles setObject:view forKey:key];
             [self addSubview:view];
+            
+            [view release];
         }
     };
     
     [tileKeyStates enumerateKeysAndObjectsUsingBlock:^(id key, NSString *state, BOOL *stop) {
         
-        BOOL wasVisible = state == AAViewTilingVisibleKey;
+        BOOL wasVisible = state == AAViewTilingOnscreenKey;
         BOOL isVisible = [self visibilityForTileKey:key];
         
         processView(key, wasVisible, isVisible);
         
-        [tileKeyStates setObject:(isVisible ? AAViewTilingVisibleKey : AAViewTilingNotVisibleKey) forKey:key];
+        [tileKeyStates setObject:(isVisible ? AAViewTilingOnscreenKey : AAViewTilingOffscreenKey) forKey:key];
     }];
-    
-//    NSDictionary *previousStates = [tileKeyStates copy];
-//    
-//    NSUIntegerEnumerate(self.tileCount, ^(NSUInteger index) {
-//        
-//        id key = [self tileKeyAtIndex:index];
-//        
-//        BOOL wasVisible = [previousStates objectForKey:key] == AAViewTilingVisibleKey;
-//        BOOL isVisible = [self visibilityForTileKey:key];
-//        
-//        [tileKeyStates setObject:isVisible ? AAViewTilingVisibleKey : AAViewTilingNotVisibleKey forKey:key];
-//        
-//        processView(key, wasVisible, isVisible);
-//    });
-//    
-//    [previousStates release];
 }
 
 #pragma mark - tile population
 
-- (NSUInteger)tileCount
-{
-    return 0;
-}
-
-- (id)tileKeyAtIndex:(NSUInteger)index
+- (NSEnumerator *)tileKeyEnumerator
 {
     return nil;
+}
+
+- (void)beginMutatingTiles
+{
+    
+}
+
+- (void)endMutatingTiles
+{
+    
+    [self setNeedsLayout];
+}
+
+- (void)addTileAtIndex:(NSUInteger)index
+{
+    
+}
+
+- (void)reloadTileAtIndex:(NSUInteger)index
+{
+    
+}
+
+- (void)moveTileAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex
+{
+    
+}
+
+- (void)removeTileAtIndex:(NSUInteger)index
+{
+    
 }
 
 #pragma mark - tiling
 
 - (void)reloadTiles
 {
+    [visibleTiles enumerateKeysAndObjectsUsingBlock:^(id key, UIView *tile, BOOL *stop) {
+        
+        [spareTiles addObject:tile];
+        [visibleTiles removeObjectForKey:key];
+        [tile removeFromSuperview];
+    }];
+    
+    [self willChangeValueForKey:@"contentSize"];
+    
     [tileKeyStates removeAllObjects];
     
-    NSUIntegerEnumerate(self.tileCount, ^(NSUInteger index) {
-        
-        [tileKeyStates setObject:AAViewTilingNotVisibleKey forKey:[self tileKeyAtIndex:index]];
-    });
+    for (id key in self.tileKeyEnumerator)
+    {
+        [tileKeyStates setObject:AAViewTilingOffscreenKey forKey:key];
+    }
+    
+    [self didChangeValueForKey:@"contentSize"];
     
     [self setNeedsLayout];
 }
 
-- (id)tile
+- (id)newTile
 {
-    UIView *tile = [UIView new];
-    return [tile autorelease];
+    return [UIView new];
 }
 
 - (id)tileForKey:(id)key
@@ -229,7 +248,7 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     return CGRectZero;
 }
 
-- (void)prepareTileForReuse:(id)tile withKey:(id)key
+- (void)prepareTileForReuse:(id)tile
 {
     
 }
@@ -239,7 +258,7 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     
 }
 
-- (void)tileDidDisappear:(id)tile withKey:(id <NSCopying>)key
+- (void)tileDidDisappear:(id)tile withKey:(id)key
 {
     
 }
@@ -247,11 +266,8 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
 - (void)dealloc
 {
     [tileKeyStates release];
-    [tileStates release];
     [spareTiles release];
-    [visibleTileKeys release];
     [visibleTiles release];
-    [selectedTileKeys release];
     
     [super dealloc];
 }

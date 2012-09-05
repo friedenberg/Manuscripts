@@ -10,46 +10,45 @@
 #import <CoreData/CoreData.h>
 
 
-extern NSString * const AAViewTilingVisibleKey;
-extern NSString * const AAViewTilingNotVisibleKey;
+extern NSString * const AAViewTilingOnscreenKey;
+extern NSString * const AAViewTilingOffscreenKey;
 
 @interface AATiledContentView : UIView
 {
+@private;
     UIScrollView *scrollView;
     CGRect previouslyVisibleRect;
     CGRect visibleRect;
     
-    NSMutableDictionary *tileStates;
+    NSMutableSet *tileKeys;
     
     NSMutableArray *spareTiles;
     
     NSMutableDictionary *tileKeyStates;
-    
-    NSMutableSet *visibleTileKeys;
     NSMutableDictionary *visibleTiles;
-    NSMutableSet *selectedTileKeys;
 }
 
 @property (nonatomic, readonly, assign) UIScrollView *scrollView;
 @property (nonatomic, readonly) CGSize contentSize;
 @property (nonatomic) CGRect visibleRect;
 
-//tile population
-@property (nonatomic, readonly) NSUInteger tileCount;
-- (id)tileKeyAtIndex:(NSUInteger)index;
+@property (nonatomic, readonly) NSEnumerator *tileKeyEnumerator;
 
 //tile mutation
+- (void)beginMutatingTiles;
+- (void)endMutatingTiles;
+
 - (void)reloadTiles;
 
 //tiling
-- (id)tile;
+- (id)newTile;
 - (id)tileForKey:(id)key;
 
-- (BOOL)visibilityForTileKey:(id <NSCopying>)key;
-- (CGRect)frameForTileKey:(id <NSCopying>)key;
-- (void)prepareTileForReuse:(id)tile withKey:(id <NSCopying>)key;
+- (BOOL)visibilityForTileKey:(id)key;
+- (CGRect)frameForTileKey:(id)key;
+- (void)prepareTileForReuse:(id)tile;
 
-- (void)tileWillAppear:(id)tile withKey:(id <NSCopying>)key;
-- (void)tileDidDisappear:(id)tile withKey:(id <NSCopying>)key;
+- (void)tileWillAppear:(id)tile withKey:(id)key;
+- (void)tileDidDisappear:(id)tile withKey:(id)key;
 
 @end

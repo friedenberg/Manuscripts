@@ -49,7 +49,7 @@
     
     [self calculatePageIndexBookmarks];
     
-    pdfView.noteDataSource = self;
+    //pdfView.noteDataSource = self;
 }
 
 - (void)calculatePageIndexBookmarks
@@ -64,7 +64,7 @@
         }
     }
     
-    pdfView.pageControl.bookmarkedIndexes = [[bookmarkedIndexes copy] autorelease];
+    //pdfView.pageControl.bookmarkedIndexes = [[bookmarkedIndexes copy] autorelease];
     
     [bookmarkedIndexes release];
 }
@@ -120,7 +120,7 @@
 
 - (NSUInteger)indexOfCurrentDisplayedPageForBookmarkTableViewController:(BookmarkTableViewController *)someController
 {
-	return pdfView.pageIndex;
+	//return pdfView.pageIndex;
 }
 
 - (void)bookmarkTableViewController:(BookmarkTableViewController *)someController didSelectBookmark:(Bookmark *)someBookmark

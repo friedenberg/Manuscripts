@@ -13,8 +13,12 @@
 
 @interface AATilingScrollView : UIScrollView
 {
+@private;
+    CGRect visibleBounds;
     NSMutableArray *contentViews;
 }
+
+@property (nonatomic, readonly) CGRect visibleBounds;
 
 - (void)addContentView:(AATiledContentView *)someContentView;
 

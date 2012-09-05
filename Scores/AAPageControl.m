@@ -310,6 +310,8 @@ static UIImage *dotImageHighlighted;
 
 - (void)setCurrentPage:(NSUInteger)value
 {
+    if (value == currentPage) return;
+    
     NSUInteger oldValue = currentPage;
     currentPage = value;
  	

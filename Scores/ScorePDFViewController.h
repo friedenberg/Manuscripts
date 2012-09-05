@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AAScorePDFView.h"
 
 
-@interface ScorePDFViewController : UIViewController <UIScrollViewDelegate>
+@class AAPDFView;
+
+@interface ScorePDFViewController : UIViewController
 {
     CGFloat currentPage;
     
-    IBOutlet AAScorePDFView *pdfView;
+    IBOutlet AAPDFView *pdfView;
     NSURL *documentURL;
 }
 
