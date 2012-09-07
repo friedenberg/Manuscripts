@@ -10,15 +10,18 @@
 #import <CoreData/CoreData.h>
 
 
-extern NSString * const AAViewTilingOnscreenKey;
-extern NSString * const AAViewTilingOffscreenKey;
+extern NSString * const AAViewTilingStateOnscreen;
+extern NSString * const AAViewTilingStateOffscreen;
+
+
+@class AATilingScrollView;
 
 @interface AATiledContentView : UIView
 {
 @private;
     UIScrollView *scrollView;
-    CGRect previouslyVisibleRect;
-    CGRect visibleRect;
+    AATilingScrollView *tilingScrollView;
+    CGRect visibleFrame;
     
     NSMutableSet *tileKeys;
     
@@ -29,13 +32,17 @@ extern NSString * const AAViewTilingOffscreenKey;
 }
 
 @property (nonatomic, readonly, assign) UIScrollView *scrollView;
+@property (nonatomic, readonly) AATilingScrollView *tilingScrollView;
 @property (nonatomic, readonly) CGSize contentSize;
-@property (nonatomic) CGRect visibleRect;
+@property (nonatomic) CGRect visibleFrame;
 
 @property (nonatomic, readonly) NSEnumerator *tileKeyEnumerator;
 
 //tile mutation
 - (void)beginMutatingTiles;
+- (void)addTileKey:(id)key;
+- (void)reloadTileKey:(id)key;
+- (void)removeTileKey:(id)key;
 - (void)endMutatingTiles;
 
 - (void)reloadTiles;
@@ -45,10 +52,11 @@ extern NSString * const AAViewTilingOffscreenKey;
 - (id)tileForKey:(id)key;
 
 - (BOOL)visibilityForTileKey:(id)key;
-- (CGRect)frameForTileKey:(id)key;
+- (CGRect)frameForTileKey:(id)key tile:(id)tile;
 - (void)prepareTileForReuse:(id)tile;
 
 - (void)tileWillAppear:(id)tile withKey:(id)key;
+- (void)transitionTile:(id)tile withKey:(id)key toState:(id)newState fromState:(id)oldState;
 - (void)tileDidDisappear:(id)tile withKey:(id)key;
 
 @end

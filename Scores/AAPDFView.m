@@ -8,7 +8,7 @@
 
 #import "AAPDFView.h"
 
-#import "AAPDFContentView.h"
+#import "AAPDFPageContentView.h"
 #import "AAPageControl.h"
 
 
@@ -26,7 +26,7 @@
     {
         self.pagingEnabled = YES;
         self.showsHorizontalScrollIndicator = NO;
-        pdfContentView = [AAPDFContentView new];
+        pdfContentView = [AAPDFPageContentView new];
         [self addContentView:pdfContentView];
         
         pageControl = [AAPageControl new];
@@ -82,7 +82,7 @@
     if (value == currentPage) return;
     
     currentPage = value;
-    CGRect pageRect = [pdfContentView frameForTileKey:@(currentPage)];
+    CGRect pageRect = [pdfContentView frameForTileKey:@(currentPage) tile:nil];
     [self scrollRectToVisible:pageRect animated:shouldAnimate];
 }
 

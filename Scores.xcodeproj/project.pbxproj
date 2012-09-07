@@ -43,6 +43,8 @@
 		D9A5AC5815D16F91008428B7 /* AAOutlinedNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A5AC5715D16F91008428B7 /* AAOutlinedNavigationController.m */; };
 		D9A9559D15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D9A9559C15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m */; };
 		D9AEA0C315CD4A3D00899651 /* AAEditableTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9AEA0C215CD4A3D00899651 /* AAEditableTableView.m */; };
+		D9B0A88115F7919F008A5A39 /* AAPDFNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B0A88015F7919F008A5A39 /* AAPDFNoteView.m */; };
+		D9B0A88515F796FA008A5A39 /* AAPDFContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B0A88415F796FA008A5A39 /* AAPDFContentView.m */; };
 		D9B78CAA15BEF1B200F0446F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9B78CA915BEF1B200F0446F /* CoreData.framework */; };
 		D9B78CAE15BF220C00F0446F /* AAScorePDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B78CAD15BF220C00F0446F /* AAScorePDFView.m */; };
 		D9B78CB615BF223E00F0446F /* AAViewRecycler.m in Sources */ = {isa = PBXBuildFile; fileRef = D9B78CB515BF223E00F0446F /* AAViewRecycler.m */; };
@@ -50,7 +52,7 @@
 		D9DADF5B15E980B9005CE564 /* AATiledContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DADF5A15E980B9005CE564 /* AATiledContentView.m */; };
 		D9DADF6215E981D7005CE564 /* AAScorePDFNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DADF6115E981D7005CE564 /* AAScorePDFNoteView.m */; };
 		D9DCCD0415F2B8D8003459ED /* AAPDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DCCD0315F2B8D8003459ED /* AAPDFView.m */; };
-		D9DCCD0915F2B8F8003459ED /* AAPDFContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DCCD0815F2B8F8003459ED /* AAPDFContentView.m */; };
+		D9DCCD0915F2B8F8003459ED /* AAPDFPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9DCCD0815F2B8F8003459ED /* AAPDFPageContentView.m */; };
 		D9F090FF15BCE0AF0088652B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9F090FE15BCE0AF0088652B /* QuartzCore.framework */; };
 		D9F0910315BCE1DE0088652B /* AAMetadataQueryController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F0910215BCE1DE0088652B /* AAMetadataQueryController.m */; };
 		D9F5B1B615C7788E0021FA25 /* AAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F5B1B515C7788E0021FA25 /* AAPageControl.m */; };
@@ -121,8 +123,13 @@
 		D9A5AC5715D16F91008428B7 /* AAOutlinedNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAOutlinedNavigationController.m; sourceTree = "<group>"; };
 		D9A9559B15CEBBC700732802 /* UIView+UIViewAnimationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIViewAnimationAdditions.h"; sourceTree = "<group>"; };
 		D9A9559C15CEBBC700732802 /* UIView+UIViewAnimationAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIViewAnimationAdditions.m"; sourceTree = "<group>"; };
+		D9A96B8315F9447A00BF0210 /* AATilingScrollView_Internal_Messaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AATilingScrollView_Internal_Messaging.h; sourceTree = "<group>"; };
 		D9AEA0C115CD4A3D00899651 /* AAEditableTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAEditableTableView.h; sourceTree = "<group>"; };
 		D9AEA0C215CD4A3D00899651 /* AAEditableTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAEditableTableView.m; sourceTree = "<group>"; };
+		D9B0A87F15F7919F008A5A39 /* AAPDFNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFNoteView.h; sourceTree = "<group>"; };
+		D9B0A88015F7919F008A5A39 /* AAPDFNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFNoteView.m; sourceTree = "<group>"; };
+		D9B0A88315F796FA008A5A39 /* AAPDFContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFContentView.h; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 0; };
+		D9B0A88415F796FA008A5A39 /* AAPDFContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFContentView.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; wrapsLines = 0; };
 		D9B78CA915BEF1B200F0446F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D9B78CAC15BF220C00F0446F /* AAScorePDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAScorePDFView.h; sourceTree = "<group>"; };
 		D9B78CAD15BF220C00F0446F /* AAScorePDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFView.m; sourceTree = "<group>"; };
@@ -138,8 +145,8 @@
 		D9DADF6115E981D7005CE564 /* AAScorePDFNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFNoteView.m; sourceTree = "<group>"; };
 		D9DCCD0215F2B8D8003459ED /* AAPDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFView.h; sourceTree = "<group>"; };
 		D9DCCD0315F2B8D8003459ED /* AAPDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFView.m; sourceTree = "<group>"; };
-		D9DCCD0715F2B8F8003459ED /* AAPDFContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFContentView.h; sourceTree = "<group>"; };
-		D9DCCD0815F2B8F8003459ED /* AAPDFContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFContentView.m; sourceTree = "<group>"; };
+		D9DCCD0715F2B8F8003459ED /* AAPDFPageContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFPageContentView.h; sourceTree = "<group>"; };
+		D9DCCD0815F2B8F8003459ED /* AAPDFPageContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFPageContentView.m; sourceTree = "<group>"; };
 		D9F090FE15BCE0AF0088652B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D9F0910115BCE1DE0088652B /* AAMetadataQueryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAMetadataQueryController.h; sourceTree = "<group>"; };
 		D9F0910215BCE1DE0088652B /* AAMetadataQueryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAMetadataQueryController.m; sourceTree = "<group>"; };
@@ -341,6 +348,7 @@
 		D9DADF5C15E98126005CE564 /* Tiled Scrolling */ = {
 			isa = PBXGroup;
 			children = (
+				D9A96B8315F9447A00BF0210 /* AATilingScrollView_Internal_Messaging.h */,
 				D9DADF5515E98066005CE564 /* AATilingScrollView.h */,
 				D9DADF5615E98066005CE564 /* AATilingScrollView.m */,
 				D9DADF5915E980B9005CE564 /* AATiledContentView.h */,
@@ -355,10 +363,14 @@
 				D9146F3515F6F088002AE8EE /* AAPDFView_Internal_Messaging.h */,
 				D9DCCD0215F2B8D8003459ED /* AAPDFView.h */,
 				D9DCCD0315F2B8D8003459ED /* AAPDFView.m */,
-				D9DCCD0715F2B8F8003459ED /* AAPDFContentView.h */,
-				D9DCCD0815F2B8F8003459ED /* AAPDFContentView.m */,
+				D9B0A88315F796FA008A5A39 /* AAPDFContentView.h */,
+				D9B0A88415F796FA008A5A39 /* AAPDFContentView.m */,
+				D9DCCD0715F2B8F8003459ED /* AAPDFPageContentView.h */,
+				D9DCCD0815F2B8F8003459ED /* AAPDFPageContentView.m */,
 				D9146F3215F6CA97002AE8EE /* AAPDFNoteContentView.h */,
 				D9146F3315F6CA97002AE8EE /* AAPDFNoteContentView.m */,
+				D9B0A87F15F7919F008A5A39 /* AAPDFNoteView.h */,
+				D9B0A88015F7919F008A5A39 /* AAPDFNoteView.m */,
 			);
 			name = AAPDFView;
 			sourceTree = "<group>";
@@ -465,8 +477,10 @@
 				D99AA3A215EDB77C00C4BA5A /* Page.m in Sources */,
 				D99AA3A515EDBD5A00C4BA5A /* ScoreDocument.m in Sources */,
 				D9DCCD0415F2B8D8003459ED /* AAPDFView.m in Sources */,
-				D9DCCD0915F2B8F8003459ED /* AAPDFContentView.m in Sources */,
+				D9DCCD0915F2B8F8003459ED /* AAPDFPageContentView.m in Sources */,
 				D9146F3415F6CA97002AE8EE /* AAPDFNoteContentView.m in Sources */,
+				D9B0A88115F7919F008A5A39 /* AAPDFNoteView.m in Sources */,
+				D9B0A88515F796FA008A5A39 /* AAPDFContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

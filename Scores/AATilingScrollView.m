@@ -22,22 +22,15 @@
     return self;
 }
 
-static NSString * const kContentViewContentSizeObservingContext = @"kContentViewContentSizeObservingContext";
-
 - (void)addContentView:(AATiledContentView *)someContentView
 {
     [self addSubview:someContentView];
     [contentViews addObject:someContentView];
-    [someContentView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionInitial context:kContentViewContentSizeObservingContext];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)contentViewDidChangeContentSize:(AATiledContentView *)someContentView
 {
-    if (context == kContentViewContentSizeObservingContext)
-    {
-        [self setNeedsLayout];
-    }
-    else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    [self setNeedsLayout];
 }
 
 @synthesize visibleBounds;
@@ -69,6 +62,8 @@ static NSString * const kContentViewContentSizeObservingContext = @"kContentView
     
     for (AATiledContentView *contentView in contentViews)
     {
+        contentView.visibleFrame = self.visibleBounds;
+        
         [contentView sizeToFit];
         CGRect frame = contentView.frame;
         

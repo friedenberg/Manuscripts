@@ -9,18 +9,18 @@
 #import "AATilingScrollView.h"
 
 
-@class AAPDFContentView, AAPageControl;
+@class AAPDFPageContentView, AAPageControl;
 
 @interface AAPDFView : AATilingScrollView
 {
     AAPageControl *pageControl;
-    AAPDFContentView *pdfContentView;
+    AAPDFPageContentView *pdfContentView;
     
     NSUInteger currentPage;
     NSRange activePages;
 }
 
-@property (nonatomic, readonly) AAPDFContentView *pdfContentView;
+@property (nonatomic, readonly) AAPDFPageContentView *pdfContentView;
 @property (nonatomic, readonly) AAPageControl *pageControl;
 
 @property (nonatomic) NSUInteger currentPage;

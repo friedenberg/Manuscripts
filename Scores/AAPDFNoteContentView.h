@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Apple, Stamford. All rights reserved.
 //
 
-#import "AATiledContentView.h"
+#import "AAPDFContentView.h"
 
 
 @class AAPDFNoteContentView;
@@ -26,6 +26,21 @@
 @end
 
 
-@interface AAPDFNoteContentView : AATiledContentView
+@interface AAPDFNoteContentView : AAPDFContentView
+{
+    id <AAPDFNoteContentViewDataSource> dataSource;
+    UILongPressGestureRecognizer *pressGesture;
+}
+
+@property (nonatomic, assign) id <AAPDFNoteContentViewDataSource> dataSource;
+
+@end
+
+@interface NSIndexPath (AAPDFNoteContentViewAdditions)
+
++ (NSIndexPath *)indexPathForIndex:(NSUInteger)index inPage:(NSUInteger)page;
+
+@property (nonatomic, readonly) NSUInteger index;
+@property (nonatomic, readonly) NSUInteger page;
 
 @end

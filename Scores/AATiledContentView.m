@@ -7,16 +7,20 @@
 //
 
 #import "AATiledContentView.h"
-#import "AAViewRecycler.h"
+#import "AATilingScrollView.h"
+#import "AATilingScrollView_Internal_Messaging.h"
 
 
-NSString * const AAViewTilingOnscreenKey = @"AAViewTilingOnscreenKey";
-NSString * const AAViewTilingOffscreenKey = @"AAViewTilingOffscreenKey";
+NSString * const AAViewTilingStateOnscreen = @"AAViewTilingStateOnscreen";
+NSString * const AAViewTilingStateOffscreen = @"AAViewTilingStateOffscreen";
 
 
 @interface AATiledContentView ()
 
 @property (nonatomic, readwrite, assign) UIScrollView *scrollView;
+
+- (void)hideTile:(id)tile withKey:(id)key;
+- (void)showTileWithKey:(id)key;
 
 @end
 
@@ -59,8 +63,20 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     UIScrollView *oldScrollView = scrollView;
     scrollView = value;
     
-    [oldScrollView removeObserver:self forKeyPath:@"contentOffset"];
-    [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionInitial context:kContentOffsetObservingContext];
+    if (![oldScrollView isKindOfClass:[AATilingScrollView class]])
+    {
+        [oldScrollView removeObserver:self forKeyPath:@"contentOffset"];
+    }
+    
+    if ([scrollView isKindOfClass:[AATilingScrollView class]])
+    {
+        tilingScrollView = (id)scrollView;
+    }
+    else
+    {
+        tilingScrollView = nil;
+        [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionInitial context:kContentOffsetObservingContext];
+    }
     
     [self reloadTiles];
 }
@@ -83,18 +99,18 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
             newVisibleRect.size.height *= scale;
         }
         
-        self.visibleRect = CGRectIntersection(newVisibleRect, self.frame);
+        self.visibleFrame = CGRectIntersection(newVisibleRect, self.frame);
     }
     else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-@synthesize visibleRect;
+@synthesize visibleFrame;
 
-- (void)setVisibleRect:(CGRect)newVisibleRect
+- (void)setVisibleFrame:(CGRect)newVisibleRect
 {
-    [self willChangeValueForKey:@"visibleRect"];
-    visibleRect = newVisibleRect;
-    [self didChangeValueForKey:@"visibleRect"];
+    [self willChangeValueForKey:@"visibleFrame"];
+    visibleFrame = newVisibleRect;
+    [self didChangeValueForKey:@"visibleFrame"];
     
     [self setNeedsLayout];
 }
@@ -118,51 +134,61 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
         //offscreen
         if (wasVisible && !isVisible)
         {
-            UIView *view = [visibleTiles objectForKey:key];
-            [spareTiles addObject:view];
-            [view removeFromSuperview];
-            [self tileDidDisappear:view withKey:key];
-            [visibleTiles removeObjectForKey:key];
+            UIView *tile = [visibleTiles objectForKey:key];
+            [self hideTile:tile withKey:key];
         }
         //remained
         else if (wasVisible && isVisible)
         {
-            UIView *view = [visibleTiles objectForKey:key];
-            view.frame = [self frameForTileKey:key];
+            UIView *tile = [visibleTiles objectForKey:key];
+            tile.frame = [self frameForTileKey:key tile:tile];
         }
         //onscreen
         else if (!wasVisible && isVisible)
         {
-            UIView *view = spareTiles.count ? [[spareTiles objectAtIndex:0] retain] : nil;
-            
-            if (view)
-            {
-                [spareTiles removeObjectAtIndex:0];
-                [self prepareTileForReuse:view];
-            }
-            else
-            {
-                view = [self newTile];
-            }
-            
-            view.frame = [self frameForTileKey:key];
-            [self tileWillAppear:view withKey:key];
-            [visibleTiles setObject:view forKey:key];
-            [self addSubview:view];
-            
-            [view release];
+            [self showTileWithKey:key];
         }
     };
     
     [tileKeyStates enumerateKeysAndObjectsUsingBlock:^(id key, NSString *state, BOOL *stop) {
         
-        BOOL wasVisible = state == AAViewTilingOnscreenKey;
+        BOOL wasVisible = state == AAViewTilingStateOnscreen;
         BOOL isVisible = [self visibilityForTileKey:key];
         
         processView(key, wasVisible, isVisible);
         
-        [tileKeyStates setObject:(isVisible ? AAViewTilingOnscreenKey : AAViewTilingOffscreenKey) forKey:key];
+        [tileKeyStates setObject:(isVisible ? AAViewTilingStateOnscreen : AAViewTilingStateOffscreen) forKey:key];
     }];
+}
+
+- (void)hideTile:(id)tile withKey:(id)key
+{
+    [spareTiles addObject:tile];
+    [tile removeFromSuperview];
+    [self tileDidDisappear:tile withKey:key];
+    [visibleTiles removeObjectForKey:key];
+}
+
+- (void)showTileWithKey:(id)key
+{
+    UIView *tile = spareTiles.count ? [[spareTiles objectAtIndex:0] retain] : nil;
+    
+    if (tile)
+    {
+        [spareTiles removeObjectAtIndex:0];
+        [self prepareTileForReuse:tile];
+    }
+    else
+    {
+        tile = [self newTile];
+    }
+    
+    tile.frame = [self frameForTileKey:key tile:tile];
+    [self tileWillAppear:tile withKey:key];
+    [visibleTiles setObject:tile forKey:key];
+    [self addSubview:tile];
+    
+    [tile release];
 }
 
 #pragma mark - tile population
@@ -209,9 +235,7 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
 {
     [visibleTiles enumerateKeysAndObjectsUsingBlock:^(id key, UIView *tile, BOOL *stop) {
         
-        [spareTiles addObject:tile];
-        [visibleTiles removeObjectForKey:key];
-        [tile removeFromSuperview];
+        [self hideTile:tile withKey:key];
     }];
     
     [self willChangeValueForKey:@"contentSize"];
@@ -220,10 +244,15 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     
     for (id key in self.tileKeyEnumerator)
     {
-        [tileKeyStates setObject:AAViewTilingOffscreenKey forKey:key];
+        [tileKeyStates setObject:AAViewTilingStateOffscreen forKey:key];
     }
     
     [self didChangeValueForKey:@"contentSize"];
+    
+    if (self.tilingScrollView)
+    {
+        [self.tilingScrollView contentViewDidChangeContentSize:self];
+    }
     
     [self setNeedsLayout];
 }
@@ -243,7 +272,7 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     return NO;
 }
 
-- (CGRect)frameForTileKey:(id)key
+- (CGRect)frameForTileKey:(id)key tile:(id)tile
 {
     return CGRectZero;
 }

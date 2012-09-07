@@ -9,7 +9,7 @@
 #import "ScorePDFViewController.h"
 
 #import "AAPDFView.h"
-#import "AAPDFContentView.h"
+#import "AAPDFPageContentView.h"
 
 
 @interface ScorePDFViewController ()
@@ -69,7 +69,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	return YES;
+	return interfaceOrientation == UIInterfaceOrientationPortrait;
 }
 
 - (void)viewDidUnload
