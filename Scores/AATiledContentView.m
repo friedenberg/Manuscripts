@@ -200,33 +200,60 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
 
 - (void)beginMutatingTiles
 {
-    
+    [mutatedTileKeys release];
+    mutatedTileKeys = [NSMutableDictionary new];
+}
+
+- (void)addTileKey:(id)key
+{
+    [mutatedTileKeys setObject:NSInsertedObjectsKey forKey:key];
+}
+
+- (void)reloadTileKey:(id)key
+{
+    [mutatedTileKeys setObject:NSUpdatedObjectsKey forKey:key];
+}
+
+- (void)removeTileKey:(id)key
+{
+    [mutatedTileKeys setObject:NSDeletedObjectsKey forKey:key];
 }
 
 - (void)endMutatingTiles
 {
+    [mutatedTileKeys enumerateKeysAndObjectsUsingBlock:^(id key, NSString *state, BOOL *stop) {
+        
+        if (state == NSInsertedObjectsKey)
+        {
+            [tileKeyStates setObject:key forKey:AAViewTilingStateOffscreen];
+            
+            if ([self visibilityForTileKey:key])
+            {
+                [self showTileWithKey:key];
+            }
+        }
+        else if (state == NSUpdatedObjectsKey)
+        {
+            UIView *tile = [visibleTiles objectForKey:key];
+            tile.frame = [self frameForTileKey:key tile:tile];
+        }
+        else if (state == NSDeletedObjectsKey)
+        {
+            UIView *tile = [visibleTiles objectForKey:key];
+            
+            if (tile)
+            {
+                [self hideTile:tile withKey:key];
+            }
+            
+            [tileKeyStates removeObjectForKey:key];
+        }
+    }];
     
     [self setNeedsLayout];
-}
-
-- (void)addTileAtIndex:(NSUInteger)index
-{
     
-}
-
-- (void)reloadTileAtIndex:(NSUInteger)index
-{
-    
-}
-
-- (void)moveTileAtIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)toIndex
-{
-    
-}
-
-- (void)removeTileAtIndex:(NSUInteger)index
-{
-    
+    [mutatedTileKeys release];
+    mutatedTileKeys = nil;
 }
 
 #pragma mark - tiling
@@ -294,6 +321,7 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
 
 - (void)dealloc
 {
+    [mutatedTileKeys release];
     [tileKeyStates release];
     [spareTiles release];
     [visibleTiles release];

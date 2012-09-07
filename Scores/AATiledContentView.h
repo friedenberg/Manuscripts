@@ -23,12 +23,12 @@ extern NSString * const AAViewTilingStateOffscreen;
     AATilingScrollView *tilingScrollView;
     CGRect visibleFrame;
     
-    NSMutableSet *tileKeys;
-    
     NSMutableArray *spareTiles;
     
     NSMutableDictionary *tileKeyStates;
     NSMutableDictionary *visibleTiles;
+    
+    NSMutableDictionary *mutatedTileKeys;
 }
 
 @property (nonatomic, readonly, assign) UIScrollView *scrollView;
@@ -56,7 +56,7 @@ extern NSString * const AAViewTilingStateOffscreen;
 - (void)prepareTileForReuse:(id)tile;
 
 - (void)tileWillAppear:(id)tile withKey:(id)key;
-- (void)transitionTile:(id)tile withKey:(id)key toState:(id)newState fromState:(id)oldState;
+//- (void)transitionTile:(id)tile withKey:(id)key toState:(id)newState fromState:(id)oldState;
 - (void)tileDidDisappear:(id)tile withKey:(id)key;
 
 @end
