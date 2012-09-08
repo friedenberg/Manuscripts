@@ -11,14 +11,6 @@
 
 #define BETWEEN(lower, value, upper) MAX(lower, MIN(upper, value))
 
-typedef void (^NSUIntegerEnumerationBlock)(NSUInteger index);
-
-extern void NSUIntegerEnumerate(NSUInteger count, NSUIntegerEnumerationBlock enumerationBlock);
-
-extern NSRange NSRangeFromValues(NSUInteger a, NSUInteger b);
-extern void NSRangeEnumerate(NSRange range, NSUIntegerEnumerationBlock enumerationBlock);
-extern void NSRangeEnumerateUnion(NSRange range1, NSRange range2, NSUIntegerEnumerationBlock enumerationBlock);
-
 
 @interface AAViewRecycler : NSObject <AAViewEditing>
 {

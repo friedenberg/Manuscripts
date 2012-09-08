@@ -13,10 +13,13 @@
 @interface AAPDFNoteView : UIView
 {
     UILabel *textLabel;
+    BOOL editing;
     BOOL dragging;
 }
 
 @property (nonatomic, readonly) UILabel *textLabel;
+
+@property (nonatomic, getter = isEditing) BOOL editing;
 
 @property (nonatomic, getter = isDragging) BOOL dragging;
 

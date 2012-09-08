@@ -20,7 +20,7 @@
 #import "AAPageControl.h"
 
 
-@interface ScoreDocumentViewController () <BookmarkTableViewControllerDelegate, UIPopoverControllerDelegate>
+@interface ScoreDocumentViewController () <BookmarkTableViewControllerDelegate, UIPopoverControllerDelegate, AAPDFNoteContentViewDataSource>
 
 - (void)calculatePageIndexBookmarks;
 - (void)bookmarksButton:(id)sender;
@@ -50,7 +50,7 @@
     
     [self calculatePageIndexBookmarks];
     
-    //pdfView.noteDataSource = self;
+    pdfView.noteContentView.dataSource = self;
 }
 
 - (void)calculatePageIndexBookmarks

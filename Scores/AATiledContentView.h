@@ -59,4 +59,8 @@ extern NSString * const AAViewTilingStateOffscreen;
 //- (void)transitionTile:(id)tile withKey:(id)key toState:(id)newState fromState:(id)oldState;
 - (void)tileDidDisappear:(id)tile withKey:(id)key;
 
+//selection
+@property (nonatomic, retain) id selectedTileKey;
+@property (nonatomic, readonly) id selectedTile;
+
 @end

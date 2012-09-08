@@ -8,7 +8,7 @@
 
 #import "AAScorePDFView.h"
 
-#import "AAViewRecycler.h"
+#import "NSUInteger+Enumeration.h"
 
 #import "AAScorePDFNoteView.h"
 #import "AAPDFPageDrawingOperation.h"

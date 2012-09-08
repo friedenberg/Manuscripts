@@ -8,7 +8,7 @@
 
 #import "ScoreCoreDataController.h"
 
-#import "AAViewRecycler.h"
+#import "NSUInteger+Enumeration.h"
 #import "ScoreDocument.h"
 #import "Page.h"
 

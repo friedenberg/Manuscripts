@@ -38,7 +38,7 @@
     textLabel.frame = CGRectInset(bounds, 10, 10);
 }
 
-@synthesize dragging;
+@synthesize dragging, editing;
 
 static CGFloat kDraggingOpacity = 0.7;
 static CGFloat kDraggingScale = 1.2;
@@ -61,6 +61,34 @@ static CGFloat kDraggingScale = 1.2;
             layer.transform = CATransform3DMakeScale(1, 1, 1);
             layer.opacity = 1;
         }
+    }
+}
+
+- (void)setEditing:(BOOL)value
+{
+    [self willChangeValueForKey:@"editing"];
+    editing = value;
+    [self didChangeValueForKey:@"editing"];
+    
+    if (editing)
+    {
+        CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+        
+        CGFloat wobbleAngle = 0.06f;
+        
+        NSValue *valLeft = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(wobbleAngle, 0.0f, 0.0f, 1.0f)];
+        NSValue *valRight = [NSValue valueWithCATransform3D:CATransform3DMakeRotation(-wobbleAngle, 0.0f, 0.0f, 1.0f)];
+        animation.values = [NSArray arrayWithObjects:valLeft, valRight, nil];
+        
+        animation.autoreverses = YES;
+        animation.duration = 0.125;
+        animation.repeatCount = HUGE_VALF;
+        
+        [self.layer addAnimation:animation forKey:@"wiggle"];
+    }
+    else
+    {
+        [self.layer removeAnimationForKey:@"wiggle"];
     }
 }
 

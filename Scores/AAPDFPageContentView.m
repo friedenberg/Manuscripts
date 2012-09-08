@@ -14,7 +14,7 @@
 #import "AAOperationQueue.h"
 #import "AAPDFPageDrawingOperation.h"
 
-#import "AAViewRecycler.h"
+#import "NSUInteger+Enumeration.h"
 
 
 @interface AAPDFPageContentView ()

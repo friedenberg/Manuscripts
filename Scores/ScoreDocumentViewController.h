@@ -11,7 +11,7 @@
 
 @class ScoreDocument;
 
-@interface ScoreDocumentViewController : ScorePDFViewController //<AAScorePDFViewNoteDataSource>
+@interface ScoreDocumentViewController : ScorePDFViewController
 {
 	UIPopoverController *popoverController;
 	ScoreDocument *document;

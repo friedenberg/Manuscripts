@@ -8,8 +8,10 @@
 
 #import "AAPageControl.h"
 
-#import "AAViewRecycler.h"
+#import "NSUInteger+Enumeration.h"
 #import "NSIndexSet+AAAdditions.h"
+
+#import "AAViewRecycler.h"
 
 
 @interface AAPageControl () <AAViewRecyclerDelegate>

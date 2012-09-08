@@ -9,7 +9,7 @@
 #import "AAPDFContentView.h"
 
 
-@class AAPDFNoteContentView;
+@class AAPDFNoteContentView, AAPDFNoteView;
 
 @protocol AAPDFNoteContentViewDataSource <NSObject>
 
@@ -30,9 +30,16 @@
 {
     id <AAPDFNoteContentViewDataSource> dataSource;
     UILongPressGestureRecognizer *pressGesture;
+    
+    BOOL editing;
 }
 
 @property (nonatomic, assign) id <AAPDFNoteContentViewDataSource> dataSource;
+
+@property (nonatomic, getter = isEditing) BOOL editing;
+
+@property (nonatomic, retain) NSIndexPath *selectedTileKey;
+@property (nonatomic, readonly) AAPDFNoteView *selectedTile;
 
 @end
 

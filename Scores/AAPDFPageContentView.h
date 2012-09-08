@@ -25,8 +25,6 @@
     UITapGestureRecognizer *tapGesture;
 }
 
-@property (nonatomic, readonly, assign) AAPDFView *scrollView;
-
 @property (nonatomic) CGPDFDocumentRef pdfDocument;
 @property (nonatomic, readonly) NSUInteger pageCount;
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D90A4A6515CDD8FA00C10556 /* AAEditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A4A6415CDD8FA00C10556 /* AAEditableTableViewCell.m */; };
 		D9146F3415F6CA97002AE8EE /* AAPDFNoteContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9146F3315F6CA97002AE8EE /* AAPDFNoteContentView.m */; };
+		D91A175115FADBB500CBF9AB /* NSUInteger+Enumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D91A175015FADBB500CBF9AB /* NSUInteger+Enumeration.m */; };
 		D932782415C9BC9B00A7AC47 /* clearImage.png in Resources */ = {isa = PBXBuildFile; fileRef = D932782315C9BC9B00A7AC47 /* clearImage.png */; };
 		D932782C15C9DE6800A7AC47 /* AACoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932782B15C9DE6800A7AC47 /* AACoreDataController.m */; };
 		D932782F15C9E08F00A7AC47 /* ScoreCoreDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = D932782E15C9E08F00A7AC47 /* ScoreCoreDataController.m */; };
@@ -64,6 +65,8 @@
 		D9146F3215F6CA97002AE8EE /* AAPDFNoteContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFNoteContentView.h; sourceTree = "<group>"; };
 		D9146F3315F6CA97002AE8EE /* AAPDFNoteContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFNoteContentView.m; sourceTree = "<group>"; };
 		D9146F3515F6F088002AE8EE /* AAPDFView_Internal_Messaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFView_Internal_Messaging.h; sourceTree = "<group>"; };
+		D91A174F15FADBB500CBF9AB /* NSUInteger+Enumeration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUInteger+Enumeration.h"; sourceTree = "<group>"; };
+		D91A175015FADBB500CBF9AB /* NSUInteger+Enumeration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUInteger+Enumeration.m"; sourceTree = "<group>"; };
 		D932782315C9BC9B00A7AC47 /* clearImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clearImage.png; sourceTree = "<group>"; };
 		D932782A15C9DE6800A7AC47 /* AACoreDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AACoreDataController.h; sourceTree = "<group>"; };
 		D932782B15C9DE6800A7AC47 /* AACoreDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AACoreDataController.m; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 				D94BABA915BC657600849567 /* Model */,
 				D96CAC3815D1EC8C0055B315 /* AAOperationQueue.h */,
 				D96CAC3915D1EC8C0055B315 /* AAOperationQueue.m */,
+				D91A174F15FADBB500CBF9AB /* NSUInteger+Enumeration.h */,
+				D91A175015FADBB500CBF9AB /* NSUInteger+Enumeration.m */,
 				D9594D1A15BCDB2C00AC0A2B /* View */,
 				D9997F4915BCD82300C6E252 /* Controller */,
 				D94BAB9015BC5C2900849567 /* Supporting Files */,
@@ -481,6 +486,7 @@
 				D9146F3415F6CA97002AE8EE /* AAPDFNoteContentView.m in Sources */,
 				D9B0A88115F7919F008A5A39 /* AAPDFNoteView.m in Sources */,
 				D9B0A88515F796FA008A5A39 /* AAPDFContentView.m in Sources */,
+				D91A175115FADBB500CBF9AB /* NSUInteger+Enumeration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

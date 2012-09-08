@@ -125,6 +125,13 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     return self.contentSize;
 }
 
+@synthesize selectedTileKey, selectedTile;
+
+- (id)selectedTile
+{
+    return [self tileForKey:self.selectedTileKey];
+}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -225,12 +232,14 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
         
         if (state == NSInsertedObjectsKey)
         {
-            [tileKeyStates setObject:key forKey:AAViewTilingStateOffscreen];
+            BOOL onscreen = [self visibilityForTileKey:key];
             
-            if ([self visibilityForTileKey:key])
+            if (onscreen)
             {
                 [self showTileWithKey:key];
             }
+            
+            [tileKeyStates setObject:(onscreen ? AAViewTilingStateOnscreen : AAViewTilingStateOffscreen) forKey:key];
         }
         else if (state == NSUpdatedObjectsKey)
         {
@@ -321,6 +330,7 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
 
 - (void)dealloc
 {
+    [selectedTileKey release];
     [mutatedTileKeys release];
     [tileKeyStates release];
     [spareTiles release];

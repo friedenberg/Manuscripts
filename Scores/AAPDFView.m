@@ -9,6 +9,7 @@
 #import "AAPDFView.h"
 
 #import "AAPDFPageContentView.h"
+#import "AAPDFNoteContentView.h"
 #import "AAPageControl.h"
 
 
@@ -29,6 +30,9 @@
         pdfContentView = [AAPDFPageContentView new];
         [self addContentView:pdfContentView];
         
+        noteContentView = [AAPDFNoteContentView new];
+        [self addContentView:noteContentView];
+        
         pageControl = [AAPageControl new];
         [pageControl addTarget:self action:@selector(pageControlPageChanged:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:pageControl];
@@ -37,7 +41,12 @@
     return self;
 }
 
-@synthesize pdfContentView, pageControl, currentPage, activePages;
+@synthesize pdfContentView, noteContentView, pageControl, currentPage, activePages;
+
+- (NSUInteger)pageIndexForPoint:(CGPoint)point
+{
+    return floor(point.x / CGRectGetWidth(self.bounds));
+}
 
 - (void)layoutSubviews
 {
@@ -93,6 +102,7 @@
 
 - (void)dealloc
 {
+    [noteContentView release];
     [pageControl release];
     [pdfContentView release];
     [super dealloc];
