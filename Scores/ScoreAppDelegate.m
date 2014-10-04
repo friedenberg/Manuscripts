@@ -8,8 +8,6 @@
 
 #import "ScoreAppDelegate.h"
 
-#import "AAOutlinedNavigationController.h"
-
 #import "ScoreTableViewController.h"
 
 #import "ScorePDFViewController.h"
@@ -27,24 +25,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    UINavigationBar *navigationBar = [UINavigationBar appearanceWhenContainedIn:[AAOutlinedNavigationController class], nil];
-    //navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    navigationBar.titleTextAttributes = @{UITextAttributeTextColor : [UIColor darkTextColor], UITextAttributeTextShadowColor : [UIColor lightTextColor]};
-    [navigationBar setBackgroundImage:[UIImage imageNamed:@"clearImage"] forBarMetrics:UIBarMetricsDefault];
-    
-    UIBarButtonItem *barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[AAOutlinedNavigationController class], nil];
-    barButtonItem.tintColor = [UIColor grayColor];
-    //UIImage *backButtonImage = [[UIImage imageNamed:@"backBarButtonItem"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 12, 5, 5)];
-    //UIImage *buttonImage = [[UIImage imageNamed:@"barButtonItem"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
-    //[barButtonItem setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    //[barButtonItem setBackgroundImage:buttonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-	
     coreDataController = [ScoreCoreDataController new];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
     self.viewController = [[[ScoreTableViewController alloc] initWithNibName:@"ScoreCollectionViewController" managedObjectContext:coreDataController.managedObjectContext] autorelease];
-    UINavigationController *navController = [[[AAOutlinedNavigationController alloc] initWithRootViewController:self.viewController] autorelease];
+    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:self.viewController] autorelease];
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     return YES;

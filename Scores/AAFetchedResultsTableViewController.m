@@ -9,9 +9,23 @@
 #import "AAFetchedResultsTableViewController.h"
 
 
+@interface AAFetchedResultsTableViewController ()
+
+@property (nonatomic, readwrite) IBOutlet UITableView *tableView;
+
+@end
+
 @implementation AAFetchedResultsTableViewController
 
 @synthesize tableView;
+
+- (void)loadView
+{
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.view = self.tableView;
+}
 
 - (void)viewWillAppear:(BOOL)animated 
 {
