@@ -10,12 +10,10 @@
 
 @implementation AAPDFPageDrawingOperation
 
-@synthesize pdfPage, pdfPageImage, canvasSize, key;
-
 - (void)setPdfPage:(CGPDFPageRef)value
 {
-	CGPDFPageRef old = pdfPage;
-	pdfPage = CGPDFPageRetain(value);
+	CGPDFPageRef old = _pdfPage;
+	_pdfPage = CGPDFPageRetain(value);
 	CGPDFPageRelease(old);
 }
 
@@ -24,14 +22,14 @@
 	UIGraphicsBeginImageContextWithOptions(self.canvasSize, YES, 0);
     CGContextRef context = NULL;
     
-    CGRect bounds = CGRectMake(0, 0, canvasSize.width, canvasSize.height);
+    CGRect bounds = CGRectMake(0, 0, _canvasSize.width, _canvasSize.height);
     context = UIGraphicsGetCurrentContext();
 	
 	[[UIColor whiteColor] set];
 	CGContextFillRect(context, bounds);
 	
 	CGPDFBox pdfBox = kCGPDFMediaBox;
-	CGRect pdfRect = CGPDFPageGetBoxRect(pdfPage, pdfBox);
+	CGRect pdfRect = CGPDFPageGetBoxRect(_pdfPage, pdfBox);
 	
 	BOOL scaleByWidth = (bounds.size.width / bounds.size.height) < (pdfRect.size.width / pdfRect.size.height);
 	
@@ -56,16 +54,16 @@
 	CGContextScaleCTM(context, scaleFactor, -scaleFactor);
 	CGContextTranslateCTM(context, 1.0, -pdfRect.size.height);
 	
-    CGContextDrawPDFPage(context, pdfPage);
+    CGContextDrawPDFPage(context, _pdfPage);
 	
-	pdfPageImage = UIGraphicsGetImageFromCurrentImageContext();
+	_pdfPageImage = UIGraphicsGetImageFromCurrentImageContext();
 	
 	UIGraphicsEndImageContext();
 }
 
 - (void)dealloc
 {
-	CGPDFPageRelease(pdfPage);
+	CGPDFPageRelease(_pdfPage);
 }
 
 @end
