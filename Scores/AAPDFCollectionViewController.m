@@ -29,6 +29,8 @@
         layout.pageCount = CGPDFDocumentGetNumberOfPages(_pdfDocument);
         _drawingOperationQueue = [AAOperationQueue new];
         _drawingOperationQueue.operationCountLimit = 3;
+        _pdfImageCache = [NSCache new];
+        _pdfImageCache.countLimit = 5;
     }
     
     return self;
@@ -41,7 +43,15 @@ static NSString * const reuseIdentifier = @"Cell";
 
     [self.collectionView registerClass:[AAPDFViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     self.collectionView.pagingEnabled = YES;
+    self.collectionView.showsHorizontalScrollIndicator = NO;
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self scrollViewDidScroll:self.collectionView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,7 +65,6 @@ static NSString * const reuseIdentifier = @"Cell";
     return 1;
 }
 
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSAssert(section == 0, @"section count must be 0");
     return CGPDFDocumentGetNumberOfPages(_pdfDocument);
@@ -66,13 +75,52 @@ static NSString * const reuseIdentifier = @"Cell";
     NSAssert(indexPath.section == 0, @"section count must be 0");
     AAPDFViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    AAPDFPageDrawingOperation *op = [AAPDFPageDrawingOperation new];
-    op.canvasSize = self.collectionView.bounds.size;
-    op.pdfPage = CGPDFDocumentGetPage(_pdfDocument, indexPath.item + 1);
-    [op start];
-    cell.imageView.image = op.pdfPageImage;
+    UIImage *image = [_pdfImageCache objectForKey:indexPath];
+    cell.imageView.image = image;
     
     return cell;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat contentOffsetX = MAX(0, MIN(scrollView.contentOffset.x, scrollView.contentSize.width));
+    NSUInteger currentPage = (NSUInteger)floor(contentOffsetX / scrollView.bounds.size.width);
+    
+    NSUInteger pageCount = CGPDFDocumentGetNumberOfPages(_pdfDocument);
+    
+    if (currentPage == 0) {
+        currentPage = 1;
+    } else if (currentPage == pageCount) {
+        currentPage = pageCount - 2;
+    }
+    
+    void (^createOp)(NSUInteger pageIndex) = ^(NSUInteger pageIndex) {
+        NSArray *opKeys = [_drawingOperationQueue.operations valueForKey:@"key"];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:pageIndex inSection:0];
+        
+        if (![opKeys containsObject:indexPath] && ![_pdfImageCache objectForKey:indexPath]) {
+            __block AAPDFPageDrawingOperation *op = [AAPDFPageDrawingOperation new];
+            op.key = indexPath;
+            op.canvasSize = scrollView.bounds.size;
+            op.pdfPage = CGPDFDocumentGetPage(_pdfDocument, pageIndex + 1);
+            
+            op.completionBlock = ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIImage *image = op.pdfPageImage;
+                    [_pdfImageCache setObject:image forKey:indexPath];
+                    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                    
+                    op = nil;
+                });
+            };
+            
+            [_drawingOperationQueue addOperation:op];
+        }
+    };
+    
+    createOp(currentPage - 1);
+    createOp(currentPage);
+    createOp(currentPage + 1);
 }
 
 @end
