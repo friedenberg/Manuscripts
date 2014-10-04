@@ -34,7 +34,7 @@
     if (self = [super initWithNibName:nibNameOrNil documentURL:[NSURL fileURLWithPath:someDocument.path]])
 	{
         document = [someDocument retain];
-        self.title = someDocument.title;
+        //self.title = someDocument.title;
     }
 	
     return self;
