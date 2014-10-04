@@ -9,7 +9,9 @@
 #import "ScoreTableViewController.h"
 #import "ScoreAppDelegate.h"
 
-#import "ScoreDocumentViewController.h"
+#import "AAPDFCollectionViewController.h"
+
+#import "ScoreDocument.h"
 
 
 @interface ScoreTableViewController ()
@@ -63,8 +65,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id document = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    ScorePDFViewController *pdfController = [[ScoreDocumentViewController alloc] initWithNibName:@"ScorePDFViewController" scoreDocument:document];
+    ScoreDocument *document = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    AAPDFCollectionViewController *pdfController = [[AAPDFCollectionViewController alloc] initWithDocumentURL:[NSURL fileURLWithPath:document.path]];
     [self.navigationController pushViewController:pdfController animated:YES];
     [pdfController release];
 }
