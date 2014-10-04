@@ -17,7 +17,7 @@
     BOOL dragging;
 }
 
-@property (nonatomic, readonly) UILabel *textLabel;
+@property (weak, nonatomic, readonly) UILabel *textLabel;
 
 @property (nonatomic, getter = isEditing) BOOL editing;
 

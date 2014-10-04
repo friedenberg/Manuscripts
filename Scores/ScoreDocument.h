@@ -13,13 +13,13 @@
 
 @interface ScoreDocument : NSManagedObject
 
-@property (nonatomic, retain) NSString * composer;
-@property (nonatomic, retain) NSDate *dateLastOpened;
-@property (nonatomic, retain) NSString * path;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * year;
-@property (nonatomic, retain) NSData * coverImage;
-@property (nonatomic, retain) NSOrderedSet *pages;
+@property (nonatomic, strong) NSString * composer;
+@property (nonatomic, strong) NSDate *dateLastOpened;
+@property (nonatomic, strong) NSString * path;
+@property (nonatomic, strong) NSString * title;
+@property (nonatomic, strong) NSString * year;
+@property (nonatomic, strong) NSData * coverImage;
+@property (nonatomic, strong) NSOrderedSet *pages;
 @end
 
 @interface ScoreDocument (CoreDataGeneratedAccessors)

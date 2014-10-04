@@ -55,8 +55,8 @@
 - (UITableViewCell *)tableView:(UITableView *)someTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    UITableViewCell *cell = [someTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
     cell.textLabel.text = [[self.fetchedResultsController objectAtIndexPath:indexPath] title];
     
@@ -68,12 +68,7 @@
     ScoreDocument *document = [self.fetchedResultsController objectAtIndexPath:indexPath];
     AAPDFCollectionViewController *pdfController = [[AAPDFCollectionViewController alloc] initWithDocumentURL:[NSURL fileURLWithPath:document.path]];
     [self.navigationController pushViewController:pdfController animated:YES];
-    [pdfController release];
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 @end

@@ -47,7 +47,7 @@ static UIImage *dotImageHighlighted;
 			[[UIColor colorWithWhite:0.5 alpha:0.5] setFill];
 			[[UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:kStandardCapDiameter / 2] fill];
 			
-			backgroundImage = [[UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsMake(0, kStandardCapDiameter / 2, 0, kStandardCapDiameter / 2)] retain];
+			backgroundImage = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:UIEdgeInsetsMake(0, kStandardCapDiameter / 2, 0, kStandardCapDiameter / 2)];
 			
 			UIGraphicsEndImageContext();
 		}
@@ -65,14 +65,14 @@ static UIImage *dotImageHighlighted;
 			
 			UIEdgeInsets resizingInsets = UIEdgeInsetsMake(dotRadius, dotRadius, dotRadius, dotRadius);
 			
-			dotImage = [[UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:resizingInsets] retain];
+			dotImage = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:resizingInsets];
 			
 			CGContextClearRect(UIGraphicsGetCurrentContext(), bounds);
 			
 			[[UIColor colorWithWhite:0.0 alpha:1] setFill];
 			[dotPath fill];
 			
-			dotImageHighlighted = [[UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:resizingInsets] retain];
+			dotImageHighlighted = [UIGraphicsGetImageFromCurrentImageContext() resizableImageWithCapInsets:resizingInsets];
 			
 			UIGraphicsEndImageContext();
 		}
@@ -159,7 +159,7 @@ static UIImage *dotImageHighlighted;
 - (UIView *)unusedViewForViewRecycler:(AAViewRecycler *)someViewRecycler
 {
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:dotImage highlightedImage:dotImageHighlighted];
-	return [imageView autorelease];
+	return imageView;
 }
 
 - (BOOL)visibilityForKey:(id)key viewRecycler:(AAViewRecycler *)someViewRecycler
@@ -333,8 +333,7 @@ static UIImage *dotImageHighlighted;
 - (void)setBookmarkedIndexes:(NSIndexSet *)value
 {
     NSIndexSet *old = bookmarkedIndexes;
-    bookmarkedIndexes = [value retain];
-    [old release];
+    bookmarkedIndexes = value;
     
     [largeDotIndexes removeAllIndexes];
     
@@ -361,20 +360,9 @@ static UIImage *dotImageHighlighted;
 - (void)setSections:(NSDictionary *)value
 {
     NSDictionary *old = sections;
-    sections = [value retain];
-    [old release];
+    sections = value;
     [self setNeedsDisplay];
 }
 
-- (void)dealloc
-{
-    [progressView release];
-	[dotContentView release];
-    [largeDotIndexes release];
-    [bookmarkedIndexes release];
-    [sections release];
-    [backgroundView release];
-    [super dealloc];
-}
 
 @end

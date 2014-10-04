@@ -56,7 +56,7 @@ NSString *DocumentsDirectory() { return [NSSearchPathForDirectoriesInDomains(NSD
 		[[NSFileManager defaultManager] removeItemAtPath:store.URL.path error:nil];
 	}
 	
-	[persistentStoreCoordinator release], persistentStoreCoordinator = nil;
+	persistentStoreCoordinator = nil;
 }
 
 #pragma mark -
@@ -116,14 +116,6 @@ NSString *DocumentsDirectory() { return [NSSearchPathForDirectoriesInDomains(NSD
     return persistentStoreCoordinator;
 }
 
-- (void)dealloc 
-{
-    [managedObjectContext release];
-    [managedObjectModel release];
-    [persistentStoreCoordinator release];
-
-    [super dealloc];
-}
 
 @end
 

@@ -120,10 +120,5 @@ static CGFloat kPadding = 10;
     return YES;
 }
 
-- (void)dealloc
-{
-    [textField release];
-    [super dealloc];
-}
 
 @end

@@ -14,10 +14,10 @@
 
 @interface Note : MarkedObject
 
-@property (nonatomic, retain) NSString * body;
-@property (nonatomic, retain) NSString * centerPointString;
-@property (nonatomic, retain) NSString * identifier;
-@property (nonatomic, retain) Page *page;
+@property (nonatomic, strong) NSString * body;
+@property (nonatomic, strong) NSString * centerPointString;
+@property (nonatomic, strong) NSString * identifier;
+@property (nonatomic, strong) Page *page;
 
 @property (nonatomic) CGPoint centerPoint;
 

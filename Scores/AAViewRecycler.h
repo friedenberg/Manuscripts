@@ -14,7 +14,7 @@
 
 @interface AAViewRecycler : NSObject <AAViewEditing>
 {
-	id <AAViewRecyclerDelegate> delegate;
+	id <AAViewRecyclerDelegate> __weak delegate;
 	
 	NSMutableDictionary *visibleViews;
 	NSMutableArray *cachedViews;
@@ -43,8 +43,8 @@
 
 - (id)initWithDelegate:(id <AAViewRecyclerDelegate>)someObject;
 
-@property (nonatomic, assign) id <AAViewRecyclerDelegate> delegate;
-@property (nonatomic, readonly) NSArray *visibleViews;
+@property (nonatomic, weak) id <AAViewRecyclerDelegate> delegate;
+@property (weak, nonatomic, readonly) NSArray *visibleViews;
 
 //recycling
 - (void)processViews;
@@ -66,7 +66,7 @@
 - (void)clearSelection;
 - (void)toggleSelectionForCurrentlyTouchedView;
 - (void)refreshSelectionForCurrentlyTouchedView;
-@property (nonatomic, retain) id keyForCurrentlyTouchedView;
+@property (nonatomic, strong) id keyForCurrentlyTouchedView;
 - (id)currentlyTouchedView;
 
 //mutation

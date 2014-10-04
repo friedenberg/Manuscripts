@@ -22,7 +22,6 @@
 		tap.numberOfTapsRequired = 1;
 		tap.numberOfTouchesRequired = 1;
         
-        [tap release];
 	}
 	
 	return self;

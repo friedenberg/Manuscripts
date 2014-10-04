@@ -100,12 +100,5 @@
     self.currentPage = pageControl.currentPage;
 }
 
-- (void)dealloc
-{
-    [noteContentView release];
-    [pageControl release];
-    [pdfContentView release];
-    [super dealloc];
-}
 
 @end

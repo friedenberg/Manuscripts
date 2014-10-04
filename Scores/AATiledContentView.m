@@ -17,7 +17,7 @@ NSString * const AAViewTilingStateOffscreen = @"AAViewTilingStateOffscreen";
 
 @interface AATiledContentView ()
 
-@property (nonatomic, readwrite, assign) UIScrollView *scrollView;
+@property (nonatomic, readwrite, weak) UIScrollView *scrollView;
 
 - (void)hideTile:(id)tile withKey:(id)key;
 - (void)showTileWithKey:(id)key;
@@ -75,7 +75,7 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     else
     {
         tilingScrollView = nil;
-        [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionInitial context:kContentOffsetObservingContext];
+        [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionInitial context:(__bridge void *)(kContentOffsetObservingContext)];
     }
     
     [self reloadTiles];
@@ -83,7 +83,7 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if (context == kContentOffsetObservingContext)
+    if (context == (__bridge void *)(kContentOffsetObservingContext))
     {
         CGRect newVisibleRect = CGRectZero;
         newVisibleRect.size = scrollView.bounds.size;
@@ -178,7 +178,7 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
 
 - (void)showTileWithKey:(id)key
 {
-    UIView *tile = spareTiles.count ? [[spareTiles objectAtIndex:0] retain] : nil;
+    UIView *tile = spareTiles.count ? [spareTiles objectAtIndex:0] : nil;
     
     if (tile)
     {
@@ -195,7 +195,6 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     [visibleTiles setObject:tile forKey:key];
     [self addSubview:tile];
     
-    [tile release];
 }
 
 #pragma mark - tile population
@@ -207,7 +206,6 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
 
 - (void)beginMutatingTiles
 {
-    [mutatedTileKeys release];
     mutatedTileKeys = [NSMutableDictionary new];
 }
 
@@ -261,7 +259,6 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     
     [self setNeedsLayout];
     
-    [mutatedTileKeys release];
     mutatedTileKeys = nil;
 }
 
@@ -328,15 +325,5 @@ static NSString * const kContentOffsetObservingContext = @"kContentOffsetObservi
     
 }
 
-- (void)dealloc
-{
-    [selectedTileKey release];
-    [mutatedTileKeys release];
-    [tileKeyStates release];
-    [spareTiles release];
-    [visibleTiles release];
-    
-    [super dealloc];
-}
 
 @end

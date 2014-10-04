@@ -19,7 +19,7 @@ extern NSString * const AAViewTilingStateOffscreen;
 @interface AATiledContentView : UIView
 {
 @private;
-    UIScrollView *scrollView;
+    UIScrollView *__weak scrollView;
     AATilingScrollView *tilingScrollView;
     CGRect visibleFrame;
     
@@ -31,12 +31,12 @@ extern NSString * const AAViewTilingStateOffscreen;
     NSMutableDictionary *mutatedTileKeys;
 }
 
-@property (nonatomic, readonly, assign) UIScrollView *scrollView;
-@property (nonatomic, readonly) AATilingScrollView *tilingScrollView;
+@property (nonatomic, readonly, weak) UIScrollView *scrollView;
+@property (weak, nonatomic, readonly) AATilingScrollView *tilingScrollView;
 @property (nonatomic, readonly) CGSize contentSize;
 @property (nonatomic) CGRect visibleFrame;
 
-@property (nonatomic, readonly) NSEnumerator *tileKeyEnumerator;
+@property (weak, nonatomic, readonly) NSEnumerator *tileKeyEnumerator;
 
 //tile mutation
 - (void)beginMutatingTiles;
@@ -60,7 +60,7 @@ extern NSString * const AAViewTilingStateOffscreen;
 - (void)tileDidDisappear:(id)tile withKey:(id)key;
 
 //selection
-@property (nonatomic, retain) id selectedTileKey;
-@property (nonatomic, readonly) id selectedTile;
+@property (nonatomic, strong) id selectedTileKey;
+@property (weak, nonatomic, readonly) id selectedTile;
 
 @end

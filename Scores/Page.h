@@ -14,10 +14,10 @@
 @interface Page : NSManagedObject
 
 @property (nonatomic) int16_t index;
-@property (nonatomic, retain) NSData * thumbnail;
-@property (nonatomic, retain) NSSet *bookmarks;
-@property (nonatomic, retain) NSOrderedSet *notes;
-@property (nonatomic, retain) ScoreDocument *scoreDocument;
+@property (nonatomic, strong) NSData * thumbnail;
+@property (nonatomic, strong) NSSet *bookmarks;
+@property (nonatomic, strong) NSOrderedSet *notes;
+@property (nonatomic, strong) ScoreDocument *scoreDocument;
 
 @end
 

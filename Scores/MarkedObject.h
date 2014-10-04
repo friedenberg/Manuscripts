@@ -12,7 +12,7 @@
 
 @interface MarkedObject : NSManagedObject
 
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSDate *lastModified;
+@property (nonatomic, strong) NSString * title;
+@property (nonatomic, strong) NSDate *lastModified;
 
 @end

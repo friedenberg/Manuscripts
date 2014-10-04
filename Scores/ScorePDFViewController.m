@@ -79,10 +79,5 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (void)dealloc
-{
-    [documentURL release];
-    [super dealloc];
-}
 
 @end

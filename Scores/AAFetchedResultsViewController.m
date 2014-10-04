@@ -48,7 +48,6 @@
 																			  cacheName:self.cacheName];
 	fetchedResultsController.delegate = self;
 	
-	[fetchRequest release];
 	
 	NSError *error = nil;
 	[self fetchedResultsControllerWillFetch];
@@ -112,15 +111,9 @@
 
 - (void)viewDidUnload
 {
-	[fetchedResultsController release];
 	fetchedResultsController = nil;
 	[super viewDidUnload];
 }
 
-- (void)dealloc 
-{
-	[fetchedResultsController release];
-    [super dealloc];
-}
 
 @end

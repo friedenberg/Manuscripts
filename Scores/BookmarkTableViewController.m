@@ -31,7 +31,7 @@
     if (self = [super initWithNibName:nibNameOrNil managedObjectContext:[someDocument managedObjectContext]])
 	{
         self.title = @"Bookmarks";
-		document = [someDocument retain];
+		document = someDocument;
     }
 	
     return self;
@@ -62,12 +62,9 @@
 	[self.tableView addGestureRecognizer:rightSwipe];
 	[self.tableView addGestureRecognizer:leftSwipe];
 	
-	[rightSwipe release];
-	[leftSwipe release];
 	
 	UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBookmark:)];
 	self.navigationItem.rightBarButtonItem = addButton;
-	[addButton release];
     
     self.navigationItem.leftBarButtonItem = fetchedResultsController.fetchedObjects.count ? self.editButtonItem : nil;
 }
@@ -96,10 +93,10 @@
 - (AAEditableTableViewCell *)tableView:(UITableView *)someTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    AAEditableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    AAEditableTableViewCell *cell = [someTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell)
     {
-        cell = [[[AAEditableTableViewCell alloc] initWithSuperTable:self.tableView reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[AAEditableTableViewCell alloc] initWithSuperTable:self.tableView reuseIdentifier:CellIdentifier];
     }
     
 	Bookmark *bookmark = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -124,7 +121,7 @@
 
 - (void)swipe:(UISwipeGestureRecognizer *)sender
 {
-	if (tableView.editing && sender.state == UIGestureRecognizerStateEnded)
+	if (self.tableView.editing && sender.state == UIGestureRecognizerStateEnded)
 	{
         CGPoint swipeLocation = [sender locationInView:self.tableView];
         NSIndexPath *swipedIndexPath = [self.tableView indexPathForRowAtPoint:swipeLocation];

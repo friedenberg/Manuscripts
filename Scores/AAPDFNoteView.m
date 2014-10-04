@@ -10,7 +10,6 @@
 
 @implementation AAPDFNoteView
 
-
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame])
@@ -189,11 +188,6 @@ static CGFloat kDraggingScale = 1.2;
     [self.layer addAnimation:animations forKey:@"endDrag"];
 }
 
-- (void)dealloc
-{
-    [textLabel release];
-    [super dealloc];
-}
 
 
 

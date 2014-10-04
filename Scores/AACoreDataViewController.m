@@ -41,20 +41,19 @@ static NSString *kContextChangeObservingContext = @"jerblaga";
 - (void)setManagedObjectContext:(NSManagedObjectContext *)value
 {
 	NSManagedObjectContext *old = managedObjectContext;
-	managedObjectContext = [value retain];
+	managedObjectContext = value;
 	
 	[old removeObserver:self forKeyPath:@"hasChanges"];
-	[managedObjectContext addObserver:self forKeyPath:@"hasChanges" options:NSKeyValueObservingOptionInitial context:kContextChangeObservingContext];
+	[managedObjectContext addObserver:self forKeyPath:@"hasChanges" options:NSKeyValueObservingOptionInitial context:(__bridge void *)(kContextChangeObservingContext)];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didImportFromUbiquitiousContent:) name:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:nil];
 	
-	[old release];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if (context == kContextChangeObservingContext)
+	if (context == (__bridge void *)(kContextChangeObservingContext))
 	{
 		[self managedObjectContextStateDidChange];
 	}
@@ -81,7 +80,6 @@ static NSString *kContextChangeObservingContext = @"jerblaga";
 - (void)dealloc
 {
 	self.managedObjectContext = nil;
-	[super dealloc];
 }
 
 @end

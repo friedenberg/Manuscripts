@@ -34,8 +34,8 @@
 
 @property (nonatomic) NSUInteger pageCount;
 @property (nonatomic) NSUInteger currentPage;
-@property (nonatomic, retain) NSIndexSet *bookmarkedIndexes;
-@property (nonatomic, retain) NSDictionary *sections; //@{@[sectionStartIndex] : @"sectionTitle"}
+@property (nonatomic, strong) NSIndexSet *bookmarkedIndexes;
+@property (nonatomic, strong) NSDictionary *sections; //@{@[sectionStartIndex] : @"sectionTitle"}
 
 @property (nonatomic, readonly) BOOL isScrubbing;
 

@@ -27,10 +27,10 @@
 {
     coreDataController = [ScoreCoreDataController new];
     
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.viewController = [[[ScoreTableViewController alloc] initWithNibName:@"ScoreCollectionViewController" managedObjectContext:coreDataController.managedObjectContext] autorelease];
-    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController:self.viewController] autorelease];
+    self.viewController = [[ScoreTableViewController alloc] initWithNibName:@"ScoreCollectionViewController" managedObjectContext:coreDataController.managedObjectContext];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     return YES;
@@ -63,12 +63,5 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)dealloc
-{
-    [coreDataController release];
-    [window release];
-    [viewController release];
-    [super dealloc];
-}
 
 @end

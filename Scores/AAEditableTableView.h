@@ -29,8 +29,8 @@
     UIResponder *firstResponder;
 }
 
-@property (nonatomic, assign) id <AAEditableTableViewDelegate> delegate;
-@property (nonatomic, assign) id <AAEditableTableViewDataSource> dataSource;
+@property (nonatomic, weak) id <AAEditableTableViewDelegate> delegate;
+@property (nonatomic, weak) id <AAEditableTableViewDataSource> dataSource;
 
 - (AAEditableTableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 

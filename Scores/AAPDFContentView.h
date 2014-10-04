@@ -12,6 +12,6 @@
 
 @interface AAPDFContentView : AATiledContentView
 
-@property (nonatomic, readonly, assign) AAPDFView *scrollView;
+@property (nonatomic, readonly, weak) AAPDFView *scrollView;
 
 @end

@@ -34,13 +34,12 @@
 - (void)setMetadataQuery:(NSMetadataQuery *)value
 {
     NSMetadataQuery *oldQuery = metadataQuery;
-    metadataQuery = [value retain];
+    metadataQuery = value;
     
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self name:NSMetadataQueryDidStartGatheringNotification object:oldQuery];
     [nc removeObserver:self name:NSMetadataQueryDidUpdateNotification object:oldQuery];
     [nc removeObserver:self name:NSMetadataQueryDidFinishGatheringNotification object:oldQuery];
-    [oldQuery release];
     
     [nc addObserver:self selector:@selector(queryDidStart:) name:NSMetadataQueryDidStartGatheringNotification object:metadataQuery];
     [nc addObserver:self selector:@selector(queryDidUpdate:) name:NSMetadataQueryDidUpdateNotification object:metadataQuery];
@@ -79,9 +78,7 @@
      
 - (void)dealloc
 {
-    [results release];
     self.metadataQuery = nil;
-    [super dealloc];
 }
 
 @end

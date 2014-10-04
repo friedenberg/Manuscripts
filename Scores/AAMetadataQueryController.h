@@ -14,7 +14,7 @@
 @interface AAMetadataQueryController : NSObject
 {
     NSMetadataQuery *metadataQuery;
-    id <AAMetadataQueryControllerDelegate> delegate;
+    id <AAMetadataQueryControllerDelegate> __weak delegate;
     NSMutableArray *results;
     
     struct
@@ -31,8 +31,8 @@
 - (void)performQuery;
 
 //configuration
-@property (nonatomic, retain) NSMetadataQuery *metadataQuery;
-@property (nonatomic, assign) id <AAMetadataQueryControllerDelegate> delegate;
+@property (nonatomic, strong) NSMetadataQuery *metadataQuery;
+@property (nonatomic, weak) id <AAMetadataQueryControllerDelegate> delegate;
 
 
 @end

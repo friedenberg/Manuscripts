@@ -15,6 +15,6 @@
 @interface Bookmark : MarkedObject
 
 @property (nonatomic) int16_t indentationLevel;
-@property (nonatomic, retain) Page *page;
+@property (nonatomic, strong) Page *page;
 
 @end

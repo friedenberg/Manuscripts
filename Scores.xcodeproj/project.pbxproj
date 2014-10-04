@@ -560,6 +560,7 @@
 		D94BABA415BC5C2900849567 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Scores/Scores-Prefix.pch";
 				INFOPLIST_FILE = "Scores/Scores-Info.plist";
@@ -571,6 +572,7 @@
 		D94BABA515BC5C2900849567 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Scores/Scores-Prefix.pch";
 				INFOPLIST_FILE = "Scores/Scores-Info.plist";

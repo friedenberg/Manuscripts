@@ -11,7 +11,7 @@
 
 @interface AAFetchedResultsTableViewController ()
 
-@property (nonatomic, readwrite) IBOutlet UITableView *tableView;
+@property (strong, nonatomic, readwrite) IBOutlet UITableView *tableView;
 
 @end
 

@@ -18,7 +18,7 @@
 - (void)addScoreDocumentFromFileURL:(NSURL *)oldURL
 {
     CFUUIDRef uuidRef = CFUUIDCreate(NULL);
-    NSString *fileName = [(NSString *)CFUUIDCreateString(NULL, uuidRef) autorelease];
+    NSString *fileName = (NSString *)CFBridgingRelease(CFUUIDCreateString(NULL, uuidRef));
     CFRelease(uuidRef);
     
     fileName = [fileName stringByAppendingPathExtension:@"pdf"];

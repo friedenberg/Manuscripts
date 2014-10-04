@@ -17,8 +17,8 @@
 
 @property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, readonly) NSFetchRequest *fetchRequest;
-@property (nonatomic, readonly) NSString *cacheName;
-@property (nonatomic, readonly) NSString *sectionNameKeyPath;
+@property (weak, nonatomic, readonly) NSString *cacheName;
+@property (weak, nonatomic, readonly) NSString *sectionNameKeyPath;
 
 - (void)performFetch;
 

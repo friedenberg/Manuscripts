@@ -67,7 +67,6 @@
         [self processViewForKey:key];
         
     [visibleViewKeys setSet:newVisibleViews];
-    [oldVisibleViews release];
 }
 
 - (void)processViewForKey:(id)key
@@ -247,14 +246,5 @@
     [self endMutation];
 }
 
-- (void)dealloc
-{
-    [viewsToReload release];
-    [visibleViewKeys release];
-	[visibleViews release];
-	[cachedViews release];
-	[selectedViews release];
-	[super dealloc];
-}
 
 @end

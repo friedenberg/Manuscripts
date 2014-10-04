@@ -49,7 +49,7 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if (context == kPDFDrawingOperationObservingContext)
+	if (context == (__bridge void *)(kPDFDrawingOperationObservingContext))
 	{
 		dispatch_async(dispatch_get_main_queue(), ^{
 			
@@ -139,11 +139,10 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
         drawingOperation.canvasSize = self.scrollView.bounds.size;
         drawingOperation.pdfPage = pdfPage;
         drawingOperation.key = key;
-        [drawingOperation addObserver:self forKeyPath:@"isFinished" options:0 context:kPDFDrawingOperationObservingContext];
+        [drawingOperation addObserver:self forKeyPath:@"isFinished" options:0 context:(__bridge void *)(kPDFDrawingOperationObservingContext)];
         
         [drawingQueue addOperation:drawingOperation];
         
-        [drawingOperation release];
     }
 }
 
@@ -177,10 +176,6 @@ static NSString *kPDFDrawingOperationObservingContext = @"kPDFDrawingOperationOb
 - (void)dealloc
 {
     CGPDFDocumentRelease(pdfDocument);
-    [tapGesture release];
-    [drawingQueue release];
-    [pdfPageCache release];
-    [super dealloc];
 }
 
 @end

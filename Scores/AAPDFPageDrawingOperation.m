@@ -58,7 +58,7 @@
 	
     CGContextDrawPDFPage(context, pdfPage);
 	
-	pdfPageImage = [UIGraphicsGetImageFromCurrentImageContext() retain];
+	pdfPageImage = UIGraphicsGetImageFromCurrentImageContext();
 	
 	UIGraphicsEndImageContext();
 }
@@ -66,8 +66,6 @@
 - (void)dealloc
 {
 	CGPDFPageRelease(pdfPage);
-	[pdfPageImage release];
-	[super dealloc];
 }
 
 @end

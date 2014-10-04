@@ -21,14 +21,14 @@
 @interface AACoreDataViewController : UIViewController 
 {
 	NSManagedObjectContext *managedObjectContext;
-	id <AACoreDataViewControllerDelegate> delegate;
+	id <AACoreDataViewControllerDelegate> __weak delegate;
 }
 
 - (id)initWithDelegate:(id <AACoreDataViewControllerDelegate>)someObject managedObjectContext:(NSManagedObjectContext *)someContext;
 - (id)initWithNibName:(NSString *)nibNameOrNil managedObjectContext:(NSManagedObjectContext *)aContext;
 
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, assign) id <AACoreDataViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, weak) id <AACoreDataViewControllerDelegate> delegate;
 
 - (void)managedObjectContextStateDidChange;
 - (void)saveContext;

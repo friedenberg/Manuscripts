@@ -187,11 +187,6 @@
     tile.editing = self.editing;
 }
 
-- (void)dealloc
-{
-    [pressGesture release];
-    [super dealloc];
-}
 
 @end
 

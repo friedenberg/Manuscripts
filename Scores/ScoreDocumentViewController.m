@@ -33,7 +33,7 @@
 {
     if (self = [super initWithNibName:nibNameOrNil documentURL:[NSURL fileURLWithPath:someDocument.path]])
 	{
-        document = [someDocument retain];
+        document = someDocument;
         //self.title = someDocument.title;
     }
 	
@@ -46,7 +46,6 @@
 	
 	UIBarButtonItem *tableOfContentsItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarksButton:)];
     self.navigationItem.rightBarButtonItem = tableOfContentsItem;
-    [tableOfContentsItem release];
     
     [self calculatePageIndexBookmarks];
     
@@ -67,7 +66,6 @@
     
     //pdfView.pageControl.bookmarkedIndexes = [[bookmarkedIndexes copy] autorelease];
     
-    [bookmarkedIndexes release];
 }
 
 - (void)bookmarksButton:(id)sender
@@ -90,8 +88,6 @@
 	
 	[popoverController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 
-	[navigationVC release];
-	[bookmarksVC release];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -105,7 +101,6 @@
 {
     [super viewDidUnload];
     
-	[popoverController release];
 	popoverController = nil;
 }
 
@@ -172,11 +167,5 @@
     return [NSIndexPath indexPathForRow:page.notes.count - 1 inSection:pageIndex];
 }
 
-- (void)dealloc
-{
-	[popoverController release];
-	[document release];
-	[super dealloc];
-}
 
 @end

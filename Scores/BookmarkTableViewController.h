@@ -27,7 +27,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil scoreDocument:(ScoreDocument *)someDocument;
 
-@property (nonatomic, assign) id <BookmarkTableViewControllerDelegate> delegate;
-@property (nonatomic, readonly) IBOutlet AAEditableTableView *tableView;
+@property (nonatomic, weak) id <BookmarkTableViewControllerDelegate> delegate;
+@property (weak, nonatomic, readonly) IBOutlet AAEditableTableView *tableView;
 
 @end

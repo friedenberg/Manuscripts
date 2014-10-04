@@ -28,18 +28,18 @@
 
 @interface AAPDFNoteContentView : AAPDFContentView
 {
-    id <AAPDFNoteContentViewDataSource> dataSource;
+    id <AAPDFNoteContentViewDataSource> __weak dataSource;
     UILongPressGestureRecognizer *pressGesture;
     
     BOOL editing;
 }
 
-@property (nonatomic, assign) id <AAPDFNoteContentViewDataSource> dataSource;
+@property (nonatomic, weak) id <AAPDFNoteContentViewDataSource> dataSource;
 
 @property (nonatomic, getter = isEditing) BOOL editing;
 
-@property (nonatomic, retain) NSIndexPath *selectedTileKey;
-@property (nonatomic, readonly) AAPDFNoteView *selectedTile;
+@property (nonatomic, strong) NSIndexPath *selectedTileKey;
+@property (weak, nonatomic, readonly) AAPDFNoteView *selectedTile;
 
 @end
 

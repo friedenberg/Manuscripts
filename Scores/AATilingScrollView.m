@@ -73,10 +73,5 @@
     self.contentSize = contentRect.size;
 }
 
-- (void)dealloc
-{
-    [contentViews release];
-    [super dealloc];
-}
 
 @end
