@@ -37,7 +37,7 @@
     CGFloat start = minX / _collectionViewBounds.size.width;
     CGFloat end = maxX / _collectionViewBounds.size.width;
     NSUInteger startingPage = (NSUInteger)start;
-    NSUInteger endingPage = (NSUInteger)end;
+    NSUInteger endingPage = MIN((NSUInteger)end, _pageCount - 1);
     
     NSMutableArray *pages = [NSMutableArray new];
     

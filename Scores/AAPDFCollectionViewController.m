@@ -9,7 +9,9 @@
 #import "AAPDFCollectionViewController.h"
 
 #import "AAPDFCollectionViewLayout.h"
+#import "AAPDFCollectionView.h"
 #import "AAPDFViewCell.h"
+#import "AAPageControl.h"
 
 #import "AAOperationQueue.h"
 #import "AAPDFPageDrawingOperation.h"
@@ -41,6 +43,11 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    UICollectionViewLayout *layout = self.collectionView.collectionViewLayout;
+    AAPDFCollectionView *collectionView = [[AAPDFCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    collectionView.pageControl.pageCount = CGPDFDocumentGetNumberOfPages(_pdfDocument) - 1;
+    self.collectionView = collectionView;
+    
     [self.collectionView registerClass:[AAPDFViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     self.collectionView.pagingEnabled = YES;
     self.collectionView.showsHorizontalScrollIndicator = NO;
@@ -90,7 +97,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     if (currentPage == 0) {
         currentPage = 1;
-    } else if (currentPage == pageCount) {
+    } else if (currentPage == pageCount - 1) {
         currentPage = pageCount - 2;
     }
     
@@ -107,8 +114,10 @@ static NSString * const reuseIdentifier = @"Cell";
             op.completionBlock = ^{
                 dispatch_async(dispatch_get_main_queue(), ^{
                     UIImage *image = op.pdfPageImage;
-                    [_pdfImageCache setObject:image forKey:indexPath];
-                    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                    if (image) {
+                        [_pdfImageCache setObject:image forKey:indexPath];
+                        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                    }
                     
                     op = nil;
                 });

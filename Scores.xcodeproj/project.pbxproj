@@ -13,6 +13,7 @@
 		1B6BE76819E065BD00A96BD8 /* AAPDFViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6BE76719E065BD00A96BD8 /* AAPDFViewCell.m */; };
 		1B6BE76E19E068CB00A96BD8 /* AAPDFCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6BE76D19E068CB00A96BD8 /* AAPDFCollectionViewController.m */; };
 		1B6BE77119E06A6D00A96BD8 /* AAPDFCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6BE77019E06A6D00A96BD8 /* AAPDFCollectionViewLayout.m */; };
+		1B6BE77419E0AF0300A96BD8 /* AAPDFCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6BE77319E0AF0300A96BD8 /* AAPDFCollectionView.m */; };
 		D90A4A6515CDD8FA00C10556 /* AAEditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D90A4A6415CDD8FA00C10556 /* AAEditableTableViewCell.m */; };
 		D9146F3415F6CA97002AE8EE /* AAPDFNoteContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = D9146F3315F6CA97002AE8EE /* AAPDFNoteContentView.m */; };
 		D91A175115FADBB500CBF9AB /* NSUInteger+Enumeration.m in Sources */ = {isa = PBXBuildFile; fileRef = D91A175015FADBB500CBF9AB /* NSUInteger+Enumeration.m */; };
@@ -71,6 +72,8 @@
 		1B6BE76D19E068CB00A96BD8 /* AAPDFCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFCollectionViewController.m; sourceTree = "<group>"; };
 		1B6BE76F19E06A6D00A96BD8 /* AAPDFCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFCollectionViewLayout.h; sourceTree = "<group>"; };
 		1B6BE77019E06A6D00A96BD8 /* AAPDFCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFCollectionViewLayout.m; sourceTree = "<group>"; };
+		1B6BE77219E0AF0300A96BD8 /* AAPDFCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFCollectionView.h; sourceTree = "<group>"; };
+		1B6BE77319E0AF0300A96BD8 /* AAPDFCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAPDFCollectionView.m; sourceTree = "<group>"; };
 		D90A4A6315CDD8F900C10556 /* AAEditableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAEditableTableViewCell.h; sourceTree = "<group>"; };
 		D90A4A6415CDD8FA00C10556 /* AAEditableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAEditableTableViewCell.m; sourceTree = "<group>"; };
 		D9146F3215F6CA97002AE8EE /* AAPDFNoteContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPDFNoteContentView.h; sourceTree = "<group>"; };
@@ -173,6 +176,8 @@
 		1B6BE76919E067C200A96BD8 /* Collection View */ = {
 			isa = PBXGroup;
 			children = (
+				1B6BE77219E0AF0300A96BD8 /* AAPDFCollectionView.h */,
+				1B6BE77319E0AF0300A96BD8 /* AAPDFCollectionView.m */,
 				1B6BE76619E065BD00A96BD8 /* AAPDFViewCell.h */,
 				1B6BE76719E065BD00A96BD8 /* AAPDFViewCell.m */,
 				1B6BE76C19E068CB00A96BD8 /* AAPDFCollectionViewController.h */,
@@ -471,6 +476,7 @@
 				D932784215C9E3D400A7AC47 /* AACoreDataViewController.m in Sources */,
 				D932784315C9E3D400A7AC47 /* AAFetchedResultsTableViewController.m in Sources */,
 				D932784415C9E3D400A7AC47 /* AAFetchedResultsViewController.m in Sources */,
+				1B6BE77419E0AF0300A96BD8 /* AAPDFCollectionView.m in Sources */,
 				D977B55215CA0EC00057C95F /* ScoreDocumentViewController.m in Sources */,
 				D973AD4B15CA1397009C0AC4 /* BookmarkTableViewController.m in Sources */,
 				D9AEA0C315CD4A3D00899651 /* AAEditableTableView.m in Sources */,

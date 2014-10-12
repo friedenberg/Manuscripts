@@ -246,15 +246,19 @@ static UIImage *dotImageHighlighted;
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    self.scrubbing = YES;
-	backgroundView.hidden = NO;
-    [self setPageIndexFromTrackingPoint:[touch locationInView:self]];
-    return YES;
+    if (!self.isScrubbing) {
+        self.scrubbing = YES;
+        [self setPageIndexFromTrackingPoint:[touch locationInView:self]];
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    [self setPageIndexFromTrackingPoint:[touch locationInView:self]];
+    CGPoint touchPoint = [touch locationInView:self];
+    [self setPageIndexFromTrackingPoint:touchPoint];
     return YES;
 }
 
