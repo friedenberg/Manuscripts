@@ -15,4 +15,6 @@
 
 @property (nonatomic, readonly) AAPageControl *pageControl;
 
+- (void)scrollToPage:(NSUInteger)someIndex animated:(BOOL)animated;
+
 @end

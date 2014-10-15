@@ -66,13 +66,22 @@
     _pageControl.currentPage = currentPage;
 }
 
+- (void)scrollToPage:(NSUInteger)someIndex animated:(BOOL)animated
+{
+    if (someIndex > [self.dataSource collectionView:self numberOfItemsInSection:0] - 1) {
+        @throw [NSException exceptionWithName:NSGenericException reason:@"index of page is outside bounds" userInfo:nil];
+    }
+    
+    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:someIndex inSection:0]
+                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                         animated:animated];
+}
+
 - (void)pageControlPageChanged:(id)sender
 {
     NSUInteger newPage = self.pageControl.currentPage;
     
-    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:newPage inSection:0]
-                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                         animated:NO];
+    [self scrollToPage:newPage animated:NO];
 }
 
 @end
