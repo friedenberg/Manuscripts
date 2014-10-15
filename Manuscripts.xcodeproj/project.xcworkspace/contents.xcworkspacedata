@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Scores.xcodeproj">
+      location = "self:Manuscripts.xcodeproj">
    </FileRef>
 </Workspace>
