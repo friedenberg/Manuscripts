@@ -31,7 +31,7 @@
     [[NSFileManager defaultManager] moveItemAtURL:oldURL toURL:documentURL error:&error];
     
     ScoreDocument *newDocument = [NSEntityDescription insertNewObjectForEntityForName:@"ScoreDocument" inManagedObjectContext:managedObjectContext];
-    newDocument.path = filePath;
+    newDocument.path = filePath.lastPathComponent;
     newDocument.title = [[oldURL lastPathComponent] stringByDeletingPathExtension];
     
     CGPDFDocumentRef doc = CGPDFDocumentCreateWithURL((CFURLRef)[NSURL fileURLWithPath:filePath]);
@@ -41,7 +41,6 @@
         Page *page = [NSEntityDescription insertNewObjectForEntityForName:@"Page" inManagedObjectContext:managedObjectContext];
         page.index = index;
         page.scoreDocument = newDocument;
-        //[newDocument addPagesObject:page];
     });
     
     CGPDFDocumentRelease(doc);

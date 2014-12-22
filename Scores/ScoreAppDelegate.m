@@ -19,13 +19,28 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    [coreDataController addScoreDocumentFromFileURL:url];
+    if ([url isFileURL])
+    {
+        [coreDataController addScoreDocumentFromFileURL:url];
+    }
+    
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    coreDataController = [ScoreCoreDataController new];
+    NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
+    if ([url isFileURL])
+    {
+        [coreDataController addScoreDocumentFromFileURL:url];
+    }
+    
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    coreDataController = [ScoreCoreDataController new];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];

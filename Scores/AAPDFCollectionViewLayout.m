@@ -41,8 +41,10 @@
     
     NSMutableArray *pages = [NSMutableArray new];
     
-    for (int i = startingPage; i <= endingPage; i++) {
-        [pages addObject:[self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]]];
+    if (_pageCount) {
+        for (int i = startingPage; i <= endingPage; i++) {
+            [pages addObject:[self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]]];
+        }
     }
     
     return pages.copy;

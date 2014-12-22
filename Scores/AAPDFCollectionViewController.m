@@ -90,6 +90,10 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (!CGPDFDocumentGetNumberOfPages(_pdfDocument)) {
+        return;
+    }
+    
     CGFloat contentOffsetX = MAX(0, MIN(scrollView.contentOffset.x, scrollView.contentSize.width));
     NSUInteger currentPage = (NSUInteger)floor(contentOffsetX / scrollView.bounds.size.width);
     

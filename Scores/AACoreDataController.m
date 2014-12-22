@@ -9,7 +9,7 @@
 #import "AACoreDataController.h"
 
 
-NSString *DocumentsDirectory() { return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject]; };
+NSString *DocumentsDirectory() { return [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject] path]; };
 
 @implementation AACoreDataController
 

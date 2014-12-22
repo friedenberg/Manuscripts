@@ -66,7 +66,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ScoreDocument *document = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    AAPDFCollectionViewController *pdfController = [[AAPDFCollectionViewController alloc] initWithDocumentURL:[NSURL fileURLWithPath:document.path]];
+    NSURL *docURL = [NSURL fileURLWithPath:[DocumentsDirectory() stringByAppendingPathComponent:document.path]];
+    AAPDFCollectionViewController *pdfController = [[AAPDFCollectionViewController alloc] initWithDocumentURL:docURL];
     [self.navigationController pushViewController:pdfController animated:YES];
 }
 
