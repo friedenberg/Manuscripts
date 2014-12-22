@@ -13,6 +13,6 @@
 	NSUInteger operationCountLimit;
 }
 
-@property (nonatomic) NSUInteger operationCountLimit; //if an operation is added that exceed this limit, operations are cancelled from the top of the cue
+@property (nonatomic) NSUInteger operationCountLimit; //if an operation is added that exceed this limit, operations are cancelled from the top of the queue
 
 @end

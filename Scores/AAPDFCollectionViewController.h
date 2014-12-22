@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AAPDFCollectionView.h"
 
 
 @class AAOperationQueue;
@@ -16,7 +17,10 @@
     CGPDFDocumentRef _pdfDocument;
     AAOperationQueue *_drawingOperationQueue;
     NSCache *_pdfImageCache;
+    NSInteger _scrollToIndex;
 }
+
+@property (nonatomic, retain) AAPDFCollectionView *collectionView;
 
 - (instancetype)initWithDocumentURL:(NSURL *)documentURL;
 

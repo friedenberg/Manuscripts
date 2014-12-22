@@ -16,7 +16,8 @@
 
 @interface ScoreTableViewController ()
 
-
+@property (nonatomic) NSIndexPath *indexPathForCurrentlyEditingRow;
+- (void)longPress:(UILongPressGestureRecognizer *)gesture;
 
 @end
 
@@ -26,7 +27,7 @@
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
-		self.title = @"Scores";
+		self.title = @"Manuscripts";
     }
     
     return self;
@@ -36,6 +37,14 @@
 {
     [self.fetchRequest setEntity:[NSEntityDescription entityForName:@"ScoreDocument" inManagedObjectContext:self.managedObjectContext]];
     [self.fetchRequest setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]]];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    [self.tableView addGestureRecognizer:gesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -63,6 +72,32 @@
     return cell;
 }
 
+- (void)longPress:(UILongPressGestureRecognizer *)gesture
+{
+    CGPoint p = [gesture locationInView:self.tableView];
+    
+    self.indexPathForCurrentlyEditingRow = [self.tableView indexPathForRowAtPoint:p];
+    
+    if (!self.indexPathForCurrentlyEditingRow) {
+        NSLog(@"long press on table view but not on a row");
+    } else if (gesture.state == UIGestureRecognizerStateEnded) {
+        ScoreDocument *doc = [self.fetchedResultsController objectAtIndexPath:self.indexPathForCurrentlyEditingRow];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Edit Title" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"Done", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [[alert textFieldAtIndex:0] setText:doc.title];
+        [alert show];
+        [[alert textFieldAtIndex:0]  selectAll:nil];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    ScoreDocument *doc = [self.fetchedResultsController objectAtIndexPath:self.indexPathForCurrentlyEditingRow];
+    doc.title = [[alertView textFieldAtIndex:0] text];
+    [self saveContext];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ScoreDocument *document = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -70,6 +105,5 @@
     AAPDFCollectionViewController *pdfController = [[AAPDFCollectionViewController alloc] initWithDocumentURL:docURL];
     [self.navigationController pushViewController:pdfController animated:YES];
 }
-
 
 @end

@@ -19,13 +19,19 @@
 
 @interface AAPDFCollectionViewController ()
 
+- (NSUInteger)currentPage;
+- (void)tapGesture:(UITapGestureRecognizer *)tap;
+
 @end
 
 @implementation AAPDFCollectionViewController
 
+@dynamic collectionView;
+
 - (instancetype)initWithDocumentURL:(NSURL *)documentURL
 {
     if (self = [super initWithCollectionViewLayout:[AAPDFCollectionViewLayout new]]) {
+        _scrollToIndex = -1;
         _pdfDocument = CGPDFDocumentCreateWithURL((CFURLRef)documentURL);
         AAPDFCollectionViewLayout *layout = (AAPDFCollectionViewLayout *)self.collectionView.collectionViewLayout;
         layout.pageCount = CGPDFDocumentGetNumberOfPages(_pdfDocument);
@@ -51,7 +57,9 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.collectionView registerClass:[AAPDFViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     self.collectionView.pagingEnabled = YES;
     self.collectionView.showsHorizontalScrollIndicator = NO;
-    // Do any additional setup after loading the view.
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    [collectionView addGestureRecognizer:tapGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -88,14 +96,21 @@ static NSString * const reuseIdentifier = @"Cell";
     return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+- (NSUInteger)currentPage
+{
+    UIScrollView *scrollView = self.collectionView;
+    CGFloat contentOffsetX = MAX(0, MIN(scrollView.contentOffset.x, scrollView.contentSize.width));
+    return (NSUInteger)floor(contentOffsetX / scrollView.bounds.size.width);
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (!CGPDFDocumentGetNumberOfPages(_pdfDocument)) {
-        return;
-    }
-    
-    CGFloat contentOffsetX = MAX(0, MIN(scrollView.contentOffset.x, scrollView.contentSize.width));
-    NSUInteger currentPage = (NSUInteger)floor(contentOffsetX / scrollView.bounds.size.width);
+    NSUInteger currentPage = [self currentPage];
     
     NSUInteger pageCount = CGPDFDocumentGetNumberOfPages(_pdfDocument);
     
@@ -134,6 +149,33 @@ static NSString * const reuseIdentifier = @"Cell";
     createOp(currentPage - 1);
     createOp(currentPage);
     createOp(currentPage + 1);
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    _scrollToIndex = -1;
+}
+
+- (void)tapGesture:(UITapGestureRecognizer *)tap
+{
+    BOOL forward = YES;
+    
+    CGFloat xTouch = [tap locationInView:self.view].x;
+    CGFloat width = self.collectionView.bounds.size.width;
+    CGFloat xOffset = fmod(xTouch, width);
+    
+    if (xOffset < width / 3) {
+        forward = NO;
+    }
+    
+    if (_scrollToIndex < 0) {
+        _scrollToIndex = [self currentPage];
+    }
+    
+    _scrollToIndex += forward ? 1 : -1;
+    _scrollToIndex = MAX(0, _scrollToIndex);
+    _scrollToIndex = MIN(_scrollToIndex, CGPDFDocumentGetNumberOfPages(_pdfDocument) - 1);
+    [self.collectionView scrollToPage:_scrollToIndex animated:YES];
 }
 
 @end

@@ -283,6 +283,7 @@ static UIImage *dotImageHighlighted;
 
 - (NSUInteger)pageIndexForPoint:(CGPoint)point prefersBookmarks:(BOOL)prefersBookmarks
 {
+    NSLog(@"%@", NSStringFromCGPoint(point));
     point.x = MAX(CGRectGetMinX(dotContentRect), point.x);
     point.x = MIN(CGRectGetMaxX(dotContentRect), point.x);
     __block CGFloat convertedXOrigin = [dotContentView convertPoint:point fromView:self].x;

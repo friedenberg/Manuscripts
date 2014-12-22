@@ -9,7 +9,7 @@
 #import "AAFetchedResultsTableViewController.h"
 
 
-@interface ScoreTableViewController : AAFetchedResultsTableViewController
+@interface ScoreTableViewController : AAFetchedResultsTableViewController <UIAlertViewDelegate>
 {
     
 }
