@@ -75,14 +75,14 @@
 		D93EE90415BF23DF0003AA3F /* AAViewSelecting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAViewSelecting.h; sourceTree = "<group>"; };
 		D93EE90715BF27770003AA3F /* AAScorePDFPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAScorePDFPageView.h; sourceTree = "<group>"; };
 		D93EE90815BF27770003AA3F /* AAScorePDFPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAScorePDFPageView.m; sourceTree = "<group>"; };
-		D94BAB8515BC5C2900849567 /* Scores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scores.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D94BAB8515BC5C2900849567 /* Manuscripts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Manuscripts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94BAB8915BC5C2900849567 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D94BAB8B15BC5C2900849567 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D94BAB8D15BC5C2900849567 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D94BAB9115BC5C2900849567 /* Scores-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Scores-Info.plist"; sourceTree = "<group>"; };
+		D94BAB9115BC5C2900849567 /* Manuscripts-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Manuscripts-Info.plist"; sourceTree = "<group>"; };
 		D94BAB9315BC5C2900849567 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D94BAB9515BC5C2900849567 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D94BAB9715BC5C2900849567 /* Scores-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Scores-Prefix.pch"; sourceTree = "<group>"; };
+		D94BAB9715BC5C2900849567 /* Manuscripts-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Manuscripts-Prefix.pch"; sourceTree = "<group>"; };
 		D94BAB9815BC5C2900849567 /* ScoreAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreAppDelegate.h; sourceTree = "<group>"; };
 		D94BAB9915BC5C2900849567 /* ScoreAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScoreAppDelegate.m; sourceTree = "<group>"; };
 		D94BABA715BC657000849567 /* Scores.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Scores.xcdatamodel; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 		D94BAB7A15BC5C2900849567 = {
 			isa = PBXGroup;
 			children = (
-				D94BAB8F15BC5C2900849567 /* Scores */,
+				D94BAB8F15BC5C2900849567 /* Manuscripts */,
 				D94BAB8815BC5C2900849567 /* Frameworks */,
 				D94BAB8615BC5C2900849567 /* Products */,
 			);
@@ -188,7 +188,7 @@
 		D94BAB8615BC5C2900849567 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D94BAB8515BC5C2900849567 /* Scores.app */,
+				D94BAB8515BC5C2900849567 /* Manuscripts.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -205,7 +205,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D94BAB8F15BC5C2900849567 /* Scores */ = {
+		D94BAB8F15BC5C2900849567 /* Manuscripts */ = {
 			isa = PBXGroup;
 			children = (
 				D94BABA915BC657600849567 /* Model */,
@@ -215,6 +215,7 @@
 				D9997F4915BCD82300C6E252 /* Controller */,
 				D94BAB9015BC5C2900849567 /* Supporting Files */,
 			);
+			name = Manuscripts;
 			path = Scores;
 			sourceTree = "<group>";
 		};
@@ -223,10 +224,10 @@
 			children = (
 				D9A4EF0315D2FC5B009F6866 /* barButtonItem.png */,
 				D9A4EF0415D2FC5B009F6866 /* backBarButtonItem.png */,
-				D94BAB9115BC5C2900849567 /* Scores-Info.plist */,
+				D94BAB9115BC5C2900849567 /* Manuscripts-Info.plist */,
 				D94BAB9215BC5C2900849567 /* InfoPlist.strings */,
 				D94BAB9515BC5C2900849567 /* main.m */,
-				D94BAB9715BC5C2900849567 /* Scores-Prefix.pch */,
+				D94BAB9715BC5C2900849567 /* Manuscripts-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -346,9 +347,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D94BAB8415BC5C2900849567 /* Scores */ = {
+		D94BAB8415BC5C2900849567 /* Manuscripts */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D94BABA315BC5C2900849567 /* Build configuration list for PBXNativeTarget "Scores" */;
+			buildConfigurationList = D94BABA315BC5C2900849567 /* Build configuration list for PBXNativeTarget "Manuscripts" */;
 			buildPhases = (
 				D94BAB8115BC5C2900849567 /* Sources */,
 				D94BAB8215BC5C2900849567 /* Frameworks */,
@@ -358,9 +359,9 @@
 			);
 			dependencies = (
 			);
-			name = Scores;
+			name = Manuscripts;
 			productName = Scores;
-			productReference = D94BAB8515BC5C2900849567 /* Scores.app */;
+			productReference = D94BAB8515BC5C2900849567 /* Manuscripts.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -371,9 +372,14 @@
 			attributes = {
 				CLASSPREFIX = AA;
 				LastUpgradeCheck = 0430;
-				ORGANIZATIONNAME = "Apple, Stamford";
+				ORGANIZATIONNAME = "";
+				TargetAttributes = {
+					D94BAB8415BC5C2900849567 = {
+						DevelopmentTeam = 3W3995GMN2;
+					};
+				};
 			};
-			buildConfigurationList = D94BAB7F15BC5C2900849567 /* Build configuration list for PBXProject "Scores" */;
+			buildConfigurationList = D94BAB7F15BC5C2900849567 /* Build configuration list for PBXProject "Manuscripts" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -385,7 +391,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D94BAB8415BC5C2900849567 /* Scores */,
+				D94BAB8415BC5C2900849567 /* Manuscripts */,
 			);
 		};
 /* End PBXProject section */
@@ -510,10 +516,11 @@
 		D94BABA415BC5C2900849567 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Scores/Scores-Prefix.pch";
-				INFOPLIST_FILE = "Scores/Scores-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Scores/Manuscripts-Prefix.pch";
+				INFOPLIST_FILE = "Scores/Manuscripts-Info.plist";
+				PRODUCT_NAME = Manuscripts;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -521,10 +528,11 @@
 		D94BABA515BC5C2900849567 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Scores/Scores-Prefix.pch";
-				INFOPLIST_FILE = "Scores/Scores-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Scores/Manuscripts-Prefix.pch";
+				INFOPLIST_FILE = "Scores/Manuscripts-Info.plist";
+				PRODUCT_NAME = Manuscripts;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -532,7 +540,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D94BAB7F15BC5C2900849567 /* Build configuration list for PBXProject "Scores" */ = {
+		D94BAB7F15BC5C2900849567 /* Build configuration list for PBXProject "Manuscripts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D94BABA115BC5C2900849567 /* Debug */,
@@ -541,7 +549,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D94BABA315BC5C2900849567 /* Build configuration list for PBXNativeTarget "Scores" */ = {
+		D94BABA315BC5C2900849567 /* Build configuration list for PBXNativeTarget "Manuscripts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D94BABA415BC5C2900849567 /* Debug */,

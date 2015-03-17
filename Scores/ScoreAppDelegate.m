@@ -43,7 +43,7 @@
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
-    self.viewController = [[[ScoreTableViewController alloc] initWithNibName:@"ScoreCollectionViewController" managedObjectContext:coreDataController.managedObjectContext] autorelease];
+    self.viewController = [[[ScoreTableViewController alloc] initWithNibName:@"ScoreTableViewController" managedObjectContext:coreDataController.managedObjectContext] autorelease];
     UINavigationController *navController = [[[AAOutlinedNavigationController alloc] initWithRootViewController:self.viewController] autorelease];
     self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
